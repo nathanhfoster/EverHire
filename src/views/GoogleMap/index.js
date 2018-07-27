@@ -37,11 +37,10 @@ class GoogleMap extends Component {
   tick = () => {
     this.setState(prevState => ({
       seconds: prevState.seconds + 1
-    }));
+    }))
   }
 
   static propTypes = {
-    
   }
 
   static defaultProps = {
@@ -77,7 +76,8 @@ class GoogleMap extends Component {
   }
 
   successCallback = (pos) => {
-    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} = pos.coords
+    const {timestamp} = pos
+    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = pos.coords
     window.store.dispatch(setcurrentlocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp))
   }
 
