@@ -2,3 +2,21 @@
     height: '100vh';
     width: '100%';
 }
+
+.GoogleMapWrapper {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.searchSideBarWrapper {
+    color: white;
+    box-shadow: 0 10px 6px -6px #1a2327;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    width: 408px;
+    position: absolute;
+    top: 52px;
+    left: 0;
+    z-index: 99;
+}

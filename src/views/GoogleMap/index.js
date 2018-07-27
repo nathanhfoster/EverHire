@@ -3,7 +3,15 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import {setcurrentlocation} from '../../actions'
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react'
+import SearchBar from '../../components/SearchBar'
+import Styles from './styles.css'
 
+const mapStyle = {
+  height: '100vh',
+  width: '100vw',
+  boxShadow: '0 10px 6px -6px #1a2327'
+}
 
 const locationOptions = {
   enableHighAccuracy: true,
@@ -21,7 +29,7 @@ const mapDispatchToProps = {
 class GoogleMap extends Component {
   constructor(props) {
     super();
- 
+    this.onMarkerClick = this.onMarkerClick.bind(this)
     this.state = {
       seconds: 0,
       accuracy: null,
@@ -31,7 +39,11 @@ class GoogleMap extends Component {
       latitude: null,
       longitude: null,
       speed: null,
-      timestamp: null
+      timestamp: null,
+      name: '',
+      showingInfoWindow: false,
+      activeMarker: {},
+      selectedPlace: {},
     };
   }
 
@@ -42,6 +54,10 @@ class GoogleMap extends Component {
   }
 
   static propTypes = {
+    google: PropTypes.object,
+    zoom: PropTypes.number,
+    initialCenter: PropTypes.object,
+    coordinates: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -53,9 +69,25 @@ class GoogleMap extends Component {
     latitude: null,
     longitude: null,
     speed: null,
-    timestamp: null
+    timestamp: null,
   }
-  
+
+  onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    })
+        
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  }
+
   componentDidMount() {
       this.getState()
   }
@@ -94,21 +126,51 @@ class GoogleMap extends Component {
 
   render() {
     console.log(this.state)
+    if (!this.props.google) {
+      return <div>Loading...</div>;
+    }
+  const {latitude, longitude} = this.state
     return (
       <div className="GoogleMapContainer">
-        <p>Accuracy: {this.state.accuracy}</p>
-        <p>Altitude: {this.state.altitude}</p>
-        <p>AltitudeAccuracy: {this.state.altitudeAccuracy}</p>
-        <p>Heading: {this.state.heading}</p>
-        <p>Latitude: {this.state.latitude}</p>
-        <p>Longitude: {this.state.longitude}</p>
-        <p> Speed: {this.state.speed}</p>
-        <p>Timestamp: {this.state.timestamp}</p>
-        <p>Seconds: {this.state.seconds}</p>
+        <div className="GoogleMapWrapper">
+          <Map
+            google={this.props.google}
+            style={mapStyle}
+            zoom={16}
+            onClick={this.onMapClicked}
+            initialCenter={{
+                lat: 37.334665328,
+                lng: -121.875329832
+                }}
+            center={{
+              lat: latitude,
+              lng: longitude
+            }}
+            >
+                <Marker onClick={this.onMarkerClick}
+                        name={'Current location'} 
+                        position={{lat: latitude, lng: longitude}} />
 
-        
+                <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.showingInfoWindow}
+                    >
+                        <div className="infoWindow">
+                            <h2>Lat: {this.state.latitude}</h2>
+                            <h2>Lng: {this.state.longitude}</h2>
+                        </div>
+                </InfoWindow>
+            </Map>
+            : <div>Getting the location data&hellip; </div>
+          </div>
+
+          <div className="searchSideBarWrapper">
+            <h1>SEARCHBAR</h1>
+          </div>
       </div>
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(GoogleMap)
+export default GoogleApiWrapper({
+  apiKey: ("AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40")
+})(GoogleMap)

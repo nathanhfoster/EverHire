@@ -67,7 +67,7 @@ export default class SearchBar extends React.Component {
 							onChange={this.handleInputChange}
 							value={this.state.keyword}
 							name="keyword"
-							placeholder="Search for condition, procedure, physician..."
+							placeholder="Search..."
 						/>
 					</Form>
 				</div>

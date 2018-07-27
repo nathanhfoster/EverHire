@@ -109,7 +109,7 @@ a, a:focus, a:active, a:visited {
   outline: none !important;
 }
 
-a, label, td, div {
+a {
   color: white !important;
 }
 a:hover {
