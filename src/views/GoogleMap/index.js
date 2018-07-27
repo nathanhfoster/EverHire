@@ -89,7 +89,7 @@ class GoogleMap extends Component {
   }
 
   render() {
-    navigator.geolocation.getCurrentPosition(this.successCallback, this.errorCallback, locationOptions)
+    navigator.geolocation.watchPosition(this.successCallback, this.errorCallback, locationOptions)
     return (
       <div className="GoogleMapContainer">
         <p>Accuracy: {this.state.accuracy}</p>
