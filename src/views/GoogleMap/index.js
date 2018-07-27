@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
+import {setcurrentlocation} from '../../actions'
+
+const locationOptions = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+}
 
 const mapStateToProps = () => ({
 })
@@ -69,12 +76,20 @@ class GoogleMap extends Component {
     this.setState({accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp})
   }
 
+  successCallback = (pos) => {
+    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} = pos.coords
+    window.store.dispatch(setcurrentlocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp))
+  }
+
+  errorCallback = () => {
+  }
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
   render() {
-    //console.log(this.state)
+    navigator.geolocation.getCurrentPosition(this.successCallback, this.errorCallback, locationOptions)
     return (
       <div className="GoogleMapContainer">
         <p>Accuracy: {this.state.accuracy}</p>

@@ -6,13 +6,6 @@ import './App.css'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import GoogleMap from './views/GoogleMap'
 import Login from './components/Login'
-import {setcurrentlocation} from './actions'
-
-const locationOptions = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-}
 
 const mapStateToProps = () => ({})
 
@@ -43,23 +36,14 @@ class App extends Component {
     this.getState(nextProps)
   }
 
-  successCallback = (pos) => {
-    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} = pos.coords
-    window.store.dispatch(setcurrentlocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp))
-  }
-
-  errorCallback = () => {
-  }
-
   getState = props => {
-    console.log("getState")
   }
 
   componentWillUnmount() {
   }
 
   render() {
-    navigator.geolocation.getCurrentPosition(this.successCallback, this.errorCallback, locationOptions)
+    
     return (
       <Router>
           <div className="App">
