@@ -139,13 +139,10 @@ class GoogleMap extends Component {
             zoom={16}
             onClick={this.onMapClicked}
             initialCenter={{
-                lat: 37.334665328,
-                lng: -121.875329832
-                }}
-            center={{
-              lat: latitude,
-              lng: longitude
-            }}
+              lat: 37.334665328,
+              lng: -121.875329832
+              }}
+        
             >
                 <Marker onClick={this.onMarkerClick}
                         name={'Current location'} 
