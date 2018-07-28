@@ -128,6 +128,10 @@ class GoogleMap extends Component {
               lat: 37.334665328,
               lng: -121.875329832
               }}
+      center={{
+      lat: lattitude,
+      lng: longitude
+      }}
               
             >
                 <Marker onClick={this.onMarkerClick}
