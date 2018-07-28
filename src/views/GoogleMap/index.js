@@ -30,16 +30,11 @@ class GoogleMap extends Component {
   constructor(props) {
     super();
     this.onMarkerClick = this.onMarkerClick.bind(this)
+    this.watchID = null
     this.state = {
+      initialPosition: {},
+      lastPosition: {},
       seconds: 0,
-      accuracy: null,
-      altitude: null,
-      altitudeAccuracy: null,
-      heading: null,
-      latitude: null,
-      longitude: null,
-      speed: null,
-      timestamp: null,
       name: '',
       showingInfoWindow: false,
       activeMarker: {},
@@ -61,15 +56,9 @@ class GoogleMap extends Component {
   }
 
   static defaultProps = {
+    initialPosition: {},
+    lastPosition: {},
     seconds: 0,
-    accuracy: null,
-    altitude: null,
-    altitudeAccuracy: null,
-    heading: null,
-    latitude: null,
-    longitude: null,
-    speed: null,
-    timestamp: null,
   }
 
   onMarkerClick = (props, marker, e) =>
@@ -90,10 +79,14 @@ class GoogleMap extends Component {
 
   componentDidMount() {
       this.getState()
+
   }
 
   componentWillReceiveProps(nextProps) {
       this.getState(nextProps)
+  }
+
+  componentWillMount() {
   }
 
   componentWillUpdate() {
@@ -103,25 +96,18 @@ class GoogleMap extends Component {
   }
 
   getState = props => {
-    this.interval = setInterval(() => this.tick(), 1000)
-    navigator.geolocation.getCurrentPosition(pos => {this.setState({ latitude: pos.coords.latitude, longitude: pos.coords.longitude})},
-      error => console.log(error)
-    )
-    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} = window.store.getState().currentlocation
-    this.setState({accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp})
-  }
-
-  successCallback = (pos) => {
-    const {timestamp} = pos
-    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = pos.coords
-    window.store.dispatch(setcurrentlocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp))
-  }
-
-  errorCallback = () => {
+    // this.interval = setInterval(() => this.tick(), 1000)
+    navigator.geolocation.getCurrentPosition( initialPosition => 
+         this.setState({ initialPosition }),
+         error => alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+   )
+   this.watchID = navigator.geolocation.watchPosition(lastPosition => this.setState({lastPosition}))
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.interval)
+    navigator.geolocation.clearWatch(this.watchID)
   }
 
   render() {
@@ -129,7 +115,7 @@ class GoogleMap extends Component {
     if (!this.props.google) {
       return <div>Loading...</div>;
     }
-  const {latitude, longitude} = this.state
+  const {latitude, longitude} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     return (
       <div className="GoogleMapContainer">
         <div className="GoogleMapWrapper">
@@ -142,7 +128,7 @@ class GoogleMap extends Component {
               lat: 37.334665328,
               lng: -121.875329832
               }}
-        
+              
             >
                 <Marker onClick={this.onMarkerClick}
                         name={'Current location'} 
@@ -153,8 +139,8 @@ class GoogleMap extends Component {
                     visible={this.state.showingInfoWindow}
                     >
                         <div className="infoWindow">
-                            <h2>Lat: {this.state.latitude}</h2>
-                            <h2>Lng: {this.state.longitude}</h2>
+                            <h2>Lat: {latitude}</h2>
+                            <h2>Lng: {longitude}</h2>
                         </div>
                 </InfoWindow>
             </Map>
