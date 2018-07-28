@@ -129,7 +129,7 @@ class GoogleMap extends Component {
               lng: -121.875329832
               }}
       center={{
-      lat: lattitude,
+      lat: latitude,
       lng: longitude
       }}
               
