@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import {Nav, Navbar, NavItem, NavDropdown, MenuItem , Grid, Row, Col, Button } from 'react-bootstrap'
 import './App.css'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import GoogleMap from './views/GoogleMap'
+import JobMap from './views/GoogleMap'
+//import JobMap from './components/JobMap'
 import Login from './components/Login'
+
 
 const mapStateToProps = () => ({})
 
@@ -62,7 +64,7 @@ class App extends Component {
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
-            <Route exact path="/" component={GoogleMap}/>
+            <Route exact path="/" component={JobMap}/>
             <Route exact path="/Location" component={Location}/>
             <Route exact path="/Login" component={Login}/>
           </div>

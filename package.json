@@ -11,6 +11,7 @@
     "google-maps-react": "^2.0.2",
     "moment": "^2.22.2",
     "react": "^16.3.2",
+    "react-addons": "^0.9.1-deprecated",
     "react-bootstrap": "^0.32.1",
     "react-controllable": "^0.1.1",
     "react-controllables": "^0.6.0",

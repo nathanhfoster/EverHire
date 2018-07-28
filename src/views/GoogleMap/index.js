@@ -34,6 +34,7 @@ class GoogleMap extends Component {
     this.state = {
       initialPosition: {},
       lastPosition: {},
+      center: {},
       seconds: 0,
       name: '',
       showingInfoWindow: false,
@@ -51,6 +52,7 @@ class GoogleMap extends Component {
   static propTypes = {
     google: PropTypes.object,
     zoom: PropTypes.number,
+    center: PropTypes.object,
     initialCenter: PropTypes.object,
     coordinates: PropTypes.func.isRequired
   }
@@ -69,6 +71,7 @@ class GoogleMap extends Component {
     })
         
   onMapClicked = (props) => {
+    console.log("ONCLICK: ", props.google)
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -110,11 +113,18 @@ class GoogleMap extends Component {
     navigator.geolocation.clearWatch(this.watchID)
   }
 
+  updateMapCenter(coords)  {
+    this.setState({
+        center: coords
+    })
+} 
+
   render() {
     console.log(this.state)
     if (!this.props.google) {
       return <div>Loading...</div>;
     }
+    const {center} = this.state
   const {latitude, longitude} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     return (
       <div className="GoogleMapContainer">
@@ -123,15 +133,15 @@ class GoogleMap extends Component {
             google={this.props.google}
             style={mapStyle}
             zoom={16}
-            onClick={this.onMapClicked}
+            onClick={this.onMapClicked.bind(this)}
             initialCenter={{
               lat: 37.334665328,
               lng: -121.875329832
               }}
-      center={{
-      lat: latitude,
-      lng: longitude
-      }}
+            center={{
+            lat: latitude,
+            lng: longitude
+            }}
               
             >
                 <Marker onClick={this.onMarkerClick}
