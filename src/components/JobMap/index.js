@@ -8,13 +8,8 @@ import MyGreatPlaceWithControllableHover from './my_great_place_with_controllabl
 import {K_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
 
-const mapStyle = {
-  height: '100%',
-  width: '100%',
-  position: 'relative'
-}
 
-export default class EventsMapPage extends Component {
+class JobMap extends Component {
   constructor(props) {
     super();
     this.onMarkerClick = this.onMarkerClick.bind(this)
@@ -31,6 +26,7 @@ export default class EventsMapPage extends Component {
       selectedPlace: {},
     }
   }
+  
   static propTypes = {
     google: PropTypes.object,
     zoom: PropTypes.number,
@@ -136,8 +132,23 @@ onMapClicked = (props) => {
    // this.props.onHoverKeyChange(null);
   }
 
+  createMapOptions = (map) => {
+    console.log(map)
+    return {
+      panControl: false,
+      mapTypeControl: false,
+      scrollwheel: true,
+      //styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
+    }
+  }
 
   render() {
+    const mapStyle = {
+      height: '100%',
+      width: '100%',
+      position: 'relative'
+    }
+
     //console.log("STATE: ",this.state)
     const {center, zoom} = this.state
     const {latitude, longitude} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
@@ -169,6 +180,7 @@ onMapClicked = (props) => {
         onChildClick={this._onChildClick}
         onChildMouseEnter={this._onChildMouseEnter}
         onChildMouseLeave={this._onChildMouseLeave}
+        options={this.createMapOptions}
         >
           {places}
         </GoogleMap>
@@ -176,3 +188,4 @@ onMapClicked = (props) => {
     );
   }
 }
+export default (JobMap)
