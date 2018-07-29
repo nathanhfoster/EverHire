@@ -91,8 +91,7 @@ let {markers, zoom} = props
   this.setState({
     markers,
     zoom,
-    lastPosition,
-    center: [lastPosition.coords.latitude, lastPosition.coords.longitude]
+    lastPosition
     })})
 }
 
@@ -162,7 +161,7 @@ onMapClicked = (props) => {
        <GoogleMap
         style={mapStyle}
         apiKey={"AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"} // set if you need stats etc ...
-        defaultCenter={center}
+        defaultCenter={[latitude, longitude]}
         center={center}
         zoom={zoom}
         hoverDistance={K_SIZE / 2}
