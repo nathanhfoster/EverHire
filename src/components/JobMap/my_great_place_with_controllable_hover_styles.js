@@ -11,7 +11,7 @@ const greatPlaceStyle = {
     minWidth: "0",
     height: "13px",
     width: "13px",
-    borderRadius: "50%",
+    borderRadius: "12.5%",
     border: "0",
     minHeight: "36px",
     boxSizing: "border-box",
