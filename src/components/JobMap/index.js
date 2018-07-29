@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import shouldPureComponentUpdate from 'react-pure-render/function'
-
 import GoogleMap from 'google-map-react'
 import MyGreatPlaceWithControllableHover from './my_great_place_with_controllable_hover.jsx'
+//import SearchBar from '../SearchBar'
 
 import {K_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
@@ -11,7 +11,7 @@ import './styles.css'
 
 class JobMap extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.onMarkerClick = this.onMarkerClick.bind(this)
     this.watchID = null
     this.state = {
@@ -143,18 +143,11 @@ onMapClicked = (props) => {
   }
 
   render() {
-    const mapStyle = {
-      height: '100%',
-      width: '100%',
-      position: 'relative'
-    }
-
-    //console.log("STATE: ",this.state)
+     //console.log("STATE: ",this.state)
     const {center, zoom} = this.state
     const {latitude, longitude} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
-    const places = this.state.markers
-      .map(place => {
-        const {id, ...coords} = place;
+    const places = this.state.markers.map(place => {
+        const {id, ...coords} = place
 
         return (
           <MyGreatPlaceWithControllableHover
@@ -163,27 +156,31 @@ onMapClicked = (props) => {
             text={id}
             // use your hover state (from store, react-controllables etc...)
             hover={this.props.hoverKey === id} />
-        );
-      });
+        )
+      })
 
     return (
       <div className="GoogleMapContainer">
-       <GoogleMap
-        style={mapStyle}
-        apiKey={"AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"} // set if you need stats etc ...
-        defaultCenter={[latitude, longitude]}
-        center={center}
-        zoom={zoom}
-        hoverDistance={K_SIZE / 2}
-        onClick={this.onMapClicked}
-        onBoundsChange={this._onBoundsChange}
-        onChildClick={this._onChildClick}
-        onChildMouseEnter={this._onChildMouseEnter}
-        onChildMouseLeave={this._onChildMouseLeave}
-        options={this.createMapOptions}
-        >
-          {places}
-        </GoogleMap>
+        <div className="GoogleMapWrapper">
+          <GoogleMap
+            apiKey={"AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"} // set if you need stats etc ...
+            defaultCenter={[latitude, longitude]}
+            center={center}
+            zoom={zoom}
+            hoverDistance={K_SIZE / 2}
+            onClick={this.onMapClicked}
+            onBoundsChange={this._onBoundsChange}
+            onChildClick={this._onChildClick}
+            onChildMouseEnter={this._onChildMouseEnter}
+            onChildMouseLeave={this._onChildMouseLeave}
+            options={this.createMapOptions}
+            >
+              {places}
+            </GoogleMap>
+        </div>
+        <div className="searchSideBarWrapper">
+            <h1>SEARCHBAR</h1>
+          </div>
       </div>
     );
   }

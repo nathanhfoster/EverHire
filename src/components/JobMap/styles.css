@@ -1,32 +1,27 @@
 .GoogleMapContainer {
+    height: calc(100% - 52px);
+    width: 100%;
+    position: absolute;
+}
+.GoogleMapWrapper {
     height: 100%;
     width: 100%;
+    position: relative;
+    top: 0;
+    z-index:-99;
 }
 .searchSideBarWrapper {
     color: white;
-    box-shadow: 0 10px 6px -6px #1a2327;
+    box-shadow: 0 -10px 6px -6px rgba(26, 35, 39, 0.75);
     background-color: rgba(0, 0, 0, 0.5);
-    height: calc(100% - 98px);
-    width: 408px;
-    position: absolute;
-    top: 98px;
-    left: 0;
+    height: 100%;
+    width: inherit;
+    position: relative;
     z-index: 99;
+    bottom: 10%;
+    border-radius: 4px;
 }
 
 @media (max-width: 676px) {
-    .searchSideBarWrapper {
-        color: white;
-        box-shadow: 0 10px 6px -6px #1a2327;
-        background-color: rgba(0, 0, 0, 0.5);
-        height: calc(100%-98px);
-        width: 30%;
-        position: absolute;
-        top: 98px;
-        left: 0;
-        z-index: 99;
-    }
-    h1 {
-        font-size: 20px;
-    }
+
   }

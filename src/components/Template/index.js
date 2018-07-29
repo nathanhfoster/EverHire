@@ -10,7 +10,7 @@ const mapDispatchToProps = {
 
 class Template extends Component {
   constructor(props) {
-    super();
+    super(props);
  
     this.state = {
     };
@@ -31,6 +31,17 @@ class Template extends Component {
   getState = props => {
     this.setState({
       });
+  }
+
+  componentWillMount() {
+  }
+
+  componentWillUpdate() {
+  }
+
+  componentDidUpdate() {
+  }
+  componentWillUnmount() {
   }
 
   render() {
