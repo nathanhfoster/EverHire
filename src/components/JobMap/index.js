@@ -80,7 +80,7 @@ export default class EventsMapPage extends Component {
 
 getState = props => {
 //console.log(props)
-let {markers, zoom} = props
+let {markers} = props
   navigator.geolocation.getCurrentPosition( initialPosition => 
        this.setState({ initialPosition }),
        error => alert(error.message),
@@ -90,7 +90,6 @@ let {markers, zoom} = props
    markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
   this.setState({
     markers,
-    zoom,
     lastPosition
     })})
 }
