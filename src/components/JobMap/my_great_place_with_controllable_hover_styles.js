@@ -15,7 +15,7 @@ const greatPlaceStyle = {
     border: "1px solid white",
     minHeight: "26px",
     boxSizing: "border-box",
-    lineHeight: "0.7em",
+    lineHeight: "70%",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     cursor: 'pointer'
 }
