@@ -203,7 +203,7 @@ onMapClicked = (props) => {
             </GoogleMap>
         </div>
         <div className="searchSideBarWrapper">
-          <Row className="center">
+          <Row bsClass="center">
             <Col lg={11} md={10} sm={8} xs={7}>
               <InputGroup className="searchBar">
                 <InputGroup.Addon><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
@@ -222,16 +222,19 @@ onMapClicked = (props) => {
               </Button>
             </Col>
           </Row>
-          <p>Accuracy: {accuracy}</p>
-          <p>Altitude: {altitude}</p>
-          <p>AltitudeAccuracy: {altitudeAccuracy}</p>
-          <p>Heading: {heading}</p>
-          <p>Latitude: {latitude}</p>
-          <p>Longitude: {longitude}</p>
-          <p>Speed: {speed} </p>
-          <br/>
-          <p>Center: {center[0]}, {center[0]} </p>
-          <p>Zoom: {zoom} </p>
+          <Row bsClass="">
+            <Col>
+              <p>Accuracy: {accuracy}</p>
+              <p>Altitude: {altitude}</p>
+              <p>Altitude accuracy: {altitudeAccuracy}</p>
+              <p>Heading: {heading}</p>
+              <p>Latitude: {latitude}</p>
+              <p>Longitude: {longitude}</p>
+              <p>Speed: {speed} </p>
+              <p>Center: {center[0]}, {center[0]}</p>
+              <p>Zoom: {zoom}</p>
+            </Col>
+          </Row>
           </div>
       </div>
     );
