@@ -40,7 +40,7 @@ class GoogleMap extends Component {
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
-    };
+    }
   }
 
   tick = () => {
@@ -82,7 +82,6 @@ class GoogleMap extends Component {
 
   componentDidMount() {
       this.getState()
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -119,6 +118,12 @@ class GoogleMap extends Component {
     })
 } 
 
+_onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
+  console.log("_onBoundsChange: ", center)
+  //this.props.onCenterChange(center);
+  //this.props.onZoomChange(zoom);
+}
+
   render() {
     console.log(this.state)
     if (!this.props.google) {
@@ -134,6 +139,7 @@ class GoogleMap extends Component {
             style={mapStyle}
             zoom={16}
             onClick={this.onMapClicked.bind(this)}
+            onBoundsChange={this._onBoundsChange}
             initialCenter={{
               lat: 37.334665328,
               lng: -121.875329832

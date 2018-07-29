@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import {Nav, Navbar, NavItem, NavDropdown, MenuItem , Grid, Row, Col, Button } from 'react-bootstrap'
 import './App.css'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import JobMap from './views/GoogleMap'
-//import JobMap from './components/JobMap'
+//import JobMap from './views/GoogleMap'
+import JobMap from './components/JobMap'
 import Login from './components/Login'
 
 
