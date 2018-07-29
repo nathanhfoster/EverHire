@@ -1,8 +1,6 @@
 body {
   height: 100vh;
   width: 100vw;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(to bottom, #1a2327 10%, #003348, #00416f, #004c95, #3f51b5);
 }
 @media (max-width: 676px) {
   body {
@@ -20,7 +18,7 @@ body {
 }
 
 .zoomHover:hover{
-  transform: scale(1.1);
+  transform: scale(1.25);
 }
 
 .navbar {
@@ -115,4 +113,14 @@ a {
 a:hover {
   color: white !important;
   text-decoration: none;
+}
+
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
 }

@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {Grid, Row, Col, InputGroup, FormControl, ButtonToolbar, Button } from 'react-bootstrap'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import GoogleMap from 'google-map-react'
 import MyGreatPlaceWithControllableHover from './my_great_place_with_controllable_hover.jsx'
-//import SearchBar from '../SearchBar'
-
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt'
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
+import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
 import {K_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
 
@@ -133,19 +136,37 @@ onMapClicked = (props) => {
   }
 
   createMapOptions = (map) => {
-    console.log(map)
+    //console.log(map)
     return {
       panControl: false,
       mapTypeControl: false,
       scrollwheel: true,
-      //styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
+      zoomControl: false,
+      fullscreenControl: true,
+      //disableDefaultUI: true
+     // styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
     }
   }
 
-  render() {
-     //console.log("STATE: ",this.state)
-    const {center, zoom} = this.state
+  locationButton = (e) => {
     const {latitude, longitude} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
+    const panToLocation = [latitude, longitude]
+    this.setState({center: panToLocation})
+  }
+  
+  // apiIsLoaded = (map, maps, lat, lng) => {
+  //   console.log("map: ", map)
+  //   if (map) {
+  //     const latLng = maps.LatLng(lat, lng);
+  //     map.panTo(latLng);
+  //   }
+  // }
+
+  render() {
+    //console.log(this.state)
+    const {center, zoom} = this.state
+    const {accuracy, altitude, altitudeAccuracy,
+      heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     const places = this.state.markers.map(place => {
         const {id, ...coords} = place
 
@@ -163,6 +184,7 @@ onMapClicked = (props) => {
       <div className="GoogleMapContainer">
         <div className="GoogleMapWrapper">
           <GoogleMap
+            //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
             apiKey={"AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"} // set if you need stats etc ...
             defaultCenter={[latitude, longitude]}
             center={center}
@@ -175,11 +197,41 @@ onMapClicked = (props) => {
             onChildMouseLeave={this._onChildMouseLeave}
             options={this.createMapOptions}
             >
+            
+            
               {places}
             </GoogleMap>
         </div>
         <div className="searchSideBarWrapper">
-            <h1>SEARCHBAR</h1>
+          <Row className="center">
+            <Col lg={11} md={10} sm={8} xs={7}>
+              <InputGroup className="searchBar">
+                <InputGroup.Addon><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
+                <FormControl type="text" />
+              </InputGroup>
+            </Col>
+
+            <Col>
+              <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
+                <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
+              </Button>
+            </Col>
+            <Col>
+              <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
+                <FontAwesomeIcon icon={faListAlt} size="lg"/>
+              </Button>
+            </Col>
+          </Row>
+          <p>Accuracy: {accuracy}</p>
+          <p>Altitude: {altitude}</p>
+          <p>AltitudeAccuracy: {altitudeAccuracy}</p>
+          <p>Heading: {heading}</p>
+          <p>Latitude: {latitude}</p>
+          <p>Longitude: {longitude}</p>
+          <p>Speed: {speed} </p>
+          <br/>
+          <p>Center: {center[0]}, {center[0]} </p>
+          <p>Zoom: {zoom} </p>
           </div>
       </div>
     );
