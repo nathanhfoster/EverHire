@@ -62,10 +62,10 @@ class App extends Component {
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav pullRight>
-                <NavItem className="zoomHover" divider>
+                <NavItem>
                   <Link to="/Login" divider>LOGIN</Link>
                 </NavItem>
-                <NavItem className="zoomHover">
+                <NavItem>
                   <Link to="/Account"><FontAwesomeIcon icon={faUserCircle} size="lg"/></Link>
                 </NavItem>
                 </Nav>
