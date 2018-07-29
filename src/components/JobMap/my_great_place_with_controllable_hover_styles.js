@@ -8,14 +8,14 @@ const greatPlaceStyle = {
     color: "white",
     backgroundColor: "#2196f3",
     padding: "0",
-    minWidth: "0",
+    minWidth: "13px",
     height: "13px",
     width: "13px",
-    borderRadius: "12.5%",
+    borderRadius: "50%",
     border: "0",
-    minHeight: "36px",
+    minHeight: "13px",
     boxSizing: "border-box",
-    lineHeight: "1.4em",
+    lineHeight: "0.35em",
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     cursor: 'pointer'
 }
