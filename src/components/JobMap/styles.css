@@ -41,7 +41,7 @@
 }
 
 #searchList {
-    margin-top: calc(100vh - 52px);
+    margin-top: calc(100vh - 146px);
 }
 
 @media (max-width: 676px) {
