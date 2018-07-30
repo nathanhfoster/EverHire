@@ -22,7 +22,7 @@
 }
 
 .searchListWrapper {
-    flex: 1;
+    flex: auto;
     color: rgba(0, 0, 0, 0.87);
     font-weight: 500;
     line-height: 24px;
@@ -34,6 +34,7 @@
     position: relative;
     z-index: 2;
     border-radius: 8px;
+    overflow: hidden;
 }
 
 #searchList {
