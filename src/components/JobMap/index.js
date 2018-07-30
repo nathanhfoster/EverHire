@@ -122,7 +122,10 @@ onMapClicked = (props) => {
     //this.props.onCenterChange([childProps.lat, childProps.lng]);
   }
 
-  _onChildMouseEnter = (key /*, childProps */) => {
+  _onChildMouseEnter = (key , childProps ) => {
+    console.log("key",key)
+    console.log("childProps: ", childProps)
+    childProps.hover = true
     // this.props.onHoverKeyChange(key);
   }
 
@@ -178,6 +181,7 @@ onMapClicked = (props) => {
   // }
 
   render() {
+    console.log(this.props)
     const {center, zoom} = this.state
     let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     speed = parseInt(speed * 2.23694) // meters per second to mph
@@ -230,12 +234,12 @@ onMapClicked = (props) => {
               </InputGroup>
             </Col>
             <Col>
-              <Button bsClass="locationButton" bsSize="large" onClick={this.locationButton.bind(this)}>
+              <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
                 <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
               </Button>
             </Col>
             <Col>
-              <Button bsClass="locationButton" bsSize="large" onClick={this.locationButton.bind(this)}>
+              <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
                 <FontAwesomeIcon icon={faListAlt} size="lg"/>
               </Button>
             </Col>
