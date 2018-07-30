@@ -15,14 +15,10 @@
 }
 
 .searchListTab {
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: bold;
-    color: gray;
+    color: lightgray;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-}
-
-.searchListTabBreak {
-    color: gray;
 }
 
 .searchListWrapper {
@@ -31,7 +27,7 @@
     font-weight: 500;
     line-height: 24px;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
-    background-color: rgba(245, 245, 245, 1);
+    background-color: rgba(255, 255, 255, 1);
     /* max-height: calc(100% - 52px); */
     height: 100%;
     width: 100%;
@@ -41,7 +37,7 @@
 }
 
 #searchList {
-    margin-top: calc(100vh - 146px);
+    margin-top: calc(100vh - 156px);
 }
 
 @media (max-width: 676px) {

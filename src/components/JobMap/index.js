@@ -11,7 +11,6 @@ import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
 import {K_SIZE, K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
 
-
 class JobMap extends Component {
   constructor(props) {
     super(props)
@@ -206,20 +205,15 @@ onMapClicked = (props) => {
             options={this.createMapOptions}
             hoverDistance={K_CIRCLE_SIZE / 2}
             distanceToMouse={this._distanceToMouse}
-            >
-            
-            
+            >            
               {places}
             </GoogleMap>
         </div>
         <div className="searchListWrapper" id="searchList">
-        <Row bsClass="center searchListTab">
+        <Row bsClass="center">
           <Col>
-          <span>_</span>
+          <span className="searchListTab">_</span>
           </Col>
-      <Col>
-      <br className="searchListTabBreak"/>
-      </Col>
         </Row>
           <Row bsClass="center">
             <Col lg={11} md={10} sm={8} xs={7}>
@@ -228,7 +222,6 @@ onMapClicked = (props) => {
                 <FormControl type="text" />
               </InputGroup>
             </Col>
-
             <Col>
               <Button bsClass="locationButton" bsSize="large" onClick={this.locationButton.bind(this)}>
                 <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
