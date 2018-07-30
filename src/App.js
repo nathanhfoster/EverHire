@@ -75,9 +75,11 @@ class App extends Component {
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
-            <Route exact path="/" component={JobMap}/>
-            <Route path="/Location" component={Location}/>
-            <Route path="/Login" component={Login}/>
+            <div className="routeOverlay">
+              <Route exact path="/" component={JobMap}/>
+              <Route path="/Location" component={Location}/>
+              <Route path="/Login" component={Login}/>
+            </div>
           </div>
      </Router>
     );

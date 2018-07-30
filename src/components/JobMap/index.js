@@ -150,10 +150,10 @@ onMapClicked = (props) => {
 
   createMapOptions = (map) => {
     return {
-      panControl: false,
+      panControl: true,
       mapTypeControl: false,
       scrollwheel: true,
-      zoomControl: false,
+      zoomControl: true,
       fullscreenControl: true,
       //disableDefaultUI: true
      // styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
