@@ -149,13 +149,18 @@ onMapClicked = (props) => {
 
   createMapOptions = (map) => {
     return {
-      panControl: true,
-      mapTypeControl: false,
-      scrollwheel: true,
-      zoomControl: false,
-      fullscreenControl: false,
-      //disableDefaultUI: true
-     // styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
+      disableDefaultUI: true,
+      gestureHandling: 'greedy',
+      // panControl: true,
+      // mapTypeControl: false,
+      // scrollwheel: true,
+      // zoomControl: false,
+      // fullscreenControl: false,
+      // scaleControl: false,
+      // streetViewControl: true,
+      // overviewMapControl: true,
+      // rotateControl: true
+      // styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
     }
   }
 
@@ -219,8 +224,8 @@ onMapClicked = (props) => {
         </Row>
           <Row bsClass="center">
             <Col lg={11} md={10} sm={8} xs={7}>
-              <InputGroup className="searchBar">
-                <InputGroup.Addon><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
+              <InputGroup>
+                <InputGroup.Addon className="searchBar"><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
                 <FormControl type="text" />
               </InputGroup>
             </Col>
@@ -235,17 +240,17 @@ onMapClicked = (props) => {
               </Button>
             </Col>
           </Row>
-          <Row bsClass="">
+          <Row bsClass="center">
             <Col>
-              <p>Accuracy: {accuracy}</p>
-              <p>Altitude: {altitude}</p>
-              <p>Altitude accuracy: {altitudeAccuracy}</p>
-              <p>Heading: {heading}</p>
-              <p>Latitude: {latitude}</p>
-              <p>Longitude: {longitude}</p>
-              <p>Speed: {speed} </p>
-              <p>Center: {center[0]}, {center[0]}</p>
-              <p>Zoom: {zoom}</p>
+              <h2>Accuracy: {accuracy}</h2>
+              <h2>Altitude: {altitude}</h2>
+              <h2>Altitude accuracy: {altitudeAccuracy}</h2>
+              <h2>Heading: {heading}</h2>
+              <h2>Latitude: {latitude}</h2>
+              <h2>Longitude: {longitude}</h2>
+              <h2>Speed: {speed} </h2>
+              <h2>Center: {center[0]}, {center[0]}</h2>
+              <h2>Zoom: {zoom}</h2>
             </Col>
           </Row>
           </div>
