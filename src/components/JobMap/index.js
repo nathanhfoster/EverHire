@@ -79,16 +79,16 @@ class JobMap extends Component {
 getState = props => {
 let {markers} = props
   navigator.geolocation.getCurrentPosition( initialPosition => 
-       this.setState({ initialPosition }),
-       error => alert(error.message),
+    this.setState({ initialPosition }),
+    error => alert(error.message),
     { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
  )
  this.watchID = navigator.geolocation.watchPosition(lastPosition => {
    markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
-  this.setState({
-    markers,
-    lastPosition
-    })})
+  this.setState({ markers, lastPosition}),
+    error => alert(error.message),
+    { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
+  })
 }
 
 componentWillUnmount() {
@@ -174,7 +174,8 @@ onMapClicked = (props) => {
 
   render() {
     const {center, zoom} = this.state
-    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
+    let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
+    speed = speed * 2.23694 // meters persond to mph
     const places = this.state.markers.map(place => {
     const {id, ...coords} = place
     return (
