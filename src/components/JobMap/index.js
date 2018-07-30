@@ -217,6 +217,9 @@ onMapClicked = (props) => {
           <Col>
           <span>_</span>
           </Col>
+      <Col>
+      <br className="searchListTabBreak"/>
+      </Col>
         </Row>
           <Row bsClass="center">
             <Col lg={11} md={10} sm={8} xs={7}>
