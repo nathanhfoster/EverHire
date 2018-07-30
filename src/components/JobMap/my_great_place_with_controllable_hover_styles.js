@@ -1,32 +1,78 @@
-const K_SIZE = 40
-const K_CIRCLE_SIZE = 30
+const K_CIRCLE_SIZE = 24
 const K_STICK_SIZE = 10
 const K_STICK_WIDTH = 3
 
 const greatPlaceStyle = {
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0,0 coordinates
-    boxShadow: "0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)",
-    color: "white",
-    backgroundColor: "#2196f3",
-    padding: "0",
-    minWidth: "26px",
-    height: "26px",
-    width: "26px",
-    borderRadius: "50%",
-    border: "1px solid white",
-    minHeight: "26px",
-    boxSizing: "border-box",
-    lineHeight: "70%",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    cursor: 'pointer'
+  position: 'absolute',
+  width: K_CIRCLE_SIZE,
+  height: K_CIRCLE_SIZE + K_STICK_SIZE,
+  left: -K_CIRCLE_SIZE / 2,
+  top: -(K_CIRCLE_SIZE + K_STICK_SIZE)
 }
 
-const greatPlaceStyleHover = {
-  ...greatPlaceStyle,
-  border: '5px solid #3f51b5',
-  color: 'white',
-  backgroundColor: "red",
+const greatPlaceCircleStyle = {
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  width: K_CIRCLE_SIZE,
+  height: K_CIRCLE_SIZE,
+  border: "2px solid #2196f3",
+  borderRadius: K_CIRCLE_SIZE,
+  color: "#2196f3",
+  backgroundColor: "white",
+  textAlign: 'center',
+  boxShadow: "0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)",
+  fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+  fontSize: 12,
+  fontWeight: 'bold',
+  padding: 0,
+  cursor: 'pointer',
+  boxShadow: '0 0 0 1px white',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 }
 
-export {greatPlaceStyle, greatPlaceStyleHover, K_SIZE, K_CIRCLE_SIZE, K_STICK_SIZE, K_STICK_WIDTH}
+const userLocation = {
+  
+}
+
+const greatPlaceCircleStyleHover = {
+  ...greatPlaceCircleStyle,
+  border: '2px solid #dd4c41',
+  color: 'black'
+}
+
+const greatPlaceStickStyleShadow = {
+  position: 'absolute',
+  left: K_CIRCLE_SIZE / 2 - K_STICK_WIDTH / 2,
+  top: K_CIRCLE_SIZE,
+  width: K_STICK_WIDTH,
+  height: K_STICK_SIZE,
+  backgroundColor: '#f44336',
+  boxShadow: '0 0 0 1px white'
+}
+
+
+const greatPlaceStickStyle = {
+  position: 'absolute',
+  left: K_CIRCLE_SIZE / 2 - K_STICK_WIDTH / 2,
+  top: K_CIRCLE_SIZE,
+  width: K_STICK_WIDTH,
+  height: K_STICK_SIZE,
+  backgroundColor: '#2196f3'
+}
+
+const greatPlaceStickStyleHover = {
+  ...greatPlaceStickStyle,
+  backgroundColor: '#dd4c41'
+}
+
+
+export {
+  greatPlaceStyle,
+  greatPlaceCircleStyle, greatPlaceCircleStyleHover,
+  greatPlaceStickStyle, greatPlaceStickStyleHover, greatPlaceStickStyleShadow,
+  K_CIRCLE_SIZE, K_STICK_SIZE}

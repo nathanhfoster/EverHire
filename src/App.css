@@ -30,7 +30,7 @@ body {
 }
 
 .zoomHover:hover::after, .zoomHover:focus::after {
-  animation: sheen 1s forwards;
+  animation: sheen 1.25s forwards;
 }
 
 .zoomFocus:focus {

@@ -8,7 +8,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
-import {K_SIZE, K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
+import {K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
 
 class JobMap extends Component {
@@ -96,14 +96,16 @@ componentWillUnmount() {
   navigator.geolocation.clearWatch(this.watchID)
 }
 
-onMarkerClick = (props, marker, e) =>
+onMarkerClick = (props, marker, e) =>{
+console.log("onMarkerClick")
   this.setState({
     selectedPlace: props,
     activeMarker: marker,
     showingInfoWindow: true
-  })
+  })}
       
 onMapClicked = (props) => {
+  console.log("onMapClicked: ", props)
   if (this.state.showingInfoWindow) {
     this.setState({
       showingInfoWindow: false,
@@ -113,27 +115,29 @@ onMapClicked = (props) => {
   }
 
   _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
+    console.log("_onBoundsChange")
     this.setState({center, zoom})
     //this.props.onCenterChange(center);
     //this.props.onZoomChange(zoom);
   }
 
   _onChildClick = (key, childProps) => {
+    console.log("_onChildClick")
     //this.props.onCenterChange([childProps.lat, childProps.lng]);
   }
 
   _onChildMouseEnter = (key , childProps ) => {
-    console.log("key",key)
-    console.log("childProps: ", childProps)
-    childProps.hover = true
+    console.log("_onChildMouseEnter")
     // this.props.onHoverKeyChange(key);
   }
 
   _onChildMouseLeave = (key, /*childProps */) => {
+    console.log("_onChildMouseLeave")
    // this.props.onHoverKeyChange(null);
   }
 
   _distanceToMouse = (markerPos, mousePos, markerProps) => {
+    //console.log("_distanceToMouse")
     const x = markerPos.x;
     // because of marker non symmetric,
     // we transform it central point to measure distance from marker circle center
@@ -144,7 +148,7 @@ onMapClicked = (props) => {
     // so i tweak distance function (for example it's more likely to me that user click on 'A' marker)
     // another way is to decrease distance for 'A' marker
     // this is really visible on small zoom values or if there are a lot of markers on the map
-    const distanceKoef = markerProps.text !== 'A' ? 1.5 : 1;
+    const distanceKoef = 2;
 
     // it's just a simple example, you can tweak distance function as you wish
     return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
@@ -181,7 +185,6 @@ onMapClicked = (props) => {
   // }
 
   render() {
-    console.log(this.props)
     const {center, zoom} = this.state
     let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     speed = parseInt(speed * 2.23694) // meters per second to mph
@@ -207,7 +210,6 @@ onMapClicked = (props) => {
             defaultCenter={[latitude, longitude]}
             center={center}
             zoom={zoom}
-            hoverDistance={K_SIZE / 2}
             onClick={this.onMapClicked}
             onBoundsChange={this._onBoundsChange}
             onChildClick={this._onChildClick}
