@@ -8,13 +8,13 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
-import {K_SIZE} from './my_great_place_with_controllable_hover_styles.js'
+import {K_SIZE, K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
 
 
 class JobMap extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.onMarkerClick = this.onMarkerClick.bind(this)
     this.watchID = null
     this.state = {
@@ -78,12 +78,11 @@ class JobMap extends Component {
   }
 
 getState = props => {
-//console.log(props)
 let {markers} = props
   navigator.geolocation.getCurrentPosition( initialPosition => 
        this.setState({ initialPosition }),
        error => alert(error.message),
-    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
  )
  this.watchID = navigator.geolocation.watchPosition(lastPosition => {
    markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
@@ -121,22 +120,35 @@ onMapClicked = (props) => {
   }
 
   _onChildClick = (key, childProps) => {
-    //console.log("_onChildClick")
     //this.props.onCenterChange([childProps.lat, childProps.lng]);
   }
 
   _onChildMouseEnter = (key /*, childProps */) => {
-   // console.log("_onChildMouseEnter: ", key)
     // this.props.onHoverKeyChange(key);
   }
 
   _onChildMouseLeave = (key, /*childProps */) => {
-    //console.log("_onChildMouseLeave")
    // this.props.onHoverKeyChange(null);
   }
 
+  _distanceToMouse = (markerPos, mousePos, markerProps) => {
+    const x = markerPos.x;
+    // because of marker non symmetric,
+    // we transform it central point to measure distance from marker circle center
+    // you can change distance function to any other distance measure
+    const y = markerPos.y - K_STICK_SIZE - K_CIRCLE_SIZE / 2;
+
+    // and i want that hover probability on markers with text === 'A' be greater than others
+    // so i tweak distance function (for example it's more likely to me that user click on 'A' marker)
+    // another way is to decrease distance for 'A' marker
+    // this is really visible on small zoom values or if there are a lot of markers on the map
+    const distanceKoef = markerProps.text !== 'A' ? 1.5 : 1;
+
+    // it's just a simple example, you can tweak distance function as you wish
+    return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
+  }
+
   createMapOptions = (map) => {
-    //console.log(map)
     return {
       panControl: false,
       mapTypeControl: false,
@@ -155,7 +167,6 @@ onMapClicked = (props) => {
   }
   
   // apiIsLoaded = (map, maps, lat, lng) => {
-  //   console.log("map: ", map)
   //   if (map) {
   //     const latLng = maps.LatLng(lat, lng);
   //     map.panTo(latLng);
@@ -163,22 +174,20 @@ onMapClicked = (props) => {
   // }
 
   render() {
-    //console.log(this.state)
     const {center, zoom} = this.state
     const {accuracy, altitude, altitudeAccuracy,
       heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     const places = this.state.markers.map(place => {
-        const {id, ...coords} = place
-
-        return (
-          <MyGreatPlaceWithControllableHover
-            key={id}
-            {...coords}
-            text={id}
-            // use your hover state (from store, react-controllables etc...)
-            hover={this.props.hoverKey === id} />
-        )
-      })
+    const {id, ...coords} = place
+    return (
+      <MyGreatPlaceWithControllableHover
+        key={id}
+        {...coords}
+        text={id}
+        zIndex={1}
+        // use your hover state (from store, react-controllables etc...)
+        hover={this.props.hoverKey === id} />
+    )})
 
     return (
       <div className="GoogleMapContainer">
@@ -196,6 +205,8 @@ onMapClicked = (props) => {
             onChildMouseEnter={this._onChildMouseEnter}
             onChildMouseLeave={this._onChildMouseLeave}
             options={this.createMapOptions}
+            hoverDistance={K_CIRCLE_SIZE / 2}
+            distanceToMouse={this._distanceToMouse}
             >
             
             
@@ -212,12 +223,12 @@ onMapClicked = (props) => {
             </Col>
 
             <Col>
-              <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
+              <Button bsClass="locationButton" bsSize="large" onClick={this.locationButton.bind(this)}>
                 <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
               </Button>
             </Col>
             <Col>
-              <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
+              <Button bsClass="locationButton" bsSize="large" onClick={this.locationButton.bind(this)}>
                 <FontAwesomeIcon icon={faListAlt} size="lg"/>
               </Button>
             </Col>

@@ -7,11 +7,13 @@ import {greatPlaceStyle, greatPlaceStyleHover} from './my_great_place_with_contr
 export default class MyGreatPlaceWithControllableHover extends Component {
   static propTypes = {
     // use hover from controllable
-    hover: PropTypes.bool,
-    text: PropTypes.string
+    $hover: PropTypes.bool,
+    text: PropTypes.string,
+    zIndex: PropTypes.number
   };
 
-  static defaultProps = {};
+  static defaultProps = {}
+
 
   shouldComponentUpdate = shouldPureComponentUpdate;
 
@@ -20,7 +22,8 @@ export default class MyGreatPlaceWithControllableHover extends Component {
   }
 
   render() {
-    const style = this.props.hover ? greatPlaceStyleHover : greatPlaceStyle;
+    console.log("MyGreatPlaceWithControllableHover: ", this.props.$hover )
+    const style = this.props.hover ? greatPlaceStyleHover : greatPlaceStyle
 
     return (
        <div className="center" style={style}>

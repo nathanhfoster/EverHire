@@ -71,7 +71,6 @@ class GoogleMap extends Component {
     })
         
   onMapClicked = (props) => {
-    console.log("ONCLICK: ", props.google)
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -119,13 +118,11 @@ class GoogleMap extends Component {
 } 
 
 _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
-  console.log("_onBoundsChange: ", center)
   //this.props.onCenterChange(center);
   //this.props.onZoomChange(zoom);
 }
 
   render() {
-    console.log(this.state)
     if (!this.props.google) {
       return <div>Loading...</div>;
     }

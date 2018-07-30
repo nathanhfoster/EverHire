@@ -101,7 +101,7 @@ a, a:focus, a:active, a:visited {
   outline: none !important;
 }
 
-a {
+a, label {
   color: white !important;
 }
 a:hover {
