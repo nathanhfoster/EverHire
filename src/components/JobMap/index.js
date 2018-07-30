@@ -175,8 +175,7 @@ onMapClicked = (props) => {
 
   render() {
     const {center, zoom} = this.state
-    const {accuracy, altitude, altitudeAccuracy,
-      heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
+    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     const places = this.state.markers.map(place => {
     const {id, ...coords} = place
     return (
@@ -191,7 +190,7 @@ onMapClicked = (props) => {
 
     return (
       <div className="GoogleMapContainer">
-        <div className="GoogleMapWrapper">
+        <div className="GoogleMapWrapper" id="map">
           <GoogleMap
             //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
             apiKey={"AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"} // set if you need stats etc ...
@@ -213,7 +212,7 @@ onMapClicked = (props) => {
               {places}
             </GoogleMap>
         </div>
-        <div className="searchSideBarWrapper">
+        <div className="searchListWrapper" id="searchList">
           <Row bsClass="center">
             <Col lg={11} md={10} sm={8} xs={7}>
               <InputGroup className="searchBar">

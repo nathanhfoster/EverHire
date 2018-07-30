@@ -7,9 +7,14 @@
     height: 100%;
     width: 100%;
     position: relative;
-    top: 0;
+    z-index: 1000;
 }
-.searchSideBarWrapper {
+#map {
+    z-index: -99;
+    top: 52px;
+    position: fixed;
+}
+.searchListWrapper {
     flex: 1;
     color: rgba(0, 0, 0, 0.87);
     font-weight: 500;
@@ -19,9 +24,12 @@
     height: 100%;
     width: 100%;
     position: relative;
-    z-index: 99;
-    bottom: 15%;
+    z-index: 1000;
     border-radius: 4px;
+}
+
+#searchList {
+    margin-top: 85%;
 }
 
 @media (max-width: 676px) {

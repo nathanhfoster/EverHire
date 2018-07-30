@@ -13,12 +13,30 @@ body {
   width: 100vw;
 }
 
-.zoomHover {
-  transition: all .2s ease-in-out;
+.zoomHover::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+  transform: rotateZ(60deg) translate(-5em, 7.5em);
 }
 
-.zoomHover:hover{
-  transform: scale(1.25);
+.zoomHover {
+  position: relative;
+  overflow: hidden;
+}
+
+.zoomHover:hover::after, .zoomHover:focus::after {
+  animation: sheen 1s forwards;
+}
+
+@keyframes sheen {
+  100% {
+    transform: rotateZ(60deg) translate(1em, -9em);
+  }
 }
 
 .navbar {
@@ -27,8 +45,17 @@ body {
   margin: 0;
 }
 
+.navbar-brand {
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+}
+.navbar-brand>img {
+  padding: 7px 14px;
+}
+
 .navbar-inverse {
-  background-color: transparent;
+  background-color: rgba(245, 245, 245, 0);
 }
 
 .navbar-inverse .navbar-brand {

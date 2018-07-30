@@ -9,7 +9,7 @@ import JobMap from './components/JobMap'
 import Login from './components/Login'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faUserCircle from '@fortawesome/fontawesome-free-solid/faUserCircle'
-
+import Logo from './images/everHire-36.png'
 
 const mapStateToProps = () => ({})
 
@@ -30,6 +30,10 @@ class App extends Component {
 
   static defaultProps = {
 
+  }
+
+  componentWillMount() {
+    
   }
 
   componentDidMount() {
@@ -56,7 +60,7 @@ class App extends Component {
             <Navbar inverse collapseOnSelect>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <Link to="/" className="zoomHover">EverHire</Link>
+                  <Link to="/" className="zoomHover">Ever<img src={Logo} />Hire</Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
               </Navbar.Header>
@@ -72,8 +76,8 @@ class App extends Component {
               </Navbar.Collapse>
             </Navbar>
             <Route exact path="/" component={JobMap}/>
-            <Route exact path="/Location" component={Location}/>
-            <Route exact path="/Login" component={Login}/>
+            <Route path="/Location" component={Location}/>
+            <Route path="/Login" component={Login}/>
           </div>
      </Router>
     );

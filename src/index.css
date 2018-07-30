@@ -2,5 +2,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-image: linear-gradient(to bottom, #1a2327 10%, #003348, #00416f, #004c95, #3f51b5);
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to bottom, #1a2327 5%, #2196F3, #4A9FF4, #CEF6FF, #CEF6FF 125%);
 }
