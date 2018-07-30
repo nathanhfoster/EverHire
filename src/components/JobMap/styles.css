@@ -25,7 +25,6 @@
     color: #2196F3;
 }
 
-
 .searchListWrapper {
     flex: 1;
     color: rgba(0, 0, 0, 0.87);
@@ -42,7 +41,7 @@
 }
 
 #searchList {
-    margin-top: calc(100vh - 96px);
+    margin-top: calc(100vh - 52px);
 }
 
 @media (max-width: 676px) {
