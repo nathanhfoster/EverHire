@@ -180,8 +180,8 @@ onMapClicked = (props) => {
   render() {
     const {center, zoom} = this.state
     let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
-    speed = speed * 2.23694 // meters per second to mph
-    altitude = altitude * 3.28084 // meters to feet
+    speed = parseInt(speed * 2.23694) // meters per second to mph
+    altitude = parseInt(altitude * 3.28084) // meters to feet
     const places = this.state.markers.map(place => {
     const {id, ...coords} = place
     return (
@@ -249,7 +249,7 @@ onMapClicked = (props) => {
               <h2>Latitude: {latitude}</h2>
               <h2>Longitude: {longitude}</h2>
               <h2>Speed: {speed} </h2>
-              <h2>Center: {center[0]}, {center[0]}</h2>
+              <h2>Center: {center[0]}, {center[1]}</h2>
               <h2>Zoom: {zoom}</h2>
             </Col>
           </Row>
