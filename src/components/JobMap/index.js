@@ -213,6 +213,11 @@ onMapClicked = (props) => {
             </GoogleMap>
         </div>
         <div className="searchListWrapper" id="searchList">
+        <Row bsClass="center searchListTab">
+          <Col>
+          <span>_</span>
+          </Col>
+        </Row>
           <Row bsClass="center">
             <Col lg={11} md={10} sm={8} xs={7}>
               <InputGroup className="searchBar">
