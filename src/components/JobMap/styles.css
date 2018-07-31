@@ -36,6 +36,12 @@
     background-color:lightgrey;	
 }
 
+@media all and (display-mode: standalone) {
+    #searchList {
+        margin-top: calc(100vh - 104px);
+    }
+}
+
 #searchList {
     margin-top: calc(100vh - 124px);
 }
