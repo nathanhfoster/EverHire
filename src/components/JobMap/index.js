@@ -222,15 +222,11 @@ onMapClicked = (props) => {
             </GoogleMap>
         </div>
         <div className="searchListWrapper" id="searchList">
-        <Row className="center">
-          <Col>
-          <span className="searchListTab">_</span>
-          </Col>
+        <Row className="center ht-20">
+          <span className="searchListTab">-</span>
         </Row>
         <Row className="center">
-          <Col>
-            <h2>Explore Jobs</h2>
-          </Col>
+          <h3>Explore Jobs</h3>
         </Row>
           <Row className="center">
             <Col lg={10} md={8} sm={8} xs={7}>

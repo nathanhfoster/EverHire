@@ -23,13 +23,12 @@
 }
 
 .searchListWrapper {
-    flex: auto;
     color: rgba(0, 0, 0, 0.87);
     font-weight: 500;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
     background-color: rgba(255, 255, 255, 1);
     /* max-height: calc(100% - 52px); */
-    height: 100%;
+    height: 350%;
     width: 100%;
     position: relative;
     z-index: 2;
