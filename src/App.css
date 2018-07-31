@@ -163,3 +163,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .mg-20 {
   margin: 20px;
 }
+
+.mg-b-20 {
+  margin-bottom: 20px;
+}

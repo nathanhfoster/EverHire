@@ -223,9 +223,9 @@ onMapClicked = (props) => {
         </div>
         <div className="searchListWrapper" id="searchList">
         <Row className="center ht-20">
-          <span className="searchListTab">-</span>
+        <div className="searchListTab"/>
         </Row>
-        <Row className="center">
+        <Row className="center ht-20 mg-b-20">
           <h3>Explore Jobs</h3>
         </Row>
           <Row className="center">
