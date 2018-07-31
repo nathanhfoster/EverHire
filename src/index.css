@@ -1,7 +1,11 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-repeat: no-repeat;
   background-image: linear-gradient(to bottom, #1a2327 5%, #2196F3, #4A9FF4, #CEF6FF, #CEF6FF 125%);
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }

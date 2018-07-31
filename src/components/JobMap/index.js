@@ -37,8 +37,6 @@ class JobMap extends Component {
     markers: PropTypes.array,
     center: PropTypes.array, // @controllable
     zoom: PropTypes.number, // @controllable
-    hoverKey: PropTypes.string, // @controllable
-    clickKey: PropTypes.string, // @controllable
     onCenterChange: PropTypes.func, // @controllable generated fn
     onZoomChange: PropTypes.func, // @controllable generated fn
     onHoverKeyChange: PropTypes.func, // @controllable generated fn
@@ -229,6 +227,11 @@ onMapClicked = (props) => {
           <span className="searchListTab">_</span>
           </Col>
         </Row>
+        <Row className="center">
+          <Col>
+            <h2>Explore Jobs</h2>
+          </Col>
+        </Row>
           <Row className="center">
             <Col lg={10} md={8} sm={8} xs={7}>
               <InputGroup>
@@ -247,8 +250,21 @@ onMapClicked = (props) => {
               </Button>
             </Col>
           </Row>
-          <Row className="center">
-            <Col>
+          <Row className="mg-20">
+            <Col className="scrolling-wrapper">
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+            </Col>
+          </Row>
+          <Row className="mg-20">
+            <Col className="" sm={12}>
               <h2>Speed: {speed} mph</h2>
               <h2>Heading: {heading}</h2>
               <h2>Latitude: {latitude}</h2>
