@@ -67,7 +67,7 @@ class App extends Component {
               <Navbar.Collapse>
                 <Nav pullRight>
                 <NavItem>
-                  <Link to="/Login" divider>LOGIN</Link>
+                  <Link to="/Login">LOGIN</Link>
                 </NavItem>
                 <NavItem>
                   <Link to="/Account"><FontAwesomeIcon icon={faUserCircle} size="lg"/></Link>

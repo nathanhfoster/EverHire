@@ -25,7 +25,6 @@
     flex: auto;
     color: rgba(0, 0, 0, 0.87);
     font-weight: 500;
-    line-height: 24px;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
     background-color: rgba(255, 255, 255, 1);
     /* max-height: calc(100% - 52px); */
@@ -45,15 +44,26 @@
 
   }
 
-.searchBar {
+.searchIcon {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 0;
     color: white;
     background-color: #2196f3;
+}
+
+.searchBar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    height: 48px;
 }
 
 .center {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.listItem:hover {
+    background-color: rgb(230, 230, 230);
 }
 
 .locationButton {

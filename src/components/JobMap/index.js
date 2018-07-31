@@ -218,21 +218,22 @@ onMapClicked = (props) => {
             options={this.createMapOptions}
             hoverDistance={K_CIRCLE_SIZE / 2}
             distanceToMouse={this._distanceToMouse}
+            icon='http://ruralshores.com/assets/marker-icon.png'
             >            
               {places}
             </GoogleMap>
         </div>
         <div className="searchListWrapper" id="searchList">
-        <Row bsClass="center">
+        <Row className="center">
           <Col>
           <span className="searchListTab">_</span>
           </Col>
         </Row>
-          <Row bsClass="center">
-            <Col lg={11} md={10} sm={8} xs={7}>
+          <Row className="center">
+            <Col lg={10} md={8} sm={8} xs={7}>
               <InputGroup>
-                <InputGroup.Addon className="searchBar"><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
-                <FormControl type="text" />
+                <InputGroup.Addon className="searchIcon"><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
+                <FormControl type="text" className="searchBar"/>
               </InputGroup>
             </Col>
             <Col>
@@ -246,17 +247,17 @@ onMapClicked = (props) => {
               </Button>
             </Col>
           </Row>
-          <Row bsClass="center">
+          <Row className="center">
             <Col>
-              <h2>Accuracy: {accuracy}</h2>
-              <h2>Altitude: {altitude}</h2>
-              <h2>Altitude accuracy: {altitudeAccuracy}</h2>
+              <h2>Speed: {speed} mph</h2>
               <h2>Heading: {heading}</h2>
               <h2>Latitude: {latitude}</h2>
               <h2>Longitude: {longitude}</h2>
-              <h2>Speed: {speed} </h2>
+              <h2>Altitude: {altitude}</h2> 
               <h2>Center: {center[0]}, {center[1]}</h2>
               <h2>Zoom: {zoom}</h2>
+              <h2>Accuracy: {accuracy}</h2>
+              <h2>Altitude accuracy: {altitudeAccuracy}</h2>
             </Col>
           </Row>
           </div>
