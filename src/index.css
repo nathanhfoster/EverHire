@@ -11,7 +11,7 @@ body::-webkit-scrollbar {
 }
 
 @media all and (display-mode: standalone) {
-  #searchList {
+  .searchListWrapper {
       margin-top: calc(100vh - 104px);
   }
 }

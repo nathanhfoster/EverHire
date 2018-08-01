@@ -203,7 +203,7 @@ onMapClicked = (props) => {
 
     return (
       <div className="GoogleMapContainer">
-        <div className="GoogleMapWrapper" id="map">
+        <div className="GoogleMapWrapper">
           <GoogleMap
             //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
             apiKey={"AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"} // set if you need stats etc ...
@@ -223,7 +223,7 @@ onMapClicked = (props) => {
               {places}
             </GoogleMap>
         </div>
-        <div className="searchListWrapper" id="searchList">
+        <div className="searchListWrapper">
         <Row className="center ht-20">
         <div className="searchListTab"/>
         </Row>
