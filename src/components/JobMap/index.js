@@ -98,10 +98,7 @@ getState = props => {
       { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
   )
   this.watchID = navigator.geolocation.watchPosition(lastPosition => {
-    const {timestamp} = lastPosition
-    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = lastPosition.coords
     markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
-    this.props.userLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp),
     this.setState({ markers, lastPosition}),
       error => alert(error.message),
       { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
@@ -109,9 +106,13 @@ getState = props => {
   
 }
 
+
 componentWillUnmount() {
+  const {timestamp} = this.state.lastPosition
+  const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords
   clearInterval(this.interval)
   navigator.geolocation.clearWatch(this.watchID)
+  this.props.userLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp)
 }
 
 onMarkerClick = (props, marker, e) =>{
@@ -206,10 +207,10 @@ onMapClicked = (props) => {
   // }
 
   render() {
-    console.log(this.props)
     const {initialCenter, zoom} = this.state
     const center = this.state.center != null ? this.state.center : initialCenter
-    let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = window.store.getState().userLocation != null ? window.store.getState().userLocation : 0
+    const {timestamp} = this.state.lastPosition != null ? this.state.lastPosition : 0
+    let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     speed = parseInt(speed * 2.23694) // meters per second to mph
     altitude = parseInt(altitude * 3.28084) // meters to feet
     const places = this.state.markers.map(place => {
@@ -299,6 +300,7 @@ onMapClicked = (props) => {
                 <h2>Zoom: {zoom}</h2>
                 <h2>Accuracy: {accuracy}</h2>
                 <h2>Altitude accuracy: {altitudeAccuracy}</h2>
+                <h2>Timestamp:: {timestamp}</h2>
               </Col>
             </Row>
           </div>
