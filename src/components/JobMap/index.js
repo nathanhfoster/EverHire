@@ -157,7 +157,7 @@ onMapClicked = (props) => {
   createMapOptions = (map) => {
     return {
       disableDefaultUI: true,
-      gestureHandling: 'greedy',
+      gestureHandling: 'cooperative',
       // panControl: true,
       // mapTypeControl: false,
       // scrollwheel: true,
