@@ -10,6 +10,7 @@ import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
 import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
 import {K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
+import './stylesM.css'
 
 class JobMap extends Component {
   constructor(props) {
@@ -58,13 +59,11 @@ class JobMap extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   componentDidMount() {
-    console.log(window.matchMedia('(display-mode: standalone)').matches);
- 
     this.getState(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
-      this.getState(nextProps)
+    this.getState(nextProps)
   }
 
   componentWillMount() {
@@ -77,18 +76,18 @@ class JobMap extends Component {
   }
 
 getState = props => {
-let {markers} = props
-  navigator.geolocation.getCurrentPosition( initialPosition => 
-    this.setState({ initialPosition }),
-    error => alert(error.message),
-    { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
- )
- this.watchID = navigator.geolocation.watchPosition(lastPosition => {
-   markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
-  this.setState({ markers, lastPosition}),
-    error => alert(error.message),
-    { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
-  })
+  let {markers} = props
+    navigator.geolocation.getCurrentPosition( initialPosition => 
+      this.setState({ initialPosition }),
+      error => alert(error.message),
+      { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
+  )
+  this.watchID = navigator.geolocation.watchPosition(lastPosition => {
+    markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
+    this.setState({ markers, lastPosition}),
+      error => alert(error.message),
+      { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
+    })
 }
 
 componentWillUnmount() {
@@ -116,23 +115,23 @@ onMapClicked = (props) => {
 
   _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
     console.log("_onBoundsChange")
-    this.setState({center, zoom})
+    this.panTo(center, zoom)
     //this.props.onCenterChange(center);
     //this.props.onZoomChange(zoom);
   }
 
   _onChildClick = (key, childProps) => {
-    console.log("_onChildClick")
-    //this.props.onCenterChange([childProps.lat, childProps.lng]);
+    const center = [childProps.lat, childProps.lng]
+    const {zoom} = this.state
+    //const zoom = this.state.zoom < 22 ? this.state.zoom + 1 : this.state.zoom
+    this.panTo(center, zoom)
   }
 
   _onChildMouseEnter = (key , childProps ) => {
-    console.log("_onChildMouseEnter")
     // this.props.onHoverKeyChange(key);
   }
 
   _onChildMouseLeave = (key, /*childProps */) => {
-    console.log("_onChildMouseLeave")
    // this.props.onHoverKeyChange(null);
   }
 
@@ -154,10 +153,14 @@ onMapClicked = (props) => {
     return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
   }
 
+  panTo = (center, zoom) => {
+    this.setState({center, zoom})
+  }
+
   createMapOptions = (map) => {
     return {
       disableDefaultUI: true,
-      gestureHandling: 'cooperative',
+      gestureHandling: 'greedy',
       // panControl: true,
       // mapTypeControl: false,
       // scrollwheel: true,

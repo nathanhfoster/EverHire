@@ -2,84 +2,9 @@ body {
   height: 100vh;
   width: 100vw;
 }
-@media (max-width: 676px) {
-  body {
-
-  }
-}
 .App {
   height: 100vh;
   width: 100vw;
-}
-
-.zoomHover::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  bottom: -50%;
-  left: -50%;
-  background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
-  transform: rotateZ(60deg) translate(-5em, 7.5em);
-}
-
-.zoomHover {
-  position: relative;
-  overflow: hidden;
-}
-
-.zoomHover:hover::after, .zoomHover:focus::after {
-  animation: sheen 1.25s forwards;
-}
-
-.zoomFocus:focus {
-  transition: all .5s ease-in-out;
-  transform: scale(1.1, 1.1);
-  color: black;
-}
-
-@keyframes sheen {
-  100% {
-    transform: rotateZ(60deg) translate(1em, -9em);
-  }
-}
-
-.navbar {
-  z-index: 1000;
-  border: 0;
-  border-radius: 0;
-  flex-grow: 1;
-  margin: 0;
-}
-
-.navbar-brand {
-  font-size: 2em;
-  display: flex;
-  align-items: center;
-}
-.navbar-brand>img {
-  padding: 7px 14px;
-}
-
-.navbar-inverse {
-  background-color: rgba(0, 0, 0, .2);
-}
-
-.navbar-inverse .navbar-brand {
-  color: hsla(0, 0%, 100%, .7);
-}
-
-.navbar-inverse:hover {
-  background-color: rgba(0, 0, 0, 1);
-  -webkit-transition:  background-color 1s ease-out;
-  -moz-transition:  background-color 1s ease-out;
-  -o-transition:  background-color 1s ease-out;
-  transition:  background-color 1s ease-out;
-}
-
-.navbar-inverse .navbar-nav>li>a,
-.dropdown-menu>li>a {
-  color: hsla(0,0%,100%,.7);
 }
 
 .dropdown-menu {
@@ -127,10 +52,11 @@ a, a:focus, a:active, a:visited {
 }
 
 a, label {
-  color: white !important;
+  color: black;
 }
+
 a:hover {
-  color: white !important;
+  color: black;
   text-decoration: none;
 }
 
@@ -148,7 +74,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   position: absolute;
   z-index: 1;
   left: 0; right: 0;
-  top: 52px; bottom: 0;
+  top: 0; bottom: 50px;
   margin: auto;
 }
 .mg-0 {
