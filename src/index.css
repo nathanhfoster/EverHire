@@ -9,5 +9,15 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+/* When app os launched from home screen */
+@media all and (display-mode: standalone) {
+  body .searchListWrapper {
+      margin-top: calc(100vh - 104px);
+  }
+}
 
-
+@media all and (display-mode: browser) {
+  body .searchListWrapper {
+      margin-top: calc(100vh - 120px);
+  }
+}
