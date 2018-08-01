@@ -1,6 +1,6 @@
 
 @media all and (display-mode: standalone) {
-    .searchListWrapper {
+    GoogleMapContainer .searchListWrapper {
         margin-top: calc(100vh - 1004px);
     }
   }
