@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-repeat: no-repeat;
+  background-image: linear-gradient(to bottom, #1a2327 5%, #2196F3, #4A9FF4, #CEF6FF, #CEF6FF 125%);
 }
 
 body::-webkit-scrollbar {
@@ -10,7 +11,7 @@ body::-webkit-scrollbar {
 }
 
 @media all and (display-mode: standalone) {
-  body {
-  background-color: #FF0000;
+  #searchList {
+      margin-top: calc(100vh - 104px);
   }
-  }
+}
