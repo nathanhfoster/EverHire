@@ -115,7 +115,7 @@ onMapClicked = (props) => {
 
   _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
     console.log("_onBoundsChange")
-    this.panTo(center, zoom)
+    this._panTo(center, zoom)
     //this.props.onCenterChange(center);
     //this.props.onZoomChange(zoom);
   }
@@ -124,7 +124,7 @@ onMapClicked = (props) => {
     const center = [childProps.lat, childProps.lng]
     const {zoom} = this.state
     //const zoom = this.state.zoom < 22 ? this.state.zoom + 1 : this.state.zoom
-    this.panTo(center, zoom)
+    this._panTo(center, zoom)
   }
 
   _onChildMouseEnter = (key , childProps ) => {
@@ -153,7 +153,8 @@ onMapClicked = (props) => {
     return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
   }
 
-  panTo = (center, zoom) => {
+  _panTo = (center, zoom) => {
+    console.log(center)
     this.setState({center, zoom})
   }
 
@@ -221,7 +222,7 @@ onMapClicked = (props) => {
             options={this.createMapOptions}
             hoverDistance={K_CIRCLE_SIZE / 2}
             distanceToMouse={this._distanceToMouse}
-            icon='http://ruralshores.com/assets/marker-icon.png'
+            panTo={this._panTo}
             >            
               {places}
             </GoogleMap>
