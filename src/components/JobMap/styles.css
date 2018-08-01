@@ -24,7 +24,7 @@
     z-index: 2;
     border-radius: 8px;
     overflow: hidden;
-    margin-top: calc(100vh - 110px);
+    margin-top: calc(100vh - 116px);
 }
 
 .searchListTab {
