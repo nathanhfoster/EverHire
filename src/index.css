@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-repeat: no-repeat;
-  background-image: linear-gradient(to bottom, #1a2327 5%, #2196F3, #4A9FF4, #CEF6FF, #CEF6FF 125%);
+  background-image: linear-gradient(to top, #2196f3, #00aaf8, #00bcf6, #00ccee, #00dae4);
 }
 
 body::-webkit-scrollbar {
