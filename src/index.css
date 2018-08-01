@@ -9,27 +9,18 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
-/* When app os launched from home screen */
+/* When app is launched from home screen */
 @media all and (display-mode: standalone) {
-  body .searchListWrapper {
-      margin-top: calc(100vh - 104px);
-  }
+  /* body .searchListWrapper {
+      margin-top: calc(100%- 104px);
+  } */
 }
 
 @media all and (display-mode: minimal-ui) {
-  body .searchListWrapper {
-      margin-top: calc(100vh - 1204px);
-  }
 }
 
 @media all and (display-mode: browser) {
-  body .searchListWrapper {
-      margin-top: calc(100vh - 124px);
-  }
 }
 
 @media all and (display-mode: fullscreen) {
-  body .searchListWrapper {
-      margin-top: calc(100vh - 124px);
-  }
 }

@@ -18,13 +18,13 @@
     font-weight: 500;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
     background-color: rgba(255, 255, 255, 1);
-    /* max-height: calc(100% - 52px); */
     height: 350%;
     width: 100%;
     position: relative;
     z-index: 2;
     border-radius: 8px;
     overflow: hidden;
+    margin-top: calc(100vh - 110px);
 }
 
 .searchListTab {
@@ -43,11 +43,10 @@
 
 .searchBar {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    height: 48px;
+    height: 50px;
 }
 
 .scrolling-wrapper {
-    align-content: center;
     height: 350px;
     border-radius: 8px;
     display: block;
@@ -56,10 +55,10 @@
 }
 .card {
     height: 80%;
-    width: 100%;
+    width: 80%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     border: 1px solid rgba(0,0,0,0.2);
-    margin-bottom: 20px;
+    margin : auto auto 20px auto;  /* margin: [top] [right] [bottom] [left]; */
     border-radius: inherit;
     display: table;
     background: white;
@@ -77,10 +76,10 @@
 
 @media (max-width: 676px) {
     .scrolling-wrapper {
+        -webkit-overflow-scrolling: touch;
         align-content: center;
         height: 350px;
         border-radius: 8px;
-        -webkit-overflow-scrolling: touch;
         display: flex;
         flex-wrap: nowrap; 
         overflow-y: hidden;
@@ -93,7 +92,7 @@
         width: 80%;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         border: 1px solid rgba(0,0,0,0.2);
-        margin-right: 20px;
+        margin: auto 20px auto auto;  /* margin: [top] [right] [bottom] [left]; */
         border-radius: inherit;
         background: white;
         flex: 0 0 auto;
