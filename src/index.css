@@ -20,7 +20,7 @@ body::-webkit-scrollbar {
 @media all and (display-mode: minimal-ui) {
 }
 
-@media only all and (display-mode: browser) {
+@media all and (display-mode: browser) {
   body .searchListWrapper {
     margin-top: calc(100vh - 68px);
   }
@@ -30,7 +30,7 @@ body::-webkit-scrollbar {
 @media (max-width: 676px) {
   @media only all and (display-mode: browser) {
     body .searchListWrapper {
-      margin-top: calc(100vh - 88px);
+      margin-top: calc(100vh - 108px);
     }
   }
 }
