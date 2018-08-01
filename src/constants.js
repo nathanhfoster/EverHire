@@ -1,4 +1,4 @@
 const constants = {
-   SET_CURRENTLOCATION: "SET_CURRENTLOCATION",
+   SET_USER_LOCATION: "SET_USER_LOCATION"
  }
  export default constants

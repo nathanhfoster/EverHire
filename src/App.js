@@ -8,7 +8,7 @@ import JobMap from './components/JobMap'
 import Login from './components/Login'
 import BotNavBar from './components/NavBar'
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = {
 
@@ -31,11 +31,11 @@ class App extends Component {
   }
 
   componentWillMount() {
-    
+    this.getState(this.props)
   }
 
   componentDidMount() {
-    this.getState()
+    
   }
 
   componentWillReceiveProps(nextProps) {

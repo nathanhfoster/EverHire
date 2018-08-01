@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 
-const mapStateToProps = () => ({
+const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
@@ -22,6 +22,10 @@ class Template extends Component {
   static defaultProps = {
   }
   
+  componentWillMount() {
+    this.getState(this.props)
+  }
+
   componentDidMount() {
   }
 
@@ -33,8 +37,7 @@ class Template extends Component {
       });
   }
 
-  componentWillMount() {
-  }
+  
 
   componentWillUpdate() {
   }
