@@ -10,8 +10,4 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-@media all and (display-mode: standalone) {
-  body .searchListWrapper {
-      margin-top: calc(100vh - 104px);
-  }
-}
+
