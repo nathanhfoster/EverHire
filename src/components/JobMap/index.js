@@ -34,7 +34,7 @@ class JobMap extends Component {
       lastPosition: {},
       initialCenter: [39.81363019660378, -101.42108394461178],
       center: null,
-      zoom: 4,
+      zoom: 3,
       markers: [],
       showingInfoWindow: false,
       activeMarker: {},
