@@ -16,8 +16,20 @@ body::-webkit-scrollbar {
   }
 }
 
+@media all and (display-mode: minimal-ui) {
+  body .searchListWrapper {
+      margin-top: calc(100vh - 1204px);
+  }
+}
+
 @media all and (display-mode: browser) {
   body .searchListWrapper {
-      margin-top: calc(100vh - 120px);
+      margin-top: calc(100vh - 124px);
+  }
+}
+
+@media all and (display-mode: fullscreen) {
+  body .searchListWrapper {
+      margin-top: calc(100vh - 124px);
   }
 }
