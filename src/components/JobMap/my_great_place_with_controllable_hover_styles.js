@@ -1,4 +1,4 @@
-const K_CIRCLE_SIZE = 24
+const K_CIRCLE_SIZE = 34
 const K_STICK_SIZE = 10
 const K_STICK_WIDTH = 3
 
