@@ -34,9 +34,7 @@ class JobMap extends Component {
     google: PropTypes.object,
     zoom: PropTypes.number,
     initialCenter: PropTypes.object,
-    coordinates: PropTypes.func.isRequired,
     markers: PropTypes.array,
-    center: PropTypes.array, // @controllable
     zoom: PropTypes.number, // @controllable
     onCenterChange: PropTypes.func, // @controllable generated fn
     onZoomChange: PropTypes.func, // @controllable generated fn
