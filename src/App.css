@@ -151,17 +151,28 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   top: 52px; bottom: 0;
   margin: auto;
 }
-
-.ht-20 {
-  height: 20px;
-}
-
 .mg-0 {
   margin: 0;
 }
 
+.mg-10 {
+  margin: 10px;
+}
+
 .mg-20 {
   margin: 20px;
+}
+
+.mg-t-10 {
+  margin-top: 10px;
+}
+
+.mg-t-20 {
+  margin-top: 20px;
+}
+
+.mg-b-10 {
+  margin-bottom: 10px;
 }
 
 .mg-b-20 {
