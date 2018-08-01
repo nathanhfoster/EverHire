@@ -20,10 +20,19 @@ body::-webkit-scrollbar {
 @media all and (display-mode: minimal-ui) {
 }
 
-@media all and (display-mode: browser) {
+@media only all and (display-mode: browser) {
   body .searchListWrapper {
     margin-top: calc(100vh - 68px);
+  }
 }
+
+/*Running on mobile browser*/
+@media (max-width: 676px) {
+  @media only all and (display-mode: browser) {
+    body .searchListWrapper {
+      margin-top: calc(100vh - 88px);
+    }
+  }
 }
 
 @media all and (display-mode: fullscreen) {
