@@ -11,9 +11,9 @@ body::-webkit-scrollbar {
 }
 /* When app is launched from home screen */
 @media all and (display-mode: standalone) {
-  /* body .searchListWrapper {
+  body .searchListWrapper {
       margin-top: calc(100%- 104px);
-  } */
+  }
 }
 
 @media all and (display-mode: minimal-ui) {
