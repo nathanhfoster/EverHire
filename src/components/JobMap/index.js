@@ -58,6 +58,8 @@ class JobMap extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   componentDidMount() {
+    console.log(window.matchMedia('(display-mode: standalone)').matches);
+ 
     this.getState(this.props)
   }
 

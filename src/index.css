@@ -9,3 +9,9 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+
+@media all and (display-mode: standalone) {
+  body {
+  background-color: #FF0000;
+  }
+  }
