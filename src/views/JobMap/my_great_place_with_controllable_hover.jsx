@@ -37,21 +37,20 @@ export default class MyGreatPlaceWithControllableHover extends Component {
 
     return (
       <div style={style} className="center">
-        {!this.props.$hover ? ([
+        {!this.props.$hover ? [
           <div style={greatPlaceStickStyleShadow} />,
             <div style={circleStyle}>
               {text}
             </div>,
           <div style={stickStyle} />
-        ]) 
-        : ([
+         ]:[
           <div style={infoBoxStyle}>HOVER BOX</div>,
           <div style={greatPlaceStickStyleShadow} />,
             <div style={circleStyle}>
               {text}
             </div>,
           <div style={stickStyle} />
-        ])}
+        ]}
     </div>
     );
   }

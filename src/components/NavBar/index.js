@@ -7,8 +7,6 @@ import faMap from '@fortawesome/fontawesome-free-solid/faMap'
 import faClipboard from '@fortawesome/fontawesome-free-solid/faClipboard'
 import faUserCircle from '@fortawesome/fontawesome-free-solid/faUserCircle'
 
-
-
 const mapStateToProps = () => ({
 })
 
