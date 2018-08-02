@@ -18,12 +18,12 @@ const greatPlaceCircleStyle = {
   top: 0,
   width: K_CIRCLE_SIZE,
   height: K_CIRCLE_SIZE,
-  border: "2px solid #2196f3",
+  border: "2px solid var(--primaryColor)",
   borderRadius: K_CIRCLE_SIZE,
-  color: "#2196f3",
+  color: "var(--primaryColor)",
   backgroundColor: "white",
   textAlign: 'center',
-  boxShadow: "0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)",
+  boxShadow: "0px 1px 5px 0px var(--primaryBoxShadow), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)",
   fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
   fontSize: 12,
   fontWeight: 'bold',
@@ -41,8 +41,8 @@ const userLocation = {
 
 const greatPlaceCircleStyleHover = {
   ...greatPlaceCircleStyle,
-  border: '2px solid #dd4c41',
-  color: 'black'
+  border: '2px solid var(--secondaryColor)',
+  color: 'var(--secondaryColor)'
 }
 
 const greatPlaceStickStyleShadow = {
@@ -62,12 +62,12 @@ const greatPlaceStickStyle = {
   top: K_CIRCLE_SIZE,
   width: K_STICK_WIDTH,
   height: K_STICK_SIZE,
-  backgroundColor: '#2196f3'
+  backgroundColor: 'var(--primaryColor)'
 }
 
 const greatPlaceStickStyleHover = {
   ...greatPlaceStickStyle,
-  backgroundColor: '#dd4c41'
+  backgroundColor: 'var(--secondaryColor)'
 }
 
 

@@ -3,9 +3,11 @@ import { connect as reduxConnect } from 'react-redux'
 import {Link } from "react-router-dom"
 import './styles.css'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faUserCircle from '@fortawesome/fontawesome-free-solid/faUserCircle'
-import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
+import faClipboard from '@fortawesome/fontawesome-free-solid/faClipboard'
+import faUserCircle from '@fortawesome/fontawesome-free-solid/faUserCircle'
+
+
 
 const mapStateToProps = () => ({
 })
@@ -52,10 +54,10 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div className="center NavBarContainer">
-        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faMap} size="2x"/></Link>
-        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faMapMarkerAlt} size="2x"/></Link>
-        <Link to="/Login" className="zoomHover"><FontAwesomeIcon icon={faUserCircle} size="2x"/></Link>
+      <div className="NavBarContainer">
+        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faMap} size="2x"/> <span className="center navLinkLabel">Map</span></Link>
+        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faClipboard} size="2x"/><span className="center navLinkLabel">Post Job</span></Link>
+        <Link to="/Login" className="zoomHover"><FontAwesomeIcon icon={faUserCircle} size="2x"/><span className="center navLinkLabel">Profile</span></Link>
       </div>
     );
   }

@@ -144,8 +144,7 @@ class JobMap extends Component {
 
   _onChildClick = (key, childProps) => {
     const center = [childProps.lat, childProps.lng]
-    const {zoom} = this.state
-    //const zoom = this.state.zoom < 22 ? this.state.zoom + 1 : this.state.zoom
+    const zoom = this.state.zoom + 1 < 18 ? this.state.zoom + 1 : this.state.zoom
     this._panTo(center, zoom)
   }
 
@@ -194,11 +193,10 @@ class JobMap extends Component {
   }
 
   locationButton = (e) => {
-    console.log("locationButton")
     const {latitude, longitude} = this.state.lastPosition.coords != null
     ? this.state.lastPosition.coords : this.props.userLocation != null 
     ? this.props.userLocation : 0
-    let zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom
+    const zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom
     this._panTo([latitude, longitude], zoom)
   }
   

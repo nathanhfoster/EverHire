@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './App.css'
 import { BrowserRouter as Router, Route } from "react-router-dom"
 //import JobMap from './views/GoogleMap'
-import JobMap from './components/JobMap'
+import JobMap from './views/JobMap'
 import Login from './components/Login'
 import BotNavBar from './components/NavBar'
 

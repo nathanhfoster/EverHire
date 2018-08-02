@@ -30,7 +30,7 @@ export default class MyGreatPlaceWithControllableHover extends Component {
     const style = {
       ...greatPlaceStyle,
       zIndex: this.props.$hover ? 1000 : zIndex
-    };
+    }
 
     const circleStyle = this.props.$hover ? greatPlaceCircleStyleHover : greatPlaceCircleStyle;
     const stickStyle = this.props.$hover ? greatPlaceStickStyleHover : greatPlaceStickStyle;

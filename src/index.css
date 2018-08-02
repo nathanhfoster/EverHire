@@ -1,9 +1,20 @@
+:root {
+  --primaryColor: #2196f3;
+  --secondaryColor: #00aaf8;
+  --tertiaryColor: #00bcf6;
+  --quaternaryColor: #00dae4;
+  --quinaryColor: #2DE5D2;
+  --primaryTextColor: black; 
+  --main-padding: 15px; 
+  --primaryBoxShadow: rgba(0, 0, 0, 0.2);
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-repeat: no-repeat;
-  background-image: linear-gradient(to top, #2196f3, #00aaf8, #00bcf6, #00ccee, #00dae4);
+  background-image: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
 }
 
 body::-webkit-scrollbar {
