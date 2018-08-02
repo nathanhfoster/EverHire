@@ -2,6 +2,25 @@ const K_CIRCLE_SIZE = 34
 const K_STICK_SIZE = 10
 const K_STICK_WIDTH = 3
 
+const infoBoxStyle = {
+  margin: 'auto',
+  alignContent: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+  height: '50px',
+  width: '100px',
+  bottom: K_CIRCLE_SIZE,
+  transform: 'scale(1.25)',
+  position: 'absolute',
+  willChange: 'transform',
+  backgroundSize: '62px 60px',
+  backgroundRepeat: 'no-repeat',
+  transition: '-webkit-transform 0.5s cubic-bezier(0.485, 1.65, 0.545, 0.835)',
+  transformOrigin: '15px 60px 0px',
+  zIndex: 6500,
+  backgroundColor: 'red'
+}
+
 const greatPlaceStyle = {
   // initially any map object has left top corner at lat lng coordinates
   // it's on you to set object origin to 0,0 coordinates
@@ -42,7 +61,11 @@ const userLocation = {
 const greatPlaceCircleStyleHover = {
   ...greatPlaceCircleStyle,
   border: '2px solid var(--secondaryColor)',
-  color: 'var(--secondaryColor)'
+  color: 'var(--secondaryColor)',
+  transform: 'scale(1.1)',
+  transition: '-webkit-transform 0.25s cubic-bezier(0.485, 1.65, 0.545, 0.835)',
+  transformOrigin: '15px 60px 0px',
+  zIndex: 6500,
 }
 
 const greatPlaceStickStyleShadow = {
@@ -72,7 +95,7 @@ const greatPlaceStickStyleHover = {
 
 
 export {
-  greatPlaceStyle,
+  infoBoxStyle, greatPlaceStyle,
   greatPlaceCircleStyle, greatPlaceCircleStyleHover,
   greatPlaceStickStyle, greatPlaceStickStyleHover, greatPlaceStickStyleShadow,
   K_CIRCLE_SIZE, K_STICK_SIZE}

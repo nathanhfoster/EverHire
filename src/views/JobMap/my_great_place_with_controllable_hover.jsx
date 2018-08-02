@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
 import {
-  greatPlaceStyle,
+  infoBoxStyle, greatPlaceStyle,
   greatPlaceCircleStyle, greatPlaceCircleStyleHover,
   greatPlaceStickStyle, greatPlaceStickStyleHover, greatPlaceStickStyleShadow} from './my_great_place_with_controllable_hover_styles.js';
 
@@ -36,12 +36,22 @@ export default class MyGreatPlaceWithControllableHover extends Component {
     const stickStyle = this.props.$hover ? greatPlaceStickStyleHover : greatPlaceStickStyle;
 
     return (
-      <div style={style}>
-        <div style={greatPlaceStickStyleShadow} />
-          <div style={circleStyle}>
-            {text}
-          </div>
-        <div style={stickStyle} />
+      <div style={style} className="center">
+        {!this.props.$hover ? ([
+          <div style={greatPlaceStickStyleShadow} />,
+            <div style={circleStyle}>
+              {text}
+            </div>,
+          <div style={stickStyle} />
+        ]) 
+        : ([
+          <div style={infoBoxStyle}>HOVER BOX</div>,
+          <div style={greatPlaceStickStyleShadow} />,
+            <div style={circleStyle}>
+              {text}
+            </div>,
+          <div style={stickStyle} />
+        ])}
     </div>
     );
   }
