@@ -10,10 +10,10 @@ const mapDispatchToProps = {
 
 class Template extends Component {
   constructor(props) {
-    super(props);
+    super(props)
  
     this.state = {
-    };
+    }
   }
 
   static propTypes = { 
@@ -34,16 +34,15 @@ class Template extends Component {
 
   getState = props => {
     this.setState({
-      });
+      })
   }
-
-  
 
   componentWillUpdate() {
   }
 
   componentDidUpdate() {
   }
+
   componentWillUnmount() {
   }
 
@@ -52,7 +51,7 @@ class Template extends Component {
       <div className="TemplateContainer">
         Template
       </div>
-    );
+    )
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Template)

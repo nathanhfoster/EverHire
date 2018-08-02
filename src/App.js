@@ -19,7 +19,7 @@ class App extends Component {
     super(props);
     this.state = {
       
-    };
+    }
   }
 
 
@@ -61,7 +61,7 @@ class App extends Component {
           </div>
         </div>
      </Router>
-    );
+    )
   }
 }
  

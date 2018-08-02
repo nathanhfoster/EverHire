@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ImmutableProptypes from 'react-immutable-proptypes'
+import { objectToArray } from '../../utils/helperFunction'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Row, Col, InputGroup, FormControl, ButtonToolbar, Button } from 'react-bootstrap'
@@ -13,15 +14,15 @@ import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
 import {K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
 import './stylesM.css'
-import {getUserLocation} from '../../actions/JobMap'
-import {userLocation} from '../../actions'
+import {setUserLocation, getUserLocation} from '../../actions'
 
 const mapStateToProps = ({ userLocation }) => ({
   userLocation
 })
 
 const mapDispatchToProps = {
-  userLocation
+  setUserLocation,
+  getUserLocation
 }
 
 class JobMap extends Component {
@@ -48,16 +49,18 @@ class JobMap extends Component {
     zoom: PropTypes.number,
     initialCenter: PropTypes.object,
     markers: PropTypes.array,
-    zoom: PropTypes.number, // @controllable
-    onCenterChange: PropTypes.func, // @controllable generated fn
-    onZoomChange: PropTypes.func, // @controllable generated fn
-    onHoverKeyChange: PropTypes.func, // @controllable generated fn
+    zoom: PropTypes.number,
+    onCenterChange: PropTypes.func,
+    onZoomChange: PropTypes.func,
+    onHoverKeyChange: PropTypes.func,
     markers: PropTypes.array,
-    userLocation: PropTypes.func.isRequired
-  };
+    userLocation: ImmutableProptypes.map,
+    setUserLocation: PropTypes.func.isRequired,
+    getUserLocation: PropTypes.func.isRequired,
+  }
 
   static defaultProps = {
-    location: new Map(),
+    userLocation: new Map(),
     initialPosition: {},
     lastPosition: {},
     center: [37.4220862600981 -121.89071280220037],
@@ -69,14 +72,12 @@ class JobMap extends Component {
     ]
   }
 
-  shouldComponentUpdate = shouldPureComponentUpdate
-
   componentWillMount() {
     this.getState(this.props)
   }
 
   componentDidMount() {
-   this.props.userLocation()
+    this.props.getUserLocation()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -90,47 +91,48 @@ class JobMap extends Component {
   componentDidUpdate() {
   }
 
-getState = props => {
-  let {markers} = props
-    navigator.geolocation.getCurrentPosition( initialPosition => 
-      this.setState({ initialPosition }),
-      error => alert(error.message),
-      { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
-  )
-  this.watchID = navigator.geolocation.watchPosition(lastPosition => {
-    markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
-    this.setState({ markers, lastPosition}),
-      error => alert(error.message),
-      { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
-    })
-  
-}
+  getState = props => {
+    // const userLocation = objectToArray(props.userLocation)
+    // console.log("getState: ", userLocation)
+    let {markers} = props
+      navigator.geolocation.getCurrentPosition( initialPosition => 
+        this.setState({ initialPosition }),
+        error => alert(error.message),
+        { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
+    )
+    this.watchID = navigator.geolocation.watchPosition(lastPosition => {
+      markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
+      this.setState({ markers, lastPosition}),
+        error => alert(error.message),
+        { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
+      })
+  }
 
 
-componentWillUnmount() {
-  const {timestamp} = this.state.lastPosition
-  const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords
-  clearInterval(this.interval)
-  navigator.geolocation.clearWatch(this.watchID)
-  this.props.userLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp)
-}
+  componentWillUnmount() {
+    const {timestamp} = this.state.lastPosition
+    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords
+    navigator.geolocation.clearWatch(this.watchID)
+    this.props.setUserLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp)
+  }
 
-onMarkerClick = (props, marker, e) =>{
-//console.log("onMarkerClick")
+  onMarkerClick = (props, marker, e) =>{
+  //console.log("onMarkerClick")
   this.setState({
     selectedPlace: props,
     activeMarker: marker,
     showingInfoWindow: true
-  })}
+  })
+}
       
-onMapClicked = (props) => {
-  //console.log("onMapClicked: ", props)
-  if (this.state.showingInfoWindow) {
-    this.setState({
-      showingInfoWindow: false,
-      activeMarker: null
-      })
-    }
+  onMapClicked = (props) => {
+    //console.log("onMapClicked: ", props)
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+        })
+      }
   }
 
   _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
@@ -156,7 +158,6 @@ onMapClicked = (props) => {
   }
 
   _distanceToMouse = (markerPos, mousePos, markerProps) => {
-    //console.log("_distanceToMouse")
     const x = markerPos.x;
     // because of marker non symmetric,
     // we transform it central point to measure distance from marker circle center
@@ -173,10 +174,8 @@ onMapClicked = (props) => {
     return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
   }
 
-  _panTo = (center, zoom) => {
-    this.setState({center, zoom})
-  }
-
+  _panTo = (center, zoom) => this.setState({center, zoom})
+  
   createMapOptions = (map) => {
     return {
       disableDefaultUI: true,
@@ -195,8 +194,12 @@ onMapClicked = (props) => {
   }
 
   locationButton = (e) => {
-    const {latitude, longitude} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
-    this._panTo([latitude, longitude], 10)
+    console.log("locationButton")
+    const {latitude, longitude} = this.state.lastPosition.coords != null
+    ? this.state.lastPosition.coords : this.props.userLocation != null 
+    ? this.props.userLocation : 0
+    let zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom
+    this._panTo([latitude, longitude], zoom)
   }
   
   // apiIsLoaded = (map, maps, lat, lng) => {
@@ -214,19 +217,20 @@ onMapClicked = (props) => {
     speed = parseInt(speed * 2.23694) // meters per second to mph
     altitude = parseInt(altitude * 3.28084) // meters to feet
     const places = this.state.markers.map(place => {
-    const {id, ...coords} = place
-    return (
-      <MyGreatPlaceWithControllableHover
-        key={id}
-        {...coords}
-        text={id}
-        zIndex={1}
-        // use your hover state (from store, react-controllables etc...)
-        hover={this.props.hoverKey === id} />
-    )})
-
+      const {id, ...coords} = place
+      return (
+        <MyGreatPlaceWithControllableHover
+          key={id}
+          {...coords}
+          text={id}
+          zIndex={1}
+          // use your hover state (from store, react-controllables etc...)
+          hover={this.props.hoverKey === id} />
+      )})
+ 
     return (
       <div className="GoogleMapContainer">
+      { this.state.isLoading ? <div>Loading</div> : [
         <div className="GoogleMapWrapper">
           <GoogleMap
             //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
@@ -244,10 +248,10 @@ onMapClicked = (props) => {
             hoverDistance={K_CIRCLE_SIZE / 2}
             distanceToMouse={this._distanceToMouse}
             panTo={this._panTo}
-            >            
-              {places}
-            </GoogleMap>
-        </div>
+          >            
+            {places}
+          </GoogleMap>
+        </div>,
         <div className="searchListWrapper">
           <Row className="center">
             <div className="searchListTab"/>
@@ -304,8 +308,9 @@ onMapClicked = (props) => {
               </Col>
             </Row>
           </div>
+        ]}
       </div>
-    );
+    )
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(JobMap)
