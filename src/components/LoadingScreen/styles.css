@@ -18,8 +18,7 @@
 	animation:load 2s ease infinite alternate;
 }
 
-.LoadingScreenContainer div,
-.LoadingScreenContainer div:before, span {
+.LoadingScreenContainer div, div:before, span {
     display: block;
     position: absolute;
 }

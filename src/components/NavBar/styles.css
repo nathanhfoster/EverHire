@@ -11,6 +11,7 @@
     z-index: 3;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
   }
+
 .NavBarContainer a {
     color: rgba(0, 0, 0, 0.54);
     margin: auto;

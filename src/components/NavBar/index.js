@@ -53,9 +53,9 @@ class NavBar extends Component {
   render() {
     return (
       <div className="NavBarContainer">
-        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faMap} size="2x"/> <span className="center navLinkLabel">Map</span></Link>
-        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faClipboard} size="2x"/><span className="center navLinkLabel">Post Job</span></Link>
-        <Link to="/Login" className="zoomHover"><FontAwesomeIcon icon={faUserCircle} size="2x"/><span className="center navLinkLabel">Profile</span></Link>
+        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faMap} size="2x"/> <div className="center navLinkLabel">Map</div></Link>
+        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faClipboard} size="2x"/><div className="center navLinkLabel">Post Job</div></Link>
+        <Link to="/Login" className="zoomHover"><FontAwesomeIcon icon={faUserCircle} size="2x"/><div className="center navLinkLabel">Profile</div></Link>
       </div>
     );
   }
