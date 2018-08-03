@@ -34,7 +34,7 @@ class JobMap extends Component {
       shouldSetInitialCenter: true,
       initialCenter: [39.81363019660378, -101.42108394461178],
       center: null,
-      zoom: 14,
+      zoom: 11,
       markers: [],
       showingInfoWindow: false,
       activeMarker: {},
