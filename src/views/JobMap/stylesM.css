@@ -8,12 +8,15 @@
         flex-wrap: nowrap; 
         overflow-y: hidden;
     }
+
     .scrolling-wrapper::-webkit-scrollbar {
         display: none;
       }
+
     .card {
-        height: 90%;
-        width: 80%;
+        color: var(--primaryTextColor);
+        height: 30vh;
+        width: 65vw;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         border: 1px solid rgba(0,0,0,0.2);
         margin: auto 20px auto auto;  /* margin: [top] [right] [bottom] [left]; */
@@ -21,6 +24,7 @@
         background: white;
         flex: 0 0 auto;
     }
+
     .center {
         display: flex;
         align-items: center;

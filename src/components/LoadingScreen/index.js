@@ -49,7 +49,7 @@ class LoadingScreen extends Component {
   render() {
     return (
       <div className="LoadingScreenContainer">
-        <div id="Loading" onload="loader()"></div>
+          <div id="Loading"/>
       </div>
     )
   }

@@ -18,13 +18,18 @@ class NavBar extends Component {
     super(props);
  
     this.state = {
-    };
+    }
   }
 
   static propTypes = { 
   }
 
   static defaultProps = {
+    navItems: [
+      {name: 'Map', link: "/", icon: faMap},
+      {name: 'Post Job', link: "/", icon: faClipboard},
+      {name: 'Login', link: "/", icon: faUserCircle},
+    ]
   }
   
   componentDidMount() {
@@ -50,14 +55,23 @@ class NavBar extends Component {
   componentWillUnmount() {
   }
 
+  renderNavItems = navItems => Object.keys(navItems).map(k => {
+    console.log(k)
+    return (
+      <Link to={navItems[k].link} className="zoomHover">
+        <FontAwesomeIcon icon={navItems[k].icon} size="2x"/>
+        <div className="center navLinkLabel">{navItems[k].name}</div>
+      </Link>
+    )
+  })
+
   render() {
+    const {navItems} = this.props
     return (
       <div className="NavBarContainer">
-        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faMap} size="2x"/> <div className="center navLinkLabel">Map</div></Link>
-        <Link to="/" className="zoomHover"><FontAwesomeIcon icon={faClipboard} size="2x"/><div className="center navLinkLabel">Post Job</div></Link>
-        <Link to="/Login" className="zoomHover"><FontAwesomeIcon icon={faUserCircle} size="2x"/><div className="center navLinkLabel">Profile</div></Link>
+        {this.renderNavItems(navItems)}
       </div>
-    );
+    )
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar)

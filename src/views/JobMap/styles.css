@@ -14,7 +14,7 @@
 }
 
 .searchListWrapper {
-    color: rgba(0, 0, 0, 0.87);
+    color: var(--primaryTextColor);
     font-weight: 500;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
     background-color: rgba(255, 255, 255, 1);
@@ -55,8 +55,9 @@
     overflow-x: auto;
 }
 .card {
-    height: 80%;
-    width: 80%;
+    color: var(--primaryTextColor);
+    height: 30vh;
+    width: 75vw;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     border: 1px solid rgba(0,0,0,0.2);
     margin : auto auto 20px auto;  /* margin: [top] [right] [bottom] [left]; */

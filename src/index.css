@@ -4,7 +4,12 @@
   --tertiaryColor: #00bcf6;
   --quaternaryColor: #00dae4;
   --quinaryColor: #2DE5D2;
-  --primaryTextColor: black; 
+  --loadColor_1: radial-gradient(closest-side at 50% 50%,var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),rgba(0,0,0,0));
+  --loadColor_2: radial-gradient(closest-side at 50% 50%,var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),rgba(0,0,0,0));
+  --loadColor_3: radial-gradient(closest-side at 50% 50%,var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),rgba(0,0,0,0));
+  --loadColor_4: radial-gradient(closest-side at 50% 50%,var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),rgba(0,0,0,0));
+  --loadColor_5: radial-gradient(closest-side at 50% 50%,var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),rgba(0,0,0,0));
+  --primaryTextColor: rgba(0, 0, 0, 0.87);
   --primaryBackGround: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
   --main-padding: 15px; 
   --primaryBoxShadow: rgba(0, 0, 0, 0.2);
