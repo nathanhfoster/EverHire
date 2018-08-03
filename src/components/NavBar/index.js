@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
-import {Link } from "react-router-dom"
+import {Link} from "react-router-dom"
 import './styles.css'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faMap from '@fortawesome/fontawesome-free-solid/faMap'
@@ -26,9 +26,9 @@ class NavBar extends Component {
 
   static defaultProps = {
     navItems: [
-      {name: 'Map', link: "/", icon: faMap},
-      {name: 'Post Job', link: "/", icon: faClipboard},
-      {name: 'Login', link: "/", icon: faUserCircle},
+      {name: 'Map', link: '/', icon: faMap},
+      {name: 'Post Job', link: '/', icon: faClipboard},
+      {name: 'Login', link: '/login', icon: faUserCircle},
     ]
   }
   
@@ -56,7 +56,7 @@ class NavBar extends Component {
   }
 
   renderNavItems = navItems => Object.keys(navItems).map(k => {
-    console.log(k)
+    console.log(navItems[k].link)
     return (
       <Link to={navItems[k].link} className="zoomHover">
         <FontAwesomeIcon icon={navItems[k].icon} size="2x"/>
