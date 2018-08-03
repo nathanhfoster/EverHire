@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import ImmutableProptypes from 'react-immutable-proptypes'
-import { objectToArray } from '../../utils/helperFunction'
 import PropTypes from 'prop-types'
+import LoadingScreen from '../../components/loadingScreen'
 import { connect as reduxConnect } from 'react-redux'
-import {Row, Col, InputGroup, FormControl, ButtonToolbar, Button } from 'react-bootstrap'
-import shouldPureComponentUpdate from 'react-pure-render/function'
+import {Row, Col, InputGroup, FormControl, Button } from 'react-bootstrap'
 import GoogleMap from 'google-map-react'
-import MyGreatPlaceWithControllableHover from './my_great_place_with_controllable_hover.jsx'
+import MyGreatPlaceWithControllableHover from './my_great_place_with_controllable_hover'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt'
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
@@ -28,14 +27,14 @@ const mapDispatchToProps = {
 class JobMap extends Component {
   constructor(props) {
     super(props)
-    this.onMarkerClick = this.onMarkerClick.bind(this)
     this.watchID = null
     this.state = {
       initialPosition: {},
       lastPosition: {},
+      shouldSetInitialCenter: true,
       initialCenter: [39.81363019660378, -101.42108394461178],
       center: null,
-      zoom: 3,
+      zoom: 14,
       markers: [],
       showingInfoWindow: false,
       activeMarker: {},
@@ -102,12 +101,11 @@ class JobMap extends Component {
     )
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
-      this.setState({ markers, lastPosition}),
+      this.setState({ markers, lastPosition }),
         error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
       })
   }
-
 
   componentWillUnmount() {
     const {timestamp} = this.state.lastPosition
@@ -115,15 +113,6 @@ class JobMap extends Component {
     navigator.geolocation.clearWatch(this.watchID)
     this.props.setUserLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp)
   }
-
-  onMarkerClick = (props, marker, e) =>{
-  //console.log("onMarkerClick")
-  this.setState({
-    selectedPlace: props,
-    activeMarker: marker,
-    showingInfoWindow: true
-  })
-}
       
   onMapClicked = (props) => {
     //console.log("onMapClicked: ", props)
@@ -143,9 +132,9 @@ class JobMap extends Component {
   }
 
   _onChildClick = (key, childProps) => {
-    const center = [childProps.lat, childProps.lng]
-    const zoom = this.state.zoom + 1 < 18 ? this.state.zoom + 1 : this.state.zoom
-    this._panTo(center, zoom)
+    // const center = [childProps.lat, childProps.lng]
+    // const zoom = this.state.zoom + 1 < 18 ? this.state.zoom + 1 : this.state.zoom
+    // this._panTo(center, zoom)
   }
 
   _onChildMouseEnter = (key , childProps ) => {
@@ -199,6 +188,18 @@ class JobMap extends Component {
     const zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom
     this._panTo([latitude, longitude], zoom)
   }
+
+  mapCanLoad = () => {
+    if(this.state.lastPosition.coords != null) {
+      const {latitude, longitude} = this.state.lastPosition.coords
+      if(this.state.shouldSetInitialCenter) {
+        this.setState({center: [latitude, longitude], shouldSetInitialCenter: false})
+      }
+      return true
+    }
+    else 
+      return false
+  }
   
   // apiIsLoaded = (map, maps, lat, lng) => {
   //   if (map) {
@@ -208,8 +209,7 @@ class JobMap extends Component {
   // }
 
   render() {
-    const {initialCenter, zoom} = this.state
-    const center = this.state.center != null ? this.state.center : initialCenter
+    const {initialCenter, center, zoom} = this.state
     const {timestamp} = this.state.lastPosition != null ? this.state.lastPosition : 0
     let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
     speed = parseInt(speed * 2.23694) // meters per second to mph
@@ -223,12 +223,12 @@ class JobMap extends Component {
           text={id}
           zIndex={1}
           // use your hover state (from store, react-controllables etc...)
-          hover={this.props.hoverKey === id} />
+          $hover={this.props.hoverKey === id} />
       )})
  
     return (
       <div className="GoogleMapContainer">
-      { this.state.isLoading ? <div>Loading</div> : [
+      { this.mapCanLoad() ? [
         <div className="GoogleMapWrapper">
           <GoogleMap
             //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
@@ -258,6 +258,14 @@ class JobMap extends Component {
             <h3>Explore Jobs</h3>
           </Row>
           <Row className="center">
+              <Col lg={11} md={11} sm={11} xs={11}>
+                <InputGroup>
+                  <InputGroup.Addon className="searchIcon"><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
+                  <FormControl type="text" className="searchBar"/>
+                </InputGroup>
+              </Col>
+            </Row>
+          <Row className="center">
               <Col>
                   <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
                     <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
@@ -269,15 +277,6 @@ class JobMap extends Component {
                   </Button>
                 </Col>
             </Row>
-            <Row className="center">
-              <Col lg={11} md={11} sm={11} xs={11}>
-                <InputGroup>
-                  <InputGroup.Addon className="searchIcon"><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
-                  <FormControl type="text" className="searchBar"/>
-                </InputGroup>
-              </Col>
-            </Row>
-            
             <Row className="mg-20">
               <Col className="scrolling-wrapper">
                 <div class="card"><h2>Card</h2></div>
@@ -292,21 +291,22 @@ class JobMap extends Component {
               </Col>
             </Row>
             <Row className="mg-20">
-              <Col className="" sm={12}>
+              <Col sm={12}>
                 <h2>Speed: {speed} mph</h2>
                 <h2>Heading: {heading}</h2>
                 <h2>Latitude: {latitude}</h2>
                 <h2>Longitude: {longitude}</h2>
                 <h2>Altitude: {altitude}</h2> 
-                <h2>Center: {center[0]}, {center[1]}</h2>
+                {/* <h2>Center: {center[0]}, {center[1]}</h2> */}
                 <h2>Zoom: {zoom}</h2>
                 <h2>Accuracy: {accuracy}</h2>
                 <h2>Altitude accuracy: {altitudeAccuracy}</h2>
-                <h2>Timestamp:: {timestamp}</h2>
+                <h2>Timestamp: {timestamp}</h2>
               </Col>
             </Row>
           </div>
-        ]}
+        ] : <LoadingScreen />
+      }
       </div>
     )
   }

@@ -7,18 +7,18 @@ const infoBoxStyle = {
   alignContent: 'center',
   justifyContent: 'center',
   textAlign: 'center',
-  height: '50px',
-  width: '100px',
+  height: '300%',
+  width: '500%',
   bottom: K_CIRCLE_SIZE,
   transform: 'scale(1.25)',
   position: 'absolute',
   willChange: 'transform',
-  backgroundSize: '62px 60px',
   backgroundRepeat: 'no-repeat',
-  transition: '-webkit-transform 0.5s cubic-bezier(0.485, 1.65, 0.545, 0.835)',
+  transition: '-webkit-transform 1s cubic-bezier(0.485, 1.65, 0.545, 0.835)',
   transformOrigin: '15px 60px 0px',
   zIndex: 6500,
-  backgroundColor: 'red'
+  backgroundColor: 'white',
+  boxShadow: "0px 1px 5px 0px var(--primaryBoxShadow), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)"
 }
 
 const greatPlaceStyle = {

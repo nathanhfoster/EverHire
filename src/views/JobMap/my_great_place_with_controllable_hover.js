@@ -7,22 +7,21 @@ import {
   greatPlaceCircleStyle, greatPlaceCircleStyleHover,
   greatPlaceStickStyle, greatPlaceStickStyleHover, greatPlaceStickStyleShadow} from './my_great_place_with_controllable_hover_styles.js';
 
-export default class MyGreatPlaceWithControllableHover extends Component {
+class MyGreatPlaceWithControllableHover extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+  }
+  shouldComponentUpdate = shouldPureComponentUpdate
+
   static propTypes = {
-    // use hover from controllable
     $hover: PropTypes.bool,
     text: PropTypes.string,
     zIndex: PropTypes.number
-  };
+  }
 
   static defaultProps = {}
-
-
-  shouldComponentUpdate = shouldPureComponentUpdate;
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const {text, zIndex} = this.props;
@@ -52,6 +51,7 @@ export default class MyGreatPlaceWithControllableHover extends Component {
           <div style={stickStyle} />
         ]}
     </div>
-    );
+    )
   }
 }
+export default (MyGreatPlaceWithControllableHover)

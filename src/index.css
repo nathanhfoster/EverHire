@@ -5,6 +5,7 @@
   --quaternaryColor: #00dae4;
   --quinaryColor: #2DE5D2;
   --primaryTextColor: black; 
+  --primaryBackGround: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
   --main-padding: 15px; 
   --primaryBoxShadow: rgba(0, 0, 0, 0.2);
 }
@@ -14,7 +15,7 @@ body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-repeat: no-repeat;
-  background-image: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
+  background-image: var(--primaryBackGround)
 }
 
 body::-webkit-scrollbar {
