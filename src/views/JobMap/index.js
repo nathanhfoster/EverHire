@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ImmutableProptypes from 'react-immutable-proptypes'
 import PropTypes from 'prop-types'
-import LoadingScreen from '../../components/loadingScreen'
+import LoadingScreen from '../../components/LoadingScreen'
 import { connect as reduxConnect } from 'react-redux'
 import {Row, Col, InputGroup, FormControl, Button } from 'react-bootstrap'
 import GoogleMap from 'google-map-react'

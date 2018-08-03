@@ -3,8 +3,6 @@
 	width: 100%;
 	height: 100%;
 	z-index: 999;
-  display: block;
-  position: absolute;
 }
 
 .LoadingScreenContainer:before{
@@ -20,11 +18,12 @@
 	animation:load 2s ease infinite alternate;
 }
 
-/*.LoadingScreenContainer div, div:before, span {
+.LoadingScreenContainer div,
+.LoadingScreenContainer div:before, span {
     display: block;
     position: absolute;
 }
-*/
+
 @charset "utf8";
 @keyframes load{
 	0%,100%{
