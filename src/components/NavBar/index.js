@@ -56,7 +56,6 @@ class NavBar extends Component {
   }
 
   renderNavItems = navItems => Object.keys(navItems).map(k => {
-    console.log(navItems[k].link)
     return (
       <Link to={navItems[k].link} className="zoomHover">
         <FontAwesomeIcon icon={navItems[k].icon} size="2x"/>

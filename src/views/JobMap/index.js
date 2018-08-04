@@ -83,7 +83,6 @@ class JobMap extends Component {
     this.getState(nextProps)
   }
 
-
   componentWillUpdate() {
   }
 
@@ -91,8 +90,6 @@ class JobMap extends Component {
   }
 
   getState = props => {
-    // const userLocation = objectToArray(props.userLocation)
-    // console.log("getState: ", userLocation)
     let {markers} = props
       navigator.geolocation.getCurrentPosition( initialPosition => 
         this.setState({ initialPosition }),
@@ -115,7 +112,6 @@ class JobMap extends Component {
   }
       
   onMapClicked = (props) => {
-    //console.log("onMapClicked: ", props)
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -125,7 +121,6 @@ class JobMap extends Component {
   }
 
   _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
-    //console.log("_onBoundsChange")
     this._panTo(center, zoom)
     //this.props.onCenterChange(center);
     //this.props.onZoomChange(zoom);
@@ -257,14 +252,14 @@ class JobMap extends Component {
           <Row className="center ht-40 mg-b-20">
             <h3>Explore Jobs</h3>
           </Row>
-          <Row className="center">
+          {/* <Row className="center">
               <Col lg={11} md={11} sm={11} xs={11}>
                 <InputGroup>
                   <InputGroup.Addon className="searchIcon"><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
                   <FormControl type="text" className="searchBar"/>
                 </InputGroup>
               </Col>
-            </Row>
+            </Row> */}
           <Row className="center">
               <Col>
                   <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
