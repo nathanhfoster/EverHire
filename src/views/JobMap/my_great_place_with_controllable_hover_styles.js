@@ -10,12 +10,11 @@ const infoBoxStyle = {
   height: '300%',
   width: '500%',
   bottom: K_CIRCLE_SIZE,
-  transform: 'scale(1.25)',
+  transform: 'scale(1.5)',
   position: 'absolute',
   willChange: 'transform',
   backgroundRepeat: 'no-repeat',
-  transition: '-webkit-transform 1s cubic-bezier(0.485, 1.65, 0.545, 0.835)',
-  transformOrigin: '15px 60px 0px',
+  transition: '-webkit-transform .425s cubic-bezier(0.485, 1.65, 0.545, 0.835)',
   zIndex: 6500,
   backgroundColor: 'white',
   boxShadow: "0px 1px 5px 0px var(--primaryBoxShadow), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)"
@@ -60,8 +59,8 @@ const userLocation = {
 
 const greatPlaceCircleStyleHover = {
   ...greatPlaceCircleStyle,
-  border: '2px solid var(--secondaryColor)',
-  color: 'var(--secondaryColor)',
+  border: '2px solid var(--quinaryColor)',
+  color: 'var(--quinaryColor)',
   transform: 'scale(1.1)',
   transition: '-webkit-transform 0.25s cubic-bezier(0.485, 1.65, 0.545, 0.835)',
   transformOrigin: '15px 60px 0px',
@@ -74,7 +73,7 @@ const greatPlaceStickStyleShadow = {
   top: K_CIRCLE_SIZE,
   width: K_STICK_WIDTH,
   height: K_STICK_SIZE,
-  backgroundColor: '#f44336',
+  backgroundColor: 'var(--quinaryColor)',
   boxShadow: '0 0 0 1px white'
 }
 
@@ -90,7 +89,11 @@ const greatPlaceStickStyle = {
 
 const greatPlaceStickStyleHover = {
   ...greatPlaceStickStyle,
-  backgroundColor: 'var(--secondaryColor)'
+  backgroundColor: 'var(--secondaryColor)',
+  display: 'none',
+  position: 'absolute',
+  willChange: 'transform',
+  transition: '-webkit-transform 1s cubic-bezier(0.485, 1.65, 0.545, 0.835)'
 }
 
 

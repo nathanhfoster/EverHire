@@ -262,12 +262,12 @@ class JobMap extends Component {
             </Row> */}
           <Row className="center">
               <Col>
-                  <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
+                  <Button bsClass="locationButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
                     <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
                   </Button>
                 </Col>
                 <Col>
-                  <Button bsClass="locationButton zoomHover" bsSize="large" onClick={this.locationButton.bind(this)}>
+                  <Button bsClass="locationButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
                     <FontAwesomeIcon icon={faListAlt} size="lg"/>
                   </Button>
                 </Col>
