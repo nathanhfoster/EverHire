@@ -7,7 +7,7 @@ const infoBoxStyle = {
   alignContent: 'center',
   justifyContent: 'center',
   textAlign: 'center',
-  height: '300%',
+  height: '250%',
   width: '500%',
   bottom: K_CIRCLE_SIZE,
   transform: 'scale(1.5)',
