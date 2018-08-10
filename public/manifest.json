@@ -38,6 +38,7 @@
       "type": "image/png"
     }
   ],
+  "description": "On demand services to get a job done.",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#FFFFFF",

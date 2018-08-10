@@ -6,6 +6,14 @@ import registerServiceWorker from './registerServiceWorker'
 import storeFactory from './store'
 import { Provider } from 'react-redux'
 
+// Register service worker to control making site work offline
+
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/registerServiceWorker.js')
+    .then(function() { console.log('Service Worker Registered') })
+}
+
 const initialState = (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : {}
 const store = storeFactory(initialState)
 window.React = React
