@@ -244,6 +244,12 @@ class JobMap extends Component {
           >            
             {places}
           </GoogleMap>
+          <Button bsClass="sheenButton locationButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
+           <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
+          </Button>
+          <Button bsClass="sheenButton listButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
+            <FontAwesomeIcon icon={faListAlt} size="lg"/>
+          </Button>
         </div>,
         <div className="searchListWrapper">
           <Row className="center">
@@ -260,18 +266,6 @@ class JobMap extends Component {
                 </InputGroup>
               </Col>
             </Row> */}
-          <Row className="center">
-              <Col>
-                  <Button bsClass="locationButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
-                    <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
-                  </Button>
-                </Col>
-                <Col>
-                  <Button bsClass="locationButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
-                    <FontAwesomeIcon icon={faListAlt} size="lg"/>
-                  </Button>
-                </Col>
-            </Row>
             <Row className="mg-20">
               <Col className="scrolling-wrapper">
                 <div class="card"><h2>Card</h2></div>
