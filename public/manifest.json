@@ -3,44 +3,19 @@
   "name": "EverHire",
   "icons": [
     {
-      "src": "everHire-36.png",
-      "sizes": "36x36",
-      "type": "image/png"
-    },
-    {
-      "src": "everHire-48.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    },
-    {
-      "src": "everHire-72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "everHire-96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "everHire-144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "everHire-192.png",
+      "src": "EverHire-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "everHire-512.png",
+      "src": "EverHire-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "description": "On demand services to get a job done.",
+  "description": "",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF"
+  "theme_color": "#000000",
+  "background_color": "#000000"
 }
