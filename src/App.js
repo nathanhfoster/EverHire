@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './App.css'
-import { BrowserRouter as Router, Route } from "react-router-dom"
-//import JobMap from './views/GoogleMap'
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import JobMap from './views/JobMap'
 import Login from './components/Login'
 import BotNavBar from './components/NavBar'
@@ -22,12 +21,14 @@ class App extends Component {
     }
   }
 
-
   static propTypes = {
   }
 
   static defaultProps = {
-
+    routeItems: [
+      {path: '/', component: JobMap},
+      {path: '/login', component: Login},
+    ]
   }
 
   componentWillMount() {
@@ -61,16 +62,18 @@ class App extends Component {
   componentWillUnmount() {
   }
 
-  render() {
+  renderRouteItems = routeItems => routeItems.map(k => (<Route exact path={k.path} component={k.component}/>))
 
+  render() {
+    const {routeItems} = this.props
     return (
       <Router>
         <div className="App">
           <BotNavBar />
           <div className="routeOverlay">
-            <Route exact path="/" component={JobMap}/>
-            <Route path="/Location" component={Location}/>
-            <Route path="/Login" component={Login}/>
+          <Switch>
+            {this.renderRouteItems(routeItems)} 
+          </Switch>
           </div>
         </div>
      </Router>
