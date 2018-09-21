@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
+import './stylesM.css'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -26,18 +28,25 @@ class Template extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate(nextProps) {
+    return true
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {
     this.setState({
       })
-  }
-
-  componentWillUpdate() {
   }
 
   componentDidUpdate() {
@@ -48,7 +57,7 @@ class Template extends Component {
 
   render() {
     return (
-      <div className="TemplateContainer">
+      <div className="Template">
         Template
       </div>
     )

@@ -13,7 +13,9 @@ import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
 import {K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
 import './styles.css'
 import './stylesM.css'
-import {setUserLocation, getUserLocation} from '../../actions'
+import {setUserLocation, getUserLocation} from '../../actions/App'
+
+const googleKey = process.env.REACT_APP_GOOGLE_API_KEY
 
 const mapStateToProps = ({ userLocation }) => ({
   userLocation
@@ -75,6 +77,15 @@ class JobMap extends Component {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate(nextProps) {
+    return true
+  }
+
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
   componentDidMount() {
     this.props.getUserLocation()
   }
@@ -102,6 +113,9 @@ class JobMap extends Component {
         error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
       })
+  }
+
+  componentDidUpdate() {
   }
 
   componentWillUnmount() {
@@ -227,7 +241,7 @@ class JobMap extends Component {
         <div className="GoogleMapWrapper">
           <GoogleMap
             //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
-            apiKey={"AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"} // set if you need stats etc ...
+            apiKey={googleKey} // set if you need stats etc ...
             defaultCenter={[latitude, longitude]}
             initialCenter={initialCenter}
             center={center}

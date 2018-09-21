@@ -34,15 +34,28 @@ class App extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
-    
+  shouldComponentUpdate(nextProps) {
+    return true
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
   }
 
   getState = props => {
+    this.setState({
+      })
+  }
+
+  componentDidUpdate() {
   }
 
   componentWillUnmount() {
