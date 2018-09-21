@@ -20,7 +20,7 @@ class Login extends Component {
  
     this.state = {
     
-    };
+    }
   }
 
   static propTypes = {

@@ -237,7 +237,7 @@ class JobMap extends Component {
  
     return (
       <div className="GoogleMapContainer">
-      { this.mapCanLoad() ? [
+      {this.mapCanLoad() ? [
         <div className="GoogleMapWrapper">
           <GoogleMap
             //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
