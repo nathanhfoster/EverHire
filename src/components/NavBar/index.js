@@ -16,7 +16,7 @@ const mapDispatchToProps = {
 class NavBar extends Component {
   constructor(props) {
     super(props);
- 
+
     this.state = {
     }
   }
@@ -27,11 +27,11 @@ class NavBar extends Component {
   static defaultProps = {
     navItems: [
       {name: 'Map', link: '/', icon: faMap},
-      {name: 'Post Job', link: '/', icon: faClipboard},
+      {name: 'Post Job', link: '/jobpost', icon: faClipboard},
       {name: 'Login', link: '/login', icon: faUserCircle},
     ]
   }
-  
+
   componentDidMount() {
   }
 
@@ -51,7 +51,7 @@ class NavBar extends Component {
 
   componentDidUpdate() {
   }
-  
+
   componentWillUnmount() {
   }
 
