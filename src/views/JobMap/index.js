@@ -1,35 +1,38 @@
-import React, { Component } from 'react'
-import ImmutableProptypes from 'react-immutable-proptypes'
-import PropTypes from 'prop-types'
-import LoadingScreen from '../../components/LoadingScreen'
-import { connect as reduxConnect } from 'react-redux'
-import {Row, Col, InputGroup, FormControl, Button } from 'react-bootstrap'
-import GoogleMap from 'google-map-react'
-import MyGreatPlaceWithControllableHover from './my_great_place_with_controllable_hover'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import faMapMarkerAlt from '@fortawesome/fontawesome-free-solid/faMapMarkerAlt'
-import faSearch from '@fortawesome/fontawesome-free-solid/faSearch'
-import faListAlt from '@fortawesome/fontawesome-free-solid/faListAlt'
-import {K_CIRCLE_SIZE, K_STICK_SIZE} from './my_great_place_with_controllable_hover_styles.js'
-import './styles.css'
-import './stylesM.css'
-import {setUserLocation, getUserLocation} from '../../actions/App'
+import React, { Component } from "react";
+import ImmutableProptypes from "react-immutable-proptypes";
+import PropTypes from "prop-types";
+import LoadingScreen from "../../components/LoadingScreen";
+import { connect as reduxConnect } from "react-redux";
+import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
+import GoogleMap from "google-map-react";
+import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import faMapMarkerAlt from "@fortawesome/fontawesome-free-solid/faMapMarkerAlt";
+import faSearch from "@fortawesome/fontawesome-free-solid/faSearch";
+import faListAlt from "@fortawesome/fontawesome-free-solid/faListAlt";
+import {
+  K_CIRCLE_SIZE,
+  K_STICK_SIZE
+} from "./my_great_place_with_controllable_hover_styles.js";
+import "./styles.css";
+import "./stylesM.css";
+import { setUserLocation, getUserLocation } from "../../actions/App";
 
-const googleKey = process.env.REACT_APP_GOOGLE_API_KEY
+const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const mapStateToProps = ({ userLocation }) => ({
   userLocation
-})
+});
 
 const mapDispatchToProps = {
   setUserLocation,
   getUserLocation
-}
+};
 
 class JobMap extends Component {
   constructor(props) {
-    super(props)
-    this.watchID = null
+    super(props);
+    this.watchID = null;
     this.state = {
       userLocation: {},
       shouldSetInitialCenter: true,
@@ -41,9 +44,9 @@ class JobMap extends Component {
       activeMarker: {},
       selectedPlace: {},
       userLocation: {}
-    }
+    };
   }
-  
+
   static propTypes = {
     userLocation: PropTypes.object,
     google: PropTypes.object,
@@ -57,46 +60,43 @@ class JobMap extends Component {
     markers: PropTypes.array,
     userLocation: ImmutableProptypes.map,
     setUserLocation: PropTypes.func.isRequired,
-    getUserLocation: PropTypes.func.isRequired,
-  }
+    getUserLocation: PropTypes.func.isRequired
+  };
 
   static defaultProps = {
     userLocation: new Map(),
     center: [37.4220862600981 -121.89071280220037],
     zoom: 10,
     markers: [
-      {id: 'Me', lat: null, lng: null},
-      {id: 'A', lat: 38.3352, lng: -121.8782},
-      {id: 'B', lat: 37.3346653, lng: -121.87532982},
+      { id: "Me", lat: null, lng: null },
+      { id: "A", lat: 38.3352, lng: -121.8782 },
+      { id: "B", lat: 37.3346653, lng: -121.87532982 }
     ]
-  }
+  };
 
   componentWillMount() {
-    this.getState(this.props)
+    this.getState(this.props);
   }
 
   shouldComponentUpdate(nextProps) {
-    return true
+    return true;
   }
 
-  componentWillUpdate() {
-  }
+  componentWillUpdate() {}
 
   /* render() */
 
   componentDidMount() {
-    this.props.getUserLocation()
+    this.props.getUserLocation();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
+    this.getState(nextProps);
   }
 
-  componentWillUpdate() {
-  }
+  componentWillUpdate() {}
 
-  componentDidUpdate() {
-  }
+  componentDidUpdate() {}
 
   getState = props => {
     let {markers, userLocation} = props
@@ -111,44 +111,60 @@ class JobMap extends Component {
     this.setState({markers, userLocation})
   }
 
-  componentDidUpdate() {
-  }
+  componentDidUpdate() {}
 
   componentWillUnmount() {
-    const {timestamp} = this.state.lastPosition
-    const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords
-    navigator.geolocation.clearWatch(this.watchID)
-    this.props.setUserLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp)
+    const { timestamp } = this.state.lastPosition;
+    const {
+      accuracy,
+      altitude,
+      altitudeAccuracy,
+      heading,
+      latitude,
+      longitude,
+      speed
+    } = this.state.lastPosition.coords;
+    navigator.geolocation.clearWatch(this.watchID);
+    this.props.setUserLocation(
+      accuracy,
+      altitude,
+      altitudeAccuracy,
+      heading,
+      latitude,
+      longitude,
+      speed,
+      timestamp
+    );
   }
-      
-  onMapClicked = (props) => {
+
+  onMapClicked = props => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
         activeMarker: null
-        })
-      }
-  }
+      });
+    }
+  };
 
   _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
-    this._panTo(center, zoom)
+    this._panTo(center, zoom);
     //this.props.onCenterChange(center);
     //this.props.onZoomChange(zoom);
-  }
+  };
 
   _onChildClick = (key, childProps) => {
     // const center = [childProps.lat, childProps.lng]
     // const zoom = this.state.zoom + 1 < 18 ? this.state.zoom + 1 : this.state.zoom
     // this._panTo(center, zoom)
-  }
+  };
 
-  _onChildMouseEnter = (key , childProps ) => {
+  _onChildMouseEnter = (key, childProps) => {
     // this.props.onHoverKeyChange(key);
-  }
+  };
 
-  _onChildMouseLeave = (key, /*childProps */) => {
-   // this.props.onHoverKeyChange(null);
-  }
+  _onChildMouseLeave = (key /*childProps */) => {
+    // this.props.onHoverKeyChange(null);
+  };
 
   _distanceToMouse = (markerPos, mousePos, markerProps) => {
     const x = markerPos.x;
@@ -164,15 +180,21 @@ class JobMap extends Component {
     const distanceKoef = 2;
 
     // it's just a simple example, you can tweak distance function as you wish
-    return distanceKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
-  }
+    return (
+      distanceKoef *
+      Math.sqrt(
+        (x - mousePos.x) * (x - mousePos.x) +
+          (y - mousePos.y) * (y - mousePos.y)
+      )
+    );
+  };
 
-  _panTo = (center, zoom) => this.setState({center, zoom})
-  
-  createMapOptions = (map) => {
+  _panTo = (center, zoom) => this.setState({ center, zoom });
+
+  createMapOptions = map => {
     return {
       disableDefaultUI: true,
-      gestureHandling: 'greedy',
+      gestureHandling: "greedy"
       // panControl: true,
       // mapTypeControl: false,
       // scrollwheel: true,
@@ -183,16 +205,20 @@ class JobMap extends Component {
       // overviewMapControl: true,
       // rotateControl: true
       // styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
-    }
-  }
+    };
+  };
 
-  locationButton = (e) => {
-    const {latitude, longitude} = this.state.lastPosition.coords != null
-    ? this.state.lastPosition.coords : this.props.userLocation != null 
-    ? this.props.userLocation : 0
-    const zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom
-    this._panTo([latitude, longitude], zoom)
-  }
+  locationButton = e => {
+    const { latitude, longitude } =
+      this.state.lastPosition.coords != null
+        ? this.state.lastPosition.coords
+        : this.props.userLocation != null
+          ? this.props.userLocation
+          : 0;
+    const zoom =
+      this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
+    this._panTo([latitude, longitude], zoom);
+  };
 
   mapCanLoad = () => {
     if(this.state.userLocation != null) {
@@ -200,12 +226,10 @@ class JobMap extends Component {
       if(this.state.shouldSetInitialCenter) {
         this.setState({center: [latitude, longitude], shouldSetInitialCenter: false})
       }
-      return true
-    }
-    else 
-      return false
-  }
-  
+      return true;
+    } else return false;
+  };
+
   // apiIsLoaded = (map, maps, lat, lng) => {
   //   if (map) {
   //     const latLng = maps.LatLng(lat, lng);
@@ -219,7 +243,7 @@ class JobMap extends Component {
     speed = parseInt(speed * 2.23694) // meters per second to mph
     altitude = parseInt(altitude * 3.28084) // meters to feet
     const places = this.state.markers.map(place => {
-      const {id, ...coords} = place
+      const { id, ...coords } = place;
       return (
         <MyGreatPlaceWithControllableHover
           key={id}
@@ -227,9 +251,11 @@ class JobMap extends Component {
           text={id}
           zIndex={1}
           // use your hover state (from store, react-controllables etc...)
-          $hover={this.props.hoverKey === id} />
-      )})
- 
+          $hover={this.props.hoverKey === id}
+        />
+      );
+    });
+
     return (
       <div className="GoogleMapContainer">
       {this.mapCanLoad() ? [
@@ -284,7 +310,7 @@ class JobMap extends Component {
         ] : <LoadingScreen />
       }
       </div>
-    )
+    );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(JobMap)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(JobMap);
