@@ -1,4 +1,27 @@
 @media (max-width: 676px) {
+
+    .searchListWrapper {
+        color: var(--primaryTextColor);
+        font-weight: 500;
+        box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+        background-color: rgba(255, 255, 255, 1);
+        height: 350%;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: calc(100vh - 126px);
+        top: 0;
+    }
+    .searchListTab {
+        display: block;
+        height: .25em;
+        width: 2em;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.54);
+        margin-top: 8px;
+    }
     .scrolling-wrapper {
         -webkit-overflow-scrolling: touch;
         align-content: center;

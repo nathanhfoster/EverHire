@@ -293,20 +293,6 @@ class JobMap extends Component {
                 <div class="card"><h2>Card</h2></div>
               </Col>
             </Row>
-            <Row className="mg-20">
-              <Col sm={12}>
-                <h2>Speed: {speed} mph</h2>
-                <h2>Heading: {heading}</h2>
-                <h2>Latitude: {latitude}</h2>
-                <h2>Longitude: {longitude}</h2>
-                <h2>Altitude: {altitude}</h2> 
-                {/* <h2>Center: {center[0]}, {center[1]}</h2> */}
-                <h2>Zoom: {zoom}</h2>
-                <h2>Accuracy: {accuracy}</h2>
-                <h2>Altitude accuracy: {altitudeAccuracy}</h2>
-                <h2>Timestamp: {timestamp}</h2>
-              </Col>
-            </Row>
           </div>
         ] : <LoadingScreen />
       }

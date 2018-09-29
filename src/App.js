@@ -7,22 +7,26 @@ import JobMap from './views/JobMap'
 import Login from './components/Login'
 import BotNavBar from './components/NavBar'
 import JobPost from './views/JobPosts'
+import {setWindow} from './actions/App'
 
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = {
-
+  setWindow
 }
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+
     this.state = {
 
     }
   }
 
   static propTypes = {
+    setWindow: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -47,6 +51,8 @@ class App extends Component {
   /* render() */
 
   componentDidMount() {
+    this.updateWindowDimensions()
+    window.addEventListener('resize', this.updateWindowDimensions)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,6 +70,13 @@ class App extends Component {
   componentWillUnmount() {
   }
 
+  updateWindowDimensions() {
+    const { innerHeight, innerWidth } = window
+    const isMobile = innerWidth < 676
+    this.props.setWindow({ innerHeight, innerWidth, isMobile })
+    this.setState({height: innerHeight, width: innerWidth, isMobile})
+  }
+
   renderRouteItems = routeItems => routeItems.map(k => (<Route exact path={k.path} component={k.component}/>))
 
   render() {
@@ -73,9 +86,9 @@ class App extends Component {
         <div className="App">
           <BotNavBar />
           <div className="routeOverlay">
-          <Switch>
-            {this.renderRouteItems(routeItems)}
-          </Switch>
+            <Switch>
+              {this.renderRouteItems(routeItems)}
+            </Switch>
           </div>
         </div>
      </Router>
