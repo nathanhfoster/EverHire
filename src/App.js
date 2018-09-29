@@ -1,99 +1,94 @@
-import React, { Component } from 'react'
-import { connect as reduxConnect } from 'react-redux'
-import PropTypes from 'prop-types'
-import './App.css'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import JobMap from './views/JobMap'
-import Login from './components/Login'
-import BotNavBar from './components/NavBar'
-import JobPost from './views/JobPosts'
-import {setWindow} from './actions/App'
+import React, { Component } from "react";
+import { connect as reduxConnect } from "react-redux";
+import PropTypes from "prop-types";
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import JobMap from "./views/JobMap";
+import Login from "./components/Login";
+import BotNavBar from "./components/NavBar";
+import JobPost from "./views/JobPosts";
+import Account from "./components/Account"; 
+import { setWindow } from "./actions/App";
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
   setWindow
-}
+};
 
 class App extends Component {
   constructor(props) {
-    super(props)
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+    super(props);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
-    this.state = {
-
-    }
+    this.state = {};
   }
 
   static propTypes = {
     setWindow: PropTypes.func.isRequired
-  }
+  };
 
   static defaultProps = {
     routeItems: [
-      {path: '/', component: JobMap},
-      {path: '/login', component: Login},
-      {path: '/jobpost', component: JobPost}
+      { path: "/", component: JobMap },
+      { path: "/login", component: Login },
+      { path: "/jobpost", component: JobPost }, 
+      { path: '/account', component: Account }
     ]
-  }
+  };
 
-  componentWillMount() {
-    this.getState(this.props)
-  }
+  // componentWillMount() {
+  //   this.getState(this.props)
+  // }
 
   shouldComponentUpdate(nextProps) {
-    return true
+    return true;
   }
 
-  componentWillUpdate() {
-  }
+  componentWillUpdate() {}
 
   /* render() */
 
   componentDidMount() {
-    this.updateWindowDimensions()
-    window.addEventListener('resize', this.updateWindowDimensions)
+    this.updateWindowDimensions();
+    window.addEventListener("resize", this.updateWindowDimensions);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
+    this.getState(nextProps);
   }
 
   getState = props => {
-    this.setState({
-      })
-  }
+    this.setState({});
+  };
 
-  componentDidUpdate() {
-  }
+  componentDidUpdate() {}
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   updateWindowDimensions() {
-    const { innerHeight, innerWidth } = window
-    const isMobile = innerWidth < 676
-    this.props.setWindow({ innerHeight, innerWidth, isMobile })
-    this.setState({height: innerHeight, width: innerWidth, isMobile})
+    const { innerHeight, innerWidth } = window;
+    const isMobile = innerWidth < 676;
+    this.props.setWindow({ innerHeight, innerWidth, isMobile });
+    this.setState({ height: innerHeight, width: innerWidth, isMobile });
   }
 
-  renderRouteItems = routeItems => routeItems.map(k => (<Route exact path={k.path} component={k.component}/>))
+  renderRouteItems = routeItems =>
+    routeItems.map(k => <Route exact path={k.path} component={k.component} />);
 
   render() {
-    const {routeItems} = this.props
+    const { routeItems } = this.props;
     return (
       <Router>
         <div className="App">
           <BotNavBar />
           <div className="routeOverlay">
-            <Switch>
-              {this.renderRouteItems(routeItems)}
-            </Switch>
+            <Switch>{this.renderRouteItems(routeItems)}</Switch>
           </div>
         </div>
-     </Router>
-    )
+      </Router>
+    );
   }
 }
 
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(App)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(App);
