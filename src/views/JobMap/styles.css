@@ -1,5 +1,5 @@
 .GoogleMapContainer {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: absolute;
 }
@@ -18,12 +18,11 @@
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
     background-color: rgba(255, 255, 255, 1);
     height: 100%;
-    width: 30%;
+    width: 25%;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     border-radius: 8px;
-    overflow: hidden;
-    top: calc(-100vh + 68px);
+    overflow-x: hidden;
 }
 
 .searchListTab {
@@ -43,11 +42,11 @@
 }
 
 .scrolling-wrapper {
-    height: 100vh;
+    height: 100%;
     border-radius: 8px;
     display: block;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow: auto;
 }
 .card {
     color: var(--primaryTextColor);

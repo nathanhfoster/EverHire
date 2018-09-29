@@ -31,8 +31,7 @@ class JobMap extends Component {
     super(props)
     this.watchID = null
     this.state = {
-      initialPosition: {},
-      lastPosition: {},
+      userLocation: {},
       shouldSetInitialCenter: true,
       initialCenter: [39.81363019660378, -101.42108394461178],
       center: null,
@@ -46,6 +45,7 @@ class JobMap extends Component {
   }
   
   static propTypes = {
+    userLocation: PropTypes.object,
     google: PropTypes.object,
     zoom: PropTypes.number,
     initialCenter: PropTypes.object,
@@ -62,8 +62,6 @@ class JobMap extends Component {
 
   static defaultProps = {
     userLocation: new Map(),
-    initialPosition: {},
-    lastPosition: {},
     center: [37.4220862600981 -121.89071280220037],
     zoom: 10,
     markers: [
@@ -101,18 +99,16 @@ class JobMap extends Component {
   }
 
   getState = props => {
-    let {markers} = props
-      navigator.geolocation.getCurrentPosition( initialPosition => 
-        this.setState({ initialPosition }),
-        error => alert(error.message),
-        { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
-    )
+    let {markers, userLocation} = props
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
+      const {timestamp} = lastPosition
+      const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = lastPosition.coords
       markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
-      this.setState({ markers, lastPosition }),
+      this.props.setUserLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed)
         error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
       })
+    this.setState({markers, userLocation})
   }
 
   componentDidUpdate() {
@@ -199,8 +195,8 @@ class JobMap extends Component {
   }
 
   mapCanLoad = () => {
-    if(this.state.lastPosition.coords != null) {
-      const {latitude, longitude} = this.state.lastPosition.coords
+    if(this.state.userLocation != null) {
+      const {latitude, longitude} = this.state.userLocation
       if(this.state.shouldSetInitialCenter) {
         this.setState({center: [latitude, longitude], shouldSetInitialCenter: false})
       }
@@ -219,8 +215,7 @@ class JobMap extends Component {
 
   render() {
     const {initialCenter, center, zoom} = this.state
-    const {timestamp} = this.state.lastPosition != null ? this.state.lastPosition : 0
-    let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = this.state.lastPosition.coords != null ? this.state.lastPosition.coords : 0
+    let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} = this.state.userLocation
     speed = parseInt(speed * 2.23694) // meters per second to mph
     altitude = parseInt(altitude * 3.28084) // meters to feet
     const places = this.state.markers.map(place => {
@@ -238,6 +233,27 @@ class JobMap extends Component {
     return (
       <div className="GoogleMapContainer">
       {this.mapCanLoad() ? [
+        <div className="searchListWrapper">
+        <Row className="center">
+          <div className="searchListTab"/>
+        </Row>
+        <Row className="center ht-40 mg-b-20">
+          <h3>Explore Jobs</h3>
+        </Row>
+          <Row className="mg-20">
+            <Col className="scrolling-wrapper">
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+              <div class="card"><h2>Card</h2></div>
+            </Col>
+          </Row>
+        </div>,
         <div className="GoogleMapWrapper">
           <GoogleMap
             //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
@@ -264,36 +280,7 @@ class JobMap extends Component {
           <Button bsClass="sheenButton listButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
             <FontAwesomeIcon icon={faListAlt} size="lg"/>
           </Button>
-        </div>,
-        <div className="searchListWrapper">
-          <Row className="center">
-            <div className="searchListTab"/>
-          </Row>
-          <Row className="center ht-40 mg-b-20">
-            <h3>Explore Jobs</h3>
-          </Row>
-          {/* <Row className="center">
-              <Col lg={11} md={11} sm={11} xs={11}>
-                <InputGroup>
-                  <InputGroup.Addon className="searchIcon"><FontAwesomeIcon icon={faSearch}/></InputGroup.Addon>
-                  <FormControl type="text" className="searchBar"/>
-                </InputGroup>
-              </Col>
-            </Row> */}
-            <Row className="mg-20">
-              <Col className="scrolling-wrapper">
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-                <div class="card"><h2>Card</h2></div>
-              </Col>
-            </Row>
-          </div>
+        </div>
         ] : <LoadingScreen />
       }
       </div>
