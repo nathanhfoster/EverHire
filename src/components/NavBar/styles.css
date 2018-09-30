@@ -1,29 +1,84 @@
 .NavBar {
-  font-family: "Arial";
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 3;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: var(--grey);
+}
+.NavBar li a {
+  color: white;
+}
+.NavBar a {
+  text-align: center;
+}
+.NavBar a:hover {
+  color: var(--primaryColor);
+}
+/* Custom Hamburger Menu Animation*/
+.navbar-toggle {
+  overflow: hidden;
 }
 .navbar-toggle .icon-bar {
   transition: opacity, transform;
   transition-duration: var(--speed);
   transition-timing-function: var(--easing);
 }
-
-/* .navbar-toggle:not(.collapsed) {
-   nth-child 2-4 refers to the 3 <span> horizontal bars in the hamburger menu 
+.navbar-toggle:not(.collapsed) {
+  /* nth-child 2-4 refers to the 3 <span> horizontal bars in the hamburger menu */
 }
- .navbar-toggle:not(.collapsed) .icon-bar:nth-child(2) {
+.navbar-toggle:not(.collapsed) .icon-bar:nth-child(2) {
   transform: translateY(6px) rotate(45deg);
-} */
+}
 .navbar-toggle:not(.collapsed) .icon-bar:nth-child(3) {
   opacity: 0;
   transform: translateX(-100%);
 }
 .navbar-toggle:not(.collapsed) .icon-bar:nth-child(4) {
   transform: translateY(-6px) rotate(-45deg);
+}
+/* Bootstrap Navbar */
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  border-bottom: 1px solid var(--primaryColor);
+  border-radius: 0%;
+  flex-grow: 1;
+}
+.navbar-toggle {
+  border: 1px solid var(--grey) !important;
+}
+.navbar-toggle:hover, .navbar-toggle:focus {
+background-color: inherit !important;  
+}
+.navbar-inverse .navbar-brand {
+  padding: 0;
+}
+.navbar-brand > img {
+  background-repeat: no-repeat;
+}
+.navbar-inverse .navbar-nav > li > a, .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+  color: white;
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+  background-color: inherit;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+  color: var(--primaryColor) !important;
+  background-color: inherit !important;
+}
+/* button */
+.navbar-toggle {
+  border-color: inherit;
+  border: none;
+}
+.navbar-toggle:hover {
+  background: transparent;
+  background-color: inherit;
+}
+.navbar-toggle .icon-bar {
+  width: 22px;
+  transition: all 0.5s;
 }
 .navbar-toggle .top-bar {
   transform: translate(3px) rotate(45deg);

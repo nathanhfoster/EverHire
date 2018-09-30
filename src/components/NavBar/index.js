@@ -46,12 +46,14 @@ class NavBar extends Component {
     const { User } = this.state;
     const { navItem } = this.props;
     return (
-      <Navbar collapseOnSelect className="NavBar">
+      <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
           <Navbar.Brand>
-            <LinkContainer to="/">
-              <NavItem eventKey={1}>EverHire</NavItem>
-            </LinkContainer>
+            <Nav>
+              <LinkContainer to="/">
+                <NavItem eventKey={1}>EverHire</NavItem>
+              </LinkContainer>
+            </Nav>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
