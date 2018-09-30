@@ -114,27 +114,7 @@ class JobMap extends Component {
   componentDidUpdate() {}
 
   componentWillUnmount() {
-    const { timestamp } = this.state.lastPosition;
-    const {
-      accuracy,
-      altitude,
-      altitudeAccuracy,
-      heading,
-      latitude,
-      longitude,
-      speed
-    } = this.state.lastPosition.coords;
-    navigator.geolocation.clearWatch(this.watchID);
-    this.props.setUserLocation(
-      accuracy,
-      altitude,
-      altitudeAccuracy,
-      heading,
-      latitude,
-      longitude,
-      speed,
-      timestamp
-    );
+    navigator.geolocation.clearWatch(this.watchID)
   }
 
   onMapClicked = props => {
