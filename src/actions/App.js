@@ -1,5 +1,4 @@
 import C from '../constants'
-import axios from 'axios'
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY
 
