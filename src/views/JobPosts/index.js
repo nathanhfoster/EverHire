@@ -4,16 +4,20 @@ import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import './stylesM.css'
 import {Grid, Row, Col, Form, FormGroup, FormControl, DropdownButton, MenuItem, Button, ControlLabel} from 'react-bootstrap'
+import {postJob} from '../../actions/JobPosts'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({User}) => ({
+  User
 })
 
 const mapDispatchToProps = {
+  postJob
 }
 
 class JobPost extends Component {
   constructor(props) {
     super(props)
+    //this.onChange = this.onChange.bind(this)
 
     this.state = {
     }
@@ -29,10 +33,6 @@ class JobPost extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
   componentWillUpdate() {
   }
 
@@ -46,8 +46,9 @@ class JobPost extends Component {
   }
 
   getState = props => {
-    this.setState({
-      })
+    const {User} = props
+
+    this.setState({User})
   }
 
   componentDidUpdate() {
@@ -56,10 +57,23 @@ class JobPost extends Component {
   componentWillUnmount() {
   }
 
+  postJob = e => {
+    e.preventDefault()
+    //Author and last_modified_by
+    const {User, address, title, description, latitude, longitude, phone_number, tags} = this.state
+    const token = 'c022a7316c83e3013371ef555fa9d54684be37cb'
+    const payload = {address, title, description, latitude, longitude, phone_number, tags, author: User.id, last_modified_by: User.id}
+    console.log(payload)
+    this.props.postJob(token, payload)
+  }
+
+  onChange = e => this.setState({[e.target.name]: e.target.value})
+
   render() {
+    console.log(this.state)
     return (
       <Grid className="JobPost">
-        <Form>
+        <Form onChange={this.onChange}>
           <FormGroup controlId="formHorizontalPassword">
             <ControlLabel>Category</ControlLabel>
             <FormControl componentClass="select" mulitple>
@@ -69,30 +83,26 @@ class JobPost extends Component {
           </FormGroup>
 
           <FormGroup controlId="formHorizontalEmail">
-            <FormControl type="text" placeholder="Title" />
+            <FormControl type="text" name="title" placeholder="Title" />
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">
-            <FormControl type="text" placeholder="Date/Time" />
+            <FormControl type="text" name="date" placeholder="Date/Time" />
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">
-            <FormControl componentClass="textarea" placeholder="Description" />
+            <FormControl componentClass="textarea" name="description" placeholder="Description" />
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">
-            <FormControl type="text" placeholder="Address" />
+            <FormControl type="text" name="address" placeholder="Address" />
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">
             <FormControl type="file" label="Image"/>
           </FormGroup>
 
-          <FormGroup>
-            <Col>
-              <Button type="submit">Post</Button>
-            </Col>
-          </FormGroup>
+          <Button>Post</Button>
         </Form>
       </Grid>
     )
