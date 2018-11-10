@@ -7,7 +7,11 @@ export const Window = (state = {}, action) =>
 export const userLocation = (state = {}, action) =>
 (action.type === C.SET_USER_LOCATION) ? action.payload : state
 
+export const postJob = (state = {}, action) =>
+(action.type === C.SET_JOB_POST) ? action.payload : state
+
 export default combineReducers({
   Window,
-  userLocation
+  userLocation,
+  postJob
 })
