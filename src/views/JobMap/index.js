@@ -93,16 +93,18 @@ class JobMap extends Component {
   componentDidUpdate() {}
 
   getState = props => {
-    let {markers, userLocation, Jobs} = props
+    let {userLocation, Jobs, markers} = props
+    console.log(Jobs)
+    let JobMarkers
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const {timestamp} = lastPosition
       const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = lastPosition.coords
-      markers[0] = {id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}
+      JobMarkers = [{id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}].concat(markers)
       this.props.setUserLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed)
         error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
       })
-    this.setState({markers, userLocation, Jobs})
+    this.setState({markers: Jobs, userLocation, Jobs})
   }
 
   componentDidUpdate() {}
@@ -212,11 +214,11 @@ class JobMap extends Component {
   // }
 
   render() {
-    const {initialCenter, center, zoom} = this.state
+    const {initialCenter, center, zoom, markers} = this.state
     let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} = this.state.userLocation
     speed = parseInt(speed * 2.23694) // meters per second to mph
     altitude = parseInt(altitude * 3.28084) // meters to feet
-    const places = this.state.markers.map(place => {
+    const places = markers.map(place => {
       const { id, ...coords } = place;
       return (
         <MyGreatPlaceWithControllableHover

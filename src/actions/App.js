@@ -32,3 +32,13 @@ export const login = (username, password, rememberMe) => {
          })
     }).catch(e => console.log(e))
 }
+
+export const Logout = () => {
+    Cookies.remove('User_LoginToken')
+    return async (dispatch) => {
+        await dispatch({
+        type: C.SET_LOGOUT,
+        payload: null
+    })
+    }
+}
