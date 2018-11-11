@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { FormControl, ControlLabel, FormGroup, Button } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
 import { connect as reduxConnect } from "react-redux";
-import { login } from "../../actions/App";
+import { createUser } from "../../actions/User";
 
 const mapStateToProps = ({ User }) => ({
   User
 });
 
 const mapDispatchToProps = {
-  login
+  createUser
 };
 
 class SignUp extends Component {
@@ -43,8 +42,8 @@ class SignUp extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { username, password, email } = this.state;
-    const { login } = this.props;
-    login(username, password, email);
+    const { createUser } = this.props;
+    createUser(username, password, email);
   };
 
   render() {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
+import { login } from "../../actions/App";
 import "./styles.css";
 import {
   Form,
@@ -14,15 +15,23 @@ import {
   PageHeader
 } from "react-bootstrap";
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({ User }) => ({
+  User
+});
 
-const mapDispatchToProps = dispatch => {};
+const mapDispatchToProps = {
+  login
+};
 
 class Login extends Component {
   constructor(props) {
     super();
 
-    this.state = {};
+    this.state = {
+      username: "",
+      password: "",
+      rememberMe: false
+    };
   }
 
   static propTypes = {};
@@ -33,19 +42,41 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {}
 
-  // handleSignUp = () => {
-  //   const path = "/signup";
-  //   this.props.history.push(path);
-  // };
+  handleUserName = e => {
+    this.setState({
+      username: e.target.value
+    });
+  };
+
+  handlePassword = e => {
+    this.setState({
+      password: e.target.value
+    });
+  };
+
+  handleLogin = e => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    const { login } = this.props;
+    login(username, password);
+  };
 
   render() {
-    return (
+    const { username, password } = this.state;
+    const { User } = this.props;
+
+    return !User.token ? (
       <Form className="loginForm">
         <Row>
           <Col md={6} smOffset={3} sm={6}>
             <PageHeader style={{ color: "white" }}>Everhire Login</PageHeader>
-            <FormGroup controlId="formHorizontalEmail">
-              <FormControl type="email" placeholder="Email" />
+            <FormGroup>
+              <FormControl
+                value={username}
+                type="username"
+                placeholder="Username"
+                onChange={this.handleUserName}
+              />
             </FormGroup>
           </Col>
         </Row>
@@ -53,7 +84,12 @@ class Login extends Component {
         <Row>
           <Col md={6} smOffset={3} sm={6}>
             <FormGroup controlId="formHorizontalPassword">
-              <FormControl type="password" placeholder="Password" />
+              <FormControl
+                value={password}
+                type="password"
+                placeholder="Password"
+                onChange={this.handlePassword}
+              />
             </FormGroup>
           </Col>
         </Row>
@@ -69,16 +105,20 @@ class Login extends Component {
         <Row>
           <Col smOffset={3} sm={1}>
             <FormGroup>
-              <Button type="submit">Sign in</Button>
+              <Button type="submit" onClick={this.handleLogin}>
+                Sign in
+              </Button>
             </FormGroup>
           </Col>
           <Col smOffset={3}>
             <FormGroup onClick={() => this.props.history.push("/signup")}>
-              <Button type="submit">Sign Up</Button>
+              <Button>Sign Up</Button>
             </FormGroup>
           </Col>
         </Row>
       </Form>
+    ) : (
+      <Redirect to="/map" />
     );
   }
 }
