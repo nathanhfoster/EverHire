@@ -48,8 +48,9 @@
 .navbar-toggle {
   border: 1px solid var(--grey) !important;
 }
-.navbar-toggle:hover, .navbar-toggle:focus {
-background-color: inherit !important;  
+.navbar-toggle:hover,
+.navbar-toggle:focus {
+  background-color: inherit !important;
 }
 .navbar-inverse .navbar-brand {
   padding: 0;
@@ -57,23 +58,29 @@ background-color: inherit !important;
 .navbar-brand > img {
   background-repeat: no-repeat;
 }
-.navbar-inverse .navbar-nav > li > a, .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+.navbar-inverse .navbar-nav > li > a,
+.dropdown-menu > li > a,
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
   color: white;
 }
-.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .active > a:hover {
   background-color: inherit;
 }
-.navbar-inverse .navbar-nav > li > a:hover, .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
-  color: var(--primaryColor) !important;
+/* .navbar-inverse .navbar-nav > li > a:hover,
+.dropdown-menu > li > a:hover,
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+  color: #353041;
   background-color: inherit !important;
-}
+} */
 /* button */
 .navbar-toggle {
   border-color: inherit;
   border: none;
 }
 .navbar-toggle:hover {
-  background: transparent;
+  background: #353041;
   background-color: inherit;
 }
 .navbar-toggle .icon-bar {

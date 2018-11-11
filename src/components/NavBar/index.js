@@ -43,8 +43,6 @@ class NavBar extends Component {
   componentWillUnmount() {}
 
   render() {
-    const { User } = this.state;
-    const { navItem } = this.props;
     return (
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
