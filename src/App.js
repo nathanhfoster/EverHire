@@ -5,12 +5,14 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import JobMap from "./views/JobMap";
 import Login from "./components/Login";
-import BotNavBar from "./components/NavBar";
 import JobPost from "./views/JobPosts";
-import Account from "./components/Account"; 
+import Account from "./components/Account";
+import SignUp from "./components/SignUp";
 import { setWindow } from "./actions/App";
 
-const mapStateToProps = state => ({});
+const mapStateToProps = ({ User }) => ({
+  User
+});
 
 const mapDispatchToProps = {
   setWindow
@@ -30,10 +32,11 @@ class App extends Component {
 
   static defaultProps = {
     routeItems: [
-      { path: "/", component: JobMap },
-      { path: "/login", component: Login },
-      { path: "/jobpost", component: JobPost }, 
-      { path: '/account', component: Account }
+      { path: "/", component: Login },
+      { path: "/signup", component: SignUp},
+      { path: "/map", component: JobMap },
+      { path: "/jobpost", component: JobPost },
+      { path: "/account", component: Account }
     ]
   };
 
@@ -81,7 +84,6 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <BotNavBar />
           <div className="routeOverlay">
             <Switch>{this.renderRouteItems(routeItems)}</Switch>
           </div>
