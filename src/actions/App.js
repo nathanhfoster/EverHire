@@ -10,10 +10,21 @@ export const setWindow = (Window) => ({
     payload: Window
  })
 
- export const setUserLocation = (accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp) => ({
-    type: C.SET_USER_LOCATION,
-    payload: {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} 
- })
+ export const setUserLocation = (accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp) => {
+    return async (dispatch, getState) => {
+        const {Jobs} = getState()
+        const me = [{id: 'Me', lat: latitude, lng: longitude}]
+        const Markers = Jobs.length > 1 && Jobs[0].id != 'Me' ? me.concat(Jobs) : Jobs
+        await dispatch({
+        type: C.SET_USER_LOCATION,
+        payload: {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} 
+        }),
+        await dispatch({
+            type: C.GET_JOBS,
+            payload: Markers
+        })
+    }
+}
 
 export const getUserLocation = () => (dispatch, getState) => 
     dispatch({ 
