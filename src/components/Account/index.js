@@ -1,5 +1,15 @@
 import React, { Component } from "react";
 import { FormControl, ControlLabel, FormGroup, Button } from "react-bootstrap";
+import { connect as reduxConnect } from "react-redux";
+import { login } from "../../actions/App";
+
+const mapStateToProps = ({ User }) => ({
+  User
+});
+
+const mapDispatchToProps = {
+  login
+};
 
 class Account extends Component {
   constructor(props) {
@@ -25,7 +35,8 @@ class Account extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
-    console.log(username, password);
+    const { login } = this.props;
+    login(username, password);
   };
 
   render() {
@@ -66,4 +77,4 @@ class Account extends Component {
   }
 }
 
-export default Account;
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Account);
