@@ -11,3 +11,13 @@ async (dispatch) => await Axios(token).post('jobs/', qs.stringify(payload))
         payload: res.data
     })
     }).catch((e) => console.log(e))
+
+export const getJobs = () => 
+    async (dispatch) => await Axios().get("jobs/")
+        .then(res => {
+            dispatch({
+            type: C.GET_JOBS,
+            payload: res.data
+            })
+    }).catch((e) => console.log(e))
+      

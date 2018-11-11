@@ -36,9 +36,7 @@ class JobPost extends Component {
   componentWillUpdate() {
   }
 
-  /* render() */
-
-  componentDidMount() {
+   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,10 +58,9 @@ class JobPost extends Component {
   postJob = e => {
     e.preventDefault()
     //Author and last_modified_by
-    const {User, address, title, description, latitude, longitude, phone_number, tags} = this.state
-    const token = 'c022a7316c83e3013371ef555fa9d54684be37cb'
-    const payload = {address, title, description, latitude, longitude, phone_number, tags, author: 1, last_modified_by: 1}
-    console.log(payload)
+    const {User, address, title, description, lat, lng, phone_number, tags} = this.state
+    const {id, token} = User
+    const payload = {address, title, description, lat, lng, phone_number, tags, author: id, last_modified_by: id}
     this.props.postJob(token, payload)
   }
 
@@ -72,8 +69,8 @@ class JobPost extends Component {
   // address:115 Who Cares St
   // title:First Job
   // description:DESCRIPTION OF FIRST JOB
-  // latitude:101.123
-  // longitude:150.123
+  // lat:101.123
+  // lng:150.123
   // phone_number:209-123-4563
   // author:1
   // last_modified_by:1
@@ -100,11 +97,11 @@ class JobPost extends Component {
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">
-            <FormControl componentClass="textarea" name="latitude" placeholder="Latitude" />
+            <FormControl componentClass="textarea" name="lat" placeholder="Latitude" />
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">
-            <FormControl componentClass="textarea" name="longitude" placeholder="Longitude" />
+            <FormControl componentClass="textarea" name="lng" placeholder="Longitude" />
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">

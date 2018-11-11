@@ -20,8 +20,9 @@ import { setUserLocation, getUserLocation } from "../../actions/App";
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
-const mapStateToProps = ({ userLocation }) => ({
-  userLocation
+const mapStateToProps = ({ userLocation, Jobs }) => ({
+  userLocation,
+  Jobs
 });
 
 const mapDispatchToProps = {
@@ -77,14 +78,7 @@ class JobMap extends Component {
   componentWillMount() {
     this.getState(this.props);
   }
-
-  shouldComponentUpdate(nextProps) {
-    return true;
-  }
-
   componentWillUpdate() {}
-
-  /* render() */
 
   componentDidMount() {
     this.props.getUserLocation();
@@ -99,7 +93,7 @@ class JobMap extends Component {
   componentDidUpdate() {}
 
   getState = props => {
-    let {markers, userLocation} = props
+    let {markers, userLocation, Jobs} = props
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const {timestamp} = lastPosition
       const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = lastPosition.coords
@@ -108,7 +102,7 @@ class JobMap extends Component {
         error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
       })
-    this.setState({markers, userLocation})
+    this.setState({markers, userLocation, Jobs})
   }
 
   componentDidUpdate() {}

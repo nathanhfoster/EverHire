@@ -11,7 +11,7 @@ export const User = (state = {}, action) =>
 (action.type === C.SET_LOGIN_TOKEN) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
 
 export const Jobs = (state = {}, action) =>
-(action.type === C.SET_JOB_POST) ? action.payload : state
+(action.type === C.GET_JOBS) ? action.payload : state
 
 export default combineReducers({
   User,

@@ -9,11 +9,13 @@ import BotNavBar from "./components/NavBar";
 import JobPost from "./views/JobPosts";
 import Account from "./components/Account"; 
 import { setWindow } from "./actions/App";
+import {getJobs} from './actions/JobPosts'
 
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
-  setWindow
+  setWindow,
+  getJobs
 };
 
 class App extends Component {
@@ -50,6 +52,7 @@ class App extends Component {
   /* render() */
 
   componentDidMount() {
+    this.props.getJobs();
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
   }
