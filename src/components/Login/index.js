@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
+import {login} from '../../actions/App'
 import "./styles.css";
 import {
   Form,
@@ -14,9 +15,13 @@ import {
   PageHeader
 } from "react-bootstrap";
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({User}) => ({
+  User
+})
 
-const mapDispatchToProps = dispatch => {};
+const mapDispatchToProps = {
+  login
+};
 
 class Login extends Component {
   constructor(props) {
@@ -33,19 +38,29 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {}
 
+  handleLogin = () => {
+    const {username, password} = this.state
+    const {login} = this.props
+    login(username, password)
+  }
+
   // handleSignUp = () => {
   //   const path = "/signup";
   //   this.props.history.push(path);
   // };
 
+  onChange = e => this.setState({[e.target.name]: e.target.value})
+
   render() {
+    const {User} = this.props
     return (
-      <Form className="loginForm">
+      !User.token ?
+      <Form className="loginForm" onChange={this.onChange}>
         <Row>
           <Col md={6} smOffset={3} sm={6}>
             <PageHeader style={{ color: "white" }}>Everhire Login</PageHeader>
             <FormGroup controlId="formHorizontalEmail">
-              <FormControl type="email" placeholder="Email" />
+              <FormControl name="username" type="username" placeholder="Username" />
             </FormGroup>
           </Col>
         </Row>
@@ -53,7 +68,7 @@ class Login extends Component {
         <Row>
           <Col md={6} smOffset={3} sm={6}>
             <FormGroup controlId="formHorizontalPassword">
-              <FormControl type="password" placeholder="Password" />
+              <FormControl name="password" type="password" placeholder="Password" />
             </FormGroup>
           </Col>
         </Row>
@@ -69,7 +84,7 @@ class Login extends Component {
         <Row>
           <Col smOffset={3} sm={1}>
             <FormGroup>
-              <Button type="submit">Sign in</Button>
+              <Button onClick={this.handleLogin}>Sign in</Button>
             </FormGroup>
           </Col>
           <Col smOffset={3}>
@@ -79,6 +94,7 @@ class Login extends Component {
           </Col>
         </Row>
       </Form>
+      : <Redirect to="/map" />
     );
   }
 }
