@@ -91,7 +91,7 @@ body::-webkit-scrollbar {
 /* When app is launched from home screen */
 @media all and (display-mode: standalone) {
   body .searchListWrapper {
-    margin-top: calc(100vh - 62px);
+    margin-top: calc(100vh - 72px);
   }
 }
 
@@ -102,7 +102,7 @@ body::-webkit-scrollbar {
 @media (max-width: 676px) {
   @media only all and (display-mode: browser) {
     body .searchListWrapper {
-      margin-top: calc(100vh - 134px);
+      margin-top: calc(100vh - 124px);
     }
   }
 }
