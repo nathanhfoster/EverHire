@@ -5,6 +5,7 @@ import { connect as reduxConnect } from "react-redux";
 import NodeGeocoder from "node-geocoder";
 import "./styles.css";
 import "./stylesM.css";
+import FormData from 'form-data';
 import {
   Grid,
   Row,
@@ -15,7 +16,8 @@ import {
   DropdownButton,
   MenuItem,
   Button,
-  ControlLabel
+  ControlLabel,
+  Image
 } from "react-bootstrap";
 import { postJob } from "../../actions/JobPosts";
 
@@ -80,6 +82,7 @@ class JobPost extends Component {
 
   postJob = e => {
     e.preventDefault();
+    let payload = new FormData()
     // Author and last_modified_by
     const {
       User,
@@ -89,27 +92,35 @@ class JobPost extends Component {
       lat,
       lng,
       phone_number,
-      tags
+      tags,
+      image
     } = this.state;
     const { id, token } = User;
     this.getCoords(address);
-    const payload = {
-      address,
-      title,
-      description,
-      lat,
-      lng,
-      phone_number,
-      tags,
-      author: id,
-      last_modified_by: id
-    };
+    payload.append('address', address);
+    payload.append('title', title);
+    payload.append('description', description);
+    payload.append('lat', lat);
+    payload.append('lng', lng);
+    payload.append('phone_number', phone_number);
+    payload.append('tags', tags);
+    payload.append('author', id);
+    payload.append('last_modified_by', id);
+    payload.append('image', image);
     this.props.postJob(token, payload);
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
+  setImage = e => {
+    var file = e.target.files[0]
+    var reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => this.setState({image: reader.result})
+  }
+
   render() {
+    const {image} = this.state
     return (
       <Grid className="JobPost">
         <Form onChange={this.onChange}>
@@ -151,6 +162,12 @@ class JobPost extends Component {
 
           <FormGroup controlId="formHorizontalPassword">
             <FormControl type="text" name="address" placeholder="Address" />
+          </FormGroup>
+
+          <FormGroup>
+            <Image src={image} className="image" responsive rounded/>
+            <ControlLabel>Profile Picture</ControlLabel>
+            <FormControl style={{margin: 'auto'}} type="file" label="File" name="image" onChange={this.setImage} />
           </FormGroup>
 
           <Button onClick={this.postJob}>Post</Button>

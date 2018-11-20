@@ -1,9 +1,9 @@
 import C from '../constants'
-import {Axios} from './Axios'
+import {Axios, AxiosForm} from './Axios'
 import qs from 'qs'
 
 export const postJob = (token, payload) => 
-async (dispatch) => await Axios(token).post('jobs/', qs.stringify(payload))
+async (dispatch) => await AxiosForm(token, payload).post('jobs/', payload)
     .then(res => {
     dispatch({
         type: C.SET_JOB_POST,
