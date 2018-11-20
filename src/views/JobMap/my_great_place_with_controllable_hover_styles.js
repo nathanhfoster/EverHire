@@ -51,13 +51,10 @@ const greatPlaceCircleStyle = {
   fontWeight: "bold",
   padding: 0,
   cursor: "pointer",
-  boxShadow: "0 0 0 1px white",
   display: "flex",
   alignItems: "center",
   justifyContent: "center"
 };
-
-const userLocation = {};
 
 const greatPlaceCircleStyleHover = {
   ...greatPlaceCircleStyle,

@@ -12,7 +12,6 @@ import Account from "./components/Account";
 import SignUp from "./components/SignUp";
 import {clearApiResponse, setApiResponse, setWindow } from "./actions/App";
 import { getJobs } from "./actions/JobPosts";
-import { Navbar } from "react-bootstrap";
 
 const mapStateToProps = ({ ApiResponse, Window, User }) => ({
   ApiResponse,
