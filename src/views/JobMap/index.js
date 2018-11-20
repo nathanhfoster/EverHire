@@ -3,7 +3,14 @@ import ImmutableProptypes from "react-immutable-proptypes";
 import PropTypes from "prop-types";
 import LoadingScreen from "../../components/LoadingScreen";
 import { connect as reduxConnect } from "react-redux";
-import { Row, Col, InputGroup, FormControl, Button, Image } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  InputGroup,
+  FormControl,
+  Button,
+  Image
+} from "react-bootstrap";
 import GoogleMap from "google-map-react";
 import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
@@ -227,25 +234,18 @@ class JobMap extends PureComponent {
   renderJobCards = markers =>
     markers.map(job => (
       <div className="card">
-      <Image src={job.image} responsive />
-        <h3>
-          ID: {job.id} {job.title}
-        </h3>
+        <div className="card-img">
+          <Image src={job.image} responsive />
+        </div>
+        <h4>{job.title}</h4>
+        <p>{job.description}</p>
+        <small style={{ float: "right" }}>{job.id}</small>
       </div>
     ));
 
   render() {
     const { initialCenter, center, zoom, markers } = this.state;
-    let {
-      accuracy,
-      altitude,
-      altitudeAccuracy,
-      heading,
-      latitude,
-      longitude,
-      speed,
-      timestamp
-    } = this.state.userLocation;
+    let { altitude, latitude, longitude, speed } = this.state.userLocation;
     speed = parseInt(speed * 2.23694); // meters per second to mph
     altitude = parseInt(altitude * 3.28084); // meters to feet
     const places = markers.map(place => {

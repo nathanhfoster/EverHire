@@ -63,7 +63,8 @@
   border-radius: inherit;
   display: table;
   background: white;
-  text-align: center;
+  text-align: left;
+  padding: 5px;
 }
 .center {
   display: flex;
@@ -106,4 +107,9 @@
 svg {
   margin: 0 !important;
   vertical-align: middle;
+}
+
+.card-img {
+  max-width: 100%;
+  min-height: 150px;
 }

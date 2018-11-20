@@ -1,20 +1,14 @@
 import React, { Component } from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
-import NodeGeocoder from "node-geocoder";
 import "./styles.css";
 import "./stylesM.css";
-import FormData from 'form-data';
+import FormData from "form-data";
 import {
   Grid,
-  Row,
-  Col,
   Form,
   FormGroup,
   FormControl,
-  DropdownButton,
-  MenuItem,
   Button,
   ControlLabel,
   Image
@@ -82,7 +76,7 @@ class JobPost extends Component {
 
   postJob = e => {
     e.preventDefault();
-    let payload = new FormData()
+    let payload = new FormData();
     // Author and last_modified_by
     const {
       User,
@@ -97,41 +91,33 @@ class JobPost extends Component {
     } = this.state;
     const { id, token } = User;
     this.getCoords(address);
-    payload.append('address', address);
-    payload.append('title', title);
-    payload.append('description', description);
-    payload.append('lat', lat);
-    payload.append('lng', lng);
-    payload.append('phone_number', phone_number);
-    payload.append('tags', tags);
-    payload.append('author', id);
-    payload.append('last_modified_by', id);
-    payload.append('image', image);
+    payload.append("address", address);
+    payload.append("title", title);
+    payload.append("description", description);
+    payload.append("lat", lat);
+    payload.append("lng", lng);
+    payload.append("phone_number", phone_number);
+    payload.append("tags", tags);
+    payload.append("author", id);
+    payload.append("last_modified_by", id);
+    payload.append("image", image);
     this.props.postJob(token, payload);
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   setImage = e => {
-    var file = e.target.files[0]
-    var reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onloadend = () => this.setState({image: reader.result})
-  }
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => this.setState({ image: reader.result });
+  };
 
   render() {
-    const {image} = this.state
+    const { image } = this.state;
     return (
       <Grid className="JobPost">
         <Form onChange={this.onChange}>
-          <FormGroup controlId="formHorizontalPassword">
-            <ControlLabel>Category</ControlLabel>
-            <FormControl componentClass="select" name="tags" mulitple>
-              <option value="Food Delivery">Food Delivery</option>
-              <option value="Transportation">Transportation</option>
-            </FormControl>
-          </FormGroup>
-
           <FormGroup controlId="formHorizontalEmail">
             <FormControl type="text" name="title" placeholder="Title" />
           </FormGroup>
@@ -165,9 +151,14 @@ class JobPost extends Component {
           </FormGroup>
 
           <FormGroup>
-            <Image src={image} className="image" responsive rounded/>
-            <ControlLabel>Profile Picture</ControlLabel>
-            <FormControl style={{margin: 'auto'}} type="file" label="File" name="image" onChange={this.setImage} />
+            <Image src={image} className="image" responsive rounded />
+            <ControlLabel style={{ color: "white" }}>Job Picture</ControlLabel>
+            <FormControl
+              type="file"
+              label="File"
+              name="image"
+              onChange={this.setImage}
+            />
           </FormGroup>
 
           <Button onClick={this.postJob}>Post</Button>
