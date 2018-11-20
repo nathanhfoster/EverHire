@@ -8,7 +8,6 @@ import {
   FormGroup,
   Row,
   Col,
-  ControlLabel,
   FormControl,
   Checkbox,
   Button,
