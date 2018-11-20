@@ -3,8 +3,15 @@ import ImmutableProptypes from "react-immutable-proptypes";
 import PropTypes from "prop-types";
 import LoadingScreen from "../../components/LoadingScreen";
 import { connect as reduxConnect } from "react-redux";
-import {Link, Redirect, withRouter} from 'react-router-dom'
-import { Row, Col, InputGroup, FormControl, Button, Image } from "react-bootstrap";
+import { Link, Redirect, withRouter } from "react-router-dom";
+import {
+  Row,
+  Col,
+  InputGroup,
+  FormControl,
+  Button,
+  Image
+} from "react-bootstrap";
 import GoogleMap from "google-map-react";
 import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
@@ -21,7 +28,7 @@ import { setUserLocation, getUserLocation } from "../../actions/App";
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
-const mapStateToProps = ({User, userLocation, Jobs }) => ({
+const mapStateToProps = ({ User, userLocation, Jobs }) => ({
   User,
   userLocation,
   Jobs
@@ -113,10 +120,10 @@ class JobMap extends PureComponent {
   }
 
   getState = props => {
-    let {User,  userLocation, Jobs, markers } = props;
+    let { User, userLocation, Jobs, markers } = props;
     // console.log(Jobs)
     let JobMarkers;
-    this.setState({User,  markers: Jobs, userLocation, Jobs });
+    this.setState({ User, markers: Jobs, userLocation, Jobs });
   };
 
   componentWillUnmount() {
@@ -195,8 +202,9 @@ class JobMap extends PureComponent {
   };
 
   locationButton = (latitude, longitude) => {
-    console.log(latitude, longitude)
-    const zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
+    console.log(latitude, longitude);
+    const zoom =
+      this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
     this._panTo([latitude, longitude], zoom);
   };
 
@@ -222,14 +230,23 @@ class JobMap extends PureComponent {
 
   renderJobCards = markers =>
     markers.map(job => (
-      <div className="card" onClick={() => this.locationButton(job.lat, job.lng)}>
+      <div
+        className="card"
+        onClick={() => this.locationButton(job.lat, job.lng)}
+      >
         <div className="card-img">
-          <Image src={job.image} rounded responsive/>
+          <Image src={job.image} rounded responsive />
         </div>
         <h4>{job.title}</h4>
         <p>{job.description}</p>
         <small style={{ float: "right" }}>{job.id}</small>
-        <div style={{textAlign: 'center'}}><Button onClick={() => this.props.history.push('/jobdetails/' + job.id)}>Job Details</Button></div>
+        <div style={{ textAlign: "center" }}>
+          <Button
+            onClick={() => this.props.history.push("/jobdetails/" + job.id)}
+          >
+            Job Details
+          </Button>
+        </div>
       </div>
     ));
 
@@ -252,8 +269,10 @@ class JobMap extends PureComponent {
       );
     });
 
-    return ( !User.token ? <Redirect to="/"/>
-      :<div className="GoogleMapContainer">
+    return !User.token ? (
+      <Redirect to="/" />
+    ) : (
+      <div className="GoogleMapContainer">
         {this.mapCanLoad() ? (
           [
             <div className="searchListWrapper">
@@ -312,4 +331,6 @@ class JobMap extends PureComponent {
     );
   }
 }
-export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(JobMap));
+export default withRouter(
+  reduxConnect(mapStateToProps, mapDispatchToProps)(JobMap)
+);
