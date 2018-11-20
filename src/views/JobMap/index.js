@@ -89,6 +89,15 @@ class JobMap extends PureComponent {
 
   componentDidMount() {
     console.log("MOUNTED")
+    
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getState(nextProps);
+  }
+
+  getState = props => {
+    let {User, userLocation, Jobs} = props;
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const { timestamp } = lastPosition;
       const {
@@ -112,14 +121,6 @@ class JobMap extends PureComponent {
       error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 };
     });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.getState(nextProps);
-  }
-
-  getState = props => {
-    let {User, userLocation, Jobs} = props;
 
     this.setState({User,  markers: Jobs, userLocation, Jobs });
   };
