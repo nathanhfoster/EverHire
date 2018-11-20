@@ -3,7 +3,7 @@ import ImmutableProptypes from "react-immutable-proptypes";
 import PropTypes from "prop-types";
 import LoadingScreen from "../../components/LoadingScreen";
 import { connect as reduxConnect } from "react-redux";
-import { Row, Col, InputGroup, FormControl, Button } from "react-bootstrap";
+import { Row, Col, InputGroup, FormControl, Button, Image } from "react-bootstrap";
 import GoogleMap from "google-map-react";
 import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
@@ -227,6 +227,7 @@ class JobMap extends PureComponent {
   renderJobCards = markers =>
     markers.map(job => (
       <div className="card">
+      <Image src={job.image} responsive />
         <h3>
           ID: {job.id} {job.title}
         </h3>
