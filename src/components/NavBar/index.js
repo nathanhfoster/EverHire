@@ -2,18 +2,19 @@ import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { withAlert } from 'react-alert'
-import {Logout} from '../../actions/App'
+import { withRouter } from "react-router-dom";
+import { withAlert } from "react-alert";
+import { Logout } from "../../actions/App";
 
-const mapStateToProps = ({User}) => ({
+const mapStateToProps = ({ User }) => ({
   User
-})
+});
 
 const mapDispatchToProps = {
   Logout
-}
+};
 
 class NavBar extends PureComponent {
   constructor(props) {
@@ -42,14 +43,13 @@ class NavBar extends PureComponent {
   };
 
   Logout = () => {
-    this.props.Logout()
-    this.props.alert.show([
-      <div>GOODBYE</div>
-    ])
-  }
+    this.props.Logout();
+    this.props.alert.show([<div>GOODBYE</div>]);
+    this.props.history.push("/");
+  };
 
   render() {
-    const {User} = this.state
+    const { User } = this.state;
     return (
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
@@ -67,15 +67,20 @@ class NavBar extends PureComponent {
             <LinkContainer to="/jobpost">
               <NavItem eventKey={2}>Create Job</NavItem>
             </LinkContainer>
-            <NavDropdown eventKey={3} title={<i className="fas fa-user"> Account</i>}>
-              <LinkContainer to="/account"><NavItem eventKey={3}>Profile</NavItem></LinkContainer> 
-              {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> : null}
+            <NavDropdown eventKey={3} title="Account">
+              <LinkContainer to="/account">
+                <NavItem eventKey={3}>Profile</NavItem>
+              </LinkContainer>
+              {User.token ? (
+                <NavItem onClick={this.Logout}>Logout</NavItem>
+              ) : null}
             </NavDropdown>
-            
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     );
   }
 }
-export default withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar))
+export default withRouter(
+  withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar))
+);
