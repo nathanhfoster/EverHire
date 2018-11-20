@@ -69,9 +69,9 @@ class JobMap extends Component {
     center: [37.4220862600981 -121.89071280220037],
     zoom: 10,
     markers: [
-      { id: "Me", lat: null, lng: null },
-      { id: "A", lat: 38.3352, lng: -121.8782 },
-      { id: "B", lat: 37.3346653, lng: -121.87532982 }
+      // { id: "Me", lat: null, lng: null },
+      // { id: "A", lat: 38.3352, lng: -121.8782 },
+      // { id: "B", lat: 37.3346653, lng: -121.87532982 }
     ]
   };
 
@@ -94,12 +94,11 @@ class JobMap extends Component {
 
   getState = props => {
     let {userLocation, Jobs, markers} = props
-    console.log(Jobs)
+   // console.log(Jobs)
     let JobMarkers
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const {timestamp} = lastPosition
       const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = lastPosition.coords
-      JobMarkers = [{id: 'Me', lat: lastPosition.coords.latitude, lng: lastPosition.coords.longitude}].concat(markers)
       this.props.setUserLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed)
         error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
@@ -204,7 +203,7 @@ class JobMap extends Component {
       }
       return true;
     } else return false;
-  };
+  }
 
   // apiIsLoaded = (map, maps, lat, lng) => {
   //   if (map) {
@@ -212,6 +211,12 @@ class JobMap extends Component {
   //     map.panTo(latLng);
   //   }
   // }
+
+  renderJobCards = markers => markers.map(job => 
+    <div className="card">
+      <h3>ID: {job.id} {job.title}</h3>
+    </div>
+    )
 
   render() {
     const {initialCenter, center, zoom, markers} = this.state
@@ -229,8 +234,8 @@ class JobMap extends Component {
           // use your hover state (from store, react-controllables etc...)
           $hover={this.props.hoverKey === id}
         />
-      );
-    });
+      )
+    })
 
     return (
       <div className="GoogleMapContainer">
@@ -244,15 +249,7 @@ class JobMap extends Component {
         </Row>
           <Row className="mg-20">
             <Col className="scrolling-wrapper">
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
-              <div class="card"><h2>Card</h2></div>
+              {this.renderJobCards(markers)}
             </Col>
           </Row>
         </div>,

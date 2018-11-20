@@ -13,16 +13,21 @@
 }
 
 .searchListWrapper {
-    color: var(--primaryTextColor);
+    color: white;
     font-weight: 500;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
-    background-color: rgba(255, 255, 255, 1);
+    background-color: var(--grey);
     height: 100%;
     width: 25%;
     position: relative;
     z-index: 3;
     border-radius: 8px;
     overflow-x: hidden;
+}
+
+.searchListWrapper:hover {
+    opacity: 1;
+    transition: opacity 350ms;
 }
 
 .searchListTab {

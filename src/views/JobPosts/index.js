@@ -66,16 +66,6 @@ class JobPost extends Component {
 
   onChange = e => this.setState({[e.target.name]: e.target.value})
 
-  // address:115 Who Cares St
-  // title:First Job
-  // description:DESCRIPTION OF FIRST JOB
-  // lat:101.123
-  // lng:150.123
-  // phone_number:209-123-4563
-  // author:1
-  // last_modified_by:1
-  // tags:Job
-
   render() {
     return (
       <Grid className="JobPost">

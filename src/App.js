@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import JobMap from "./views/JobMap";
-import NavBar from "./components/NavBar";
+import NavBar from './components/NavBar'
 import Login from "./components/Login";
 import JobPost from "./views/JobPosts";
 import Account from "./components/Account";

@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
+<<<<<<< HEAD
 import { login } from "../../actions/App";
+=======
+import {login} from '../../actions/App'
+>>>>>>> origin/master
 import "./styles.css";
 import {
   Form,
@@ -15,9 +19,15 @@ import {
   PageHeader
 } from "react-bootstrap";
 
+<<<<<<< HEAD
 const mapStateToProps = ({ User }) => ({
   User
 });
+=======
+const mapStateToProps = ({User}) => ({
+  User
+})
+>>>>>>> origin/master
 
 const mapDispatchToProps = {
   login
@@ -42,6 +52,7 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {}
 
+<<<<<<< HEAD
   handleUserName = e => {
     this.setState({
       username: e.target.value
@@ -60,8 +71,23 @@ class Login extends Component {
     const { login } = this.props;
     login(username, password);
   };
+=======
+  handleLogin = () => {
+    const {username, password} = this.state
+    const {login} = this.props
+    login(username, password)
+  }
+
+  // handleSignUp = () => {
+  //   const path = "/signup";
+  //   this.props.history.push(path);
+  // };
+>>>>>>> origin/master
+
+  onChange = e => this.setState({[e.target.name]: e.target.value})
 
   render() {
+<<<<<<< HEAD
     const { username, password } = this.state;
     const { User } = this.props;
 
@@ -77,6 +103,17 @@ class Login extends Component {
                 placeholder="Username"
                 onChange={this.handleUserName}
               />
+=======
+    const {User} = this.props
+    return (
+      !User.token ?
+      <Form className="loginForm" onChange={this.onChange}>
+        <Row>
+          <Col md={6} smOffset={3} sm={6}>
+            <PageHeader style={{ color: "white" }}>Everhire Login</PageHeader>
+            <FormGroup controlId="formHorizontalEmail">
+              <FormControl name="username" type="username" placeholder="Username" />
+>>>>>>> origin/master
             </FormGroup>
           </Col>
         </Row>
@@ -84,12 +121,16 @@ class Login extends Component {
         <Row>
           <Col md={6} smOffset={3} sm={6}>
             <FormGroup controlId="formHorizontalPassword">
+<<<<<<< HEAD
               <FormControl
                 value={password}
                 type="password"
                 placeholder="Password"
                 onChange={this.handlePassword}
               />
+=======
+              <FormControl name="password" type="password" placeholder="Password" />
+>>>>>>> origin/master
             </FormGroup>
           </Col>
         </Row>
@@ -105,9 +146,13 @@ class Login extends Component {
         <Row>
           <Col smOffset={3} sm={1}>
             <FormGroup>
+<<<<<<< HEAD
               <Button type="submit" onClick={this.handleLogin}>
                 Sign in
               </Button>
+=======
+              <Button onClick={this.handleLogin}>Sign in</Button>
+>>>>>>> origin/master
             </FormGroup>
           </Col>
           <Col smOffset={3}>
@@ -117,8 +162,12 @@ class Login extends Component {
           </Col>
         </Row>
       </Form>
+<<<<<<< HEAD
     ) : (
       <Redirect to="/map" />
+=======
+      : <Redirect to="/map" />
+>>>>>>> origin/master
     );
   }
 }
