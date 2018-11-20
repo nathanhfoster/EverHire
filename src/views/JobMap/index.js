@@ -222,14 +222,14 @@ class JobMap extends PureComponent {
 
   renderJobCards = markers =>
     markers.map(job => (
-      <div className="card">
+      <Link className="card" to={'/jobdetails/' + job.id}>
         <div className="card-img">
           <Image src={job.image} responsive />
         </div>
         <h4>{job.title}</h4>
         <p>{job.description}</p>
         <small style={{ float: "right" }}>{job.id}</small>
-      </div>
+      </Link>
     ));
 
   render() {
