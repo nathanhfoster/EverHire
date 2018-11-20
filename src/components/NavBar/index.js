@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { withAlert } from 'react-alert'
 import {Logout} from '../../actions/App'
@@ -67,10 +67,11 @@ class NavBar extends PureComponent {
             <LinkContainer to="/jobpost">
               <NavItem eventKey={2}>Create Job</NavItem>
             </LinkContainer>
-            {!User.token ?
-            <LinkContainer to="/account"><NavItem eventKey={3}>Account</NavItem></LinkContainer> 
-            :<NavItem onClick={this.Logout}>Logout</NavItem>
-            }
+            <NavDropdown eventKey={3} title={<i className="fas fa-user"> Account</i>}>
+              <LinkContainer to="/account"><NavItem eventKey={3}>Profile</NavItem></LinkContainer> 
+              {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> : null}
+            </NavDropdown>
+            
           </Nav>
         </Navbar.Collapse>
       </Navbar>

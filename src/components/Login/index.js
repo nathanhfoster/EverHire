@@ -110,8 +110,8 @@ class Login extends Component {
             </FormGroup>
           </Col>
           <Col smOffset={3}>
-            <FormGroup onClick={() => this.props.history.push("/signup")}>
-              <Button>Sign Up</Button>
+            <FormGroup>
+              <Button onClick={() => this.props.history.push("/signup")}>Sign Up</Button>
             </FormGroup>
           </Col>
         </Row>

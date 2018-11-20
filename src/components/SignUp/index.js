@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormControl, ControlLabel, FormGroup, Button } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import { createUser } from "../../actions/User";
+import {Redirect} from 'react-router-dom'
 
 const mapStateToProps = ({ User }) => ({
   User
@@ -48,8 +49,8 @@ class SignUp extends Component {
 
   render() {
     const { username, password, email } = this.state;
-    return (
-      <div className="container">
+    return ( this.props.User.token ? <Redirect to="/map"/>
+      :<div className="container">
         <div className="Account">
           <h2 style={{ textAlign: "center", color: "white" }}>
             Create Account

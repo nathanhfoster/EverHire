@@ -20,7 +20,10 @@ export const createUser = (username, password, email) => {
               payload: res.data
             });
           })
-          .catch(e => console.log(e));
+          .catch(e =>  dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: e.response
+          }));
       })
       .catch(e => console.log(e));
 };
