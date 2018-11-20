@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormControl, ControlLabel, FormGroup, Button } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import { login } from "../../actions/App";
+import {Redirect} from 'react-router-dom'
 
 const mapStateToProps = ({ User }) => ({
   User
@@ -41,8 +42,8 @@ class Account extends Component {
 
   render() {
     const { username, password } = this.state;
-    return (
-      <div className="container">
+    return ( !this.props.User.token ? <Redirect to="/"/>
+      :<div className="container">
         <div className="Account">
           <h2 style={{ textAlign: "center", color: "white" }}>Account</h2>
           <div className="container">
