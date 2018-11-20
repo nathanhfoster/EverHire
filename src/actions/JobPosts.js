@@ -24,10 +24,14 @@ export const postJob = (token, payload) => async dispatch =>
 export const getJobs = () => 
     async (dispatch) => await Axios().get("jobs/")
         .then(res => {
-            dispatch({
+          for(let i = 0; i < res.data.length; i++) {
+            res.data[i].lat = Number(res.data[i].lat)
+            res.data[i].lng = Number(res.data[i].lng)
+          }
+          dispatch({
             type: C.GET_JOBS,
             payload: res.data
-            })
+          })
     }).catch((e) => console.log(e))
 
 export const getJob = id => 

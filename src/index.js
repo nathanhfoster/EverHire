@@ -11,7 +11,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 const options = {
   position: "bottom center",
-  timeout: 1550,
+  timeout: 3250,
   offset: "30px",
   transition: "scale"
 };

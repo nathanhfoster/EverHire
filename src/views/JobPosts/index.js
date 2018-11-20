@@ -160,7 +160,6 @@ class JobPost extends Component {
               onChange={this.setImage}
             />
           </FormGroup>
-
           <Button onClick={this.postJob}>Post</Button>
         </Form>
       </Grid>

@@ -6,6 +6,7 @@ const constants = {
   SET_LOGIN_TOKEN: "SET_LOGIN_TOKEN",
   GET_JOB: "GET_JOB",
   GET_JOBS: "GET_JOBS",
+  SET_LOGOUT: "SET_LOGOUT",
   SET_JOB_POST: "SET_JOB_POST"
  }
  export default constants

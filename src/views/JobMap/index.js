@@ -3,7 +3,7 @@ import ImmutableProptypes from "react-immutable-proptypes";
 import PropTypes from "prop-types";
 import LoadingScreen from "../../components/LoadingScreen";
 import { connect as reduxConnect } from "react-redux";
-import {Link} from 'react-router-dom'
+import {Link, Redirect, withRouter} from 'react-router-dom'
 import { Row, Col, InputGroup, FormControl, Button, Image } from "react-bootstrap";
 import GoogleMap from "google-map-react";
 import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover";
@@ -21,7 +21,8 @@ import { setUserLocation, getUserLocation } from "../../actions/App";
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
-const mapStateToProps = ({ userLocation, Jobs }) => ({
+const mapStateToProps = ({User, userLocation, Jobs }) => ({
+  User,
   userLocation,
   Jobs
 });
@@ -112,10 +113,10 @@ class JobMap extends PureComponent {
   }
 
   getState = props => {
-    let { userLocation, Jobs, markers } = props;
+    let {User,  userLocation, Jobs, markers } = props;
     // console.log(Jobs)
     let JobMarkers;
-    this.setState({ markers: Jobs, userLocation, Jobs });
+    this.setState({User,  markers: Jobs, userLocation, Jobs });
   };
 
   componentWillUnmount() {
@@ -193,10 +194,9 @@ class JobMap extends PureComponent {
     };
   };
 
-  locationButton = e => {
-    const { latitude, longitude } = this.props.userLocation;
-    const zoom =
-      this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
+  locationButton = (latitude, longitude) => {
+    console.log(latitude, longitude)
+    const zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
     this._panTo([latitude, longitude], zoom);
   };
 
@@ -222,18 +222,19 @@ class JobMap extends PureComponent {
 
   renderJobCards = markers =>
     markers.map(job => (
-      <Link className="card" to={'/jobdetails/' + job.id}>
+      <div className="card" onClick={() => this.locationButton(job.lat, job.lng)}>
         <div className="card-img">
-          <Image src={job.image} responsive />
+          <Image src={job.image} rounded responsive/>
         </div>
         <h4>{job.title}</h4>
         <p>{job.description}</p>
         <small style={{ float: "right" }}>{job.id}</small>
-      </Link>
+        <div style={{textAlign: 'center'}}><Button onClick={() => this.props.history.push('/jobdetails/' + job.id)}>Job Details</Button></div>
+      </div>
     ));
 
   render() {
-    const { initialCenter, center, zoom, markers } = this.state;
+    const { User, initialCenter, center, zoom, markers } = this.state;
     let { altitude, latitude, longitude, speed } = this.state.userLocation;
     speed = parseInt(speed * 2.23694); // meters per second to mph
     altitude = parseInt(altitude * 3.28084); // meters to feet
@@ -251,8 +252,8 @@ class JobMap extends PureComponent {
       );
     });
 
-    return (
-      <div className="GoogleMapContainer">
+    return ( !User.token ? <Redirect to="/"/>
+      :<div className="GoogleMapContainer">
         {this.mapCanLoad() ? (
           [
             <div className="searchListWrapper">
@@ -291,14 +292,14 @@ class JobMap extends PureComponent {
               <Button
                 bsClass="sheenButton locationButton sheen"
                 bsSize="large"
-                onClick={this.locationButton.bind(this)}
+                onClick={() => this.locationButton(latitude, longitude)}
               >
                 <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" />
               </Button>
               <Button
                 bsClass="sheenButton listButton sheen"
                 bsSize="large"
-                onClick={this.locationButton.bind(this)}
+                onClick={() => this.locationButton(latitude, longitude)}
               >
                 <FontAwesomeIcon icon={faListAlt} size="lg" />
               </Button>
@@ -311,4 +312,4 @@ class JobMap extends PureComponent {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(JobMap);
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(JobMap));

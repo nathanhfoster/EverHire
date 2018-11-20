@@ -1,15 +1,21 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
 import { Navbar, Nav, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { withAlert } from 'react-alert'
+import {Logout} from '../../actions/App'
 
-const mapStateToProps = ({}) => ({});
+const mapStateToProps = ({User}) => ({
+  User
+})
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  Logout
+}
 
-class NavBar extends Component {
+class NavBar extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -35,13 +41,15 @@ class NavBar extends Component {
     });
   };
 
-  componentWillUpdate() {}
-
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
+  Logout = () => {
+    this.props.Logout()
+    this.props.alert.show([
+      <div>GOODBYE</div>
+    ])
+  }
 
   render() {
+    const {User} = this.state
     return (
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
@@ -59,14 +67,14 @@ class NavBar extends Component {
             <LinkContainer to="/jobpost">
               <NavItem eventKey={2}>Create Job</NavItem>
             </LinkContainer>
-            <LinkContainer to="/account">
-              <NavItem eventKey={3}>Account</NavItem>
-            </LinkContainer>
-            <NavItem>Logout</NavItem>
+            {!User.token ?
+            <LinkContainer to="/account"><NavItem eventKey={3}>Account</NavItem></LinkContainer> 
+            :<NavItem onClick={this.Logout}>Logout</NavItem>
+            }
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar))

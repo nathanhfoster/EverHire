@@ -86,8 +86,8 @@ class App extends Component {
     const {data, status, statusText, headers, config, request} = ApiResponse
     const {alert} = this.props
 
-    if(status === 200 || status === 201) alert.success([<div>{status} {' '} {statusText}</div>])
-    if(status === 400 || status === 401) alert.error([<div>{status} {' '} {statusText}</div>, <div>{JSON.stringify(data)}</div>])
+    if(status === 200 || status === 201) alert.success([<div>{status} {'  '} {statusText}</div>])
+    if(status === 400 || status === 401) alert.error([<div>{status} {'  '} {statusText}</div>, <div>{JSON.stringify(data)}</div>])
        
     this.props.clearApiResponse()
   }

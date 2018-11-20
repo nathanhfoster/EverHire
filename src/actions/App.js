@@ -57,7 +57,14 @@ export const login = (username, password, rememberMe) => {
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
          })
-    }).catch(e => console.log(e))
+         dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: res
+         })
+    }).catch(e => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+     }))
 }
 
 export const Logout = () => {
