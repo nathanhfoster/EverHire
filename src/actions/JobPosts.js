@@ -21,13 +21,21 @@ export const postJob = (token, payload) => async dispatch =>
       })
     );
 
-export const getJobs = () => async dispatch =>
-  await Axios()
-    .get("jobs/")
-    .then(res => {
-      dispatch({
-        type: C.GET_JOBS,
-        payload: res.data
-      });
-    })
-    .catch(e => console.log(e));
+export const getJobs = () => 
+    async (dispatch) => await Axios().get("jobs/")
+        .then(res => {
+            dispatch({
+            type: C.GET_JOBS,
+            payload: res.data
+            })
+    }).catch((e) => console.log(e))
+
+export const getJob = id => 
+    async (dispatch) => await Axios().get(`jobs/${id}/`)
+        .then(res => {
+            dispatch({
+                type: C.GET_JOB,
+                payload: res.data
+            })
+    }).catch((e) => console.log(e))
+      

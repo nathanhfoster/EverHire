@@ -3,14 +3,8 @@ import ImmutableProptypes from "react-immutable-proptypes";
 import PropTypes from "prop-types";
 import LoadingScreen from "../../components/LoadingScreen";
 import { connect as reduxConnect } from "react-redux";
-import {
-  Row,
-  Col,
-  InputGroup,
-  FormControl,
-  Button,
-  Image
-} from "react-bootstrap";
+import {Link} from 'react-router-dom'
+import { Row, Col, InputGroup, FormControl, Button, Image } from "react-bootstrap";
 import GoogleMap from "google-map-react";
 import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
@@ -88,19 +82,6 @@ class JobMap extends PureComponent {
   componentWillUpdate() {}
 
   componentDidMount() {
-    this.props.getUserLocation();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.getState(nextProps);
-  }
-
-  componentWillUpdate() {}
-
-  getState = props => {
-    let { userLocation, Jobs, markers } = props;
-    // console.log(Jobs)
-    let JobMarkers;
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const { timestamp } = lastPosition;
       const {
@@ -124,10 +105,18 @@ class JobMap extends PureComponent {
       error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 };
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getState(nextProps);
+  }
+
+  getState = props => {
+    let { userLocation, Jobs, markers } = props;
+    // console.log(Jobs)
+    let JobMarkers;
     this.setState({ markers: Jobs, userLocation, Jobs });
   };
-
-  componentDidUpdate() {}
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.watchID);

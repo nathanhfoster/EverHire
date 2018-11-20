@@ -7,6 +7,7 @@ import { withRouter, Route, Switch } from "react-router-dom";
 import JobMap from "./views/JobMap";
 import NavBar from './components/NavBar'
 import Login from "./components/Login";
+import JobDetail from "./views/JobDetail";
 import JobPost from "./views/JobPosts";
 import Account from "./components/Account";
 import SignUp from "./components/SignUp";
@@ -43,6 +44,7 @@ class App extends Component {
       { path: "/", component: Login },
       { path: "/signup", component: SignUp },
       { path: "/map", component: JobMap },
+      { path: "/jobdetails/:id", component: JobDetail },
       { path: "/jobpost", component: JobPost },
       { path: "/account", component: Account }
     ]
