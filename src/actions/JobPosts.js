@@ -6,6 +6,8 @@ export const postJob = (token, payload) => {
     .post("jobs/", payload)
     .then(res => {
       let {Jobs} = getState()
+      res.data.lat = Number(res.data.lat)
+      res.data.lng = Number(res.data.lng)
       Jobs.push(res.data)
       dispatch({
         type: C.GET_JOBS,
@@ -25,7 +27,7 @@ export const postJob = (token, payload) => {
   }
 
 export const getJobs = () => 
-    async (dispatch) => await Axios().get("jobs/")
+    async (dispatch, getState) => await Axios().get("jobs/")
         .then(res => {
           for(let i = 0; i < res.data.length; i++) {
             res.data[i].lat = Number(res.data[i].lat)

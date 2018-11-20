@@ -29,7 +29,6 @@ class MyGreatPlaceWithControllableHover extends Component {
 
   render() {
     const { text, zIndex, address, phone_number, title } = this.props;
-
     const style = {
       ...greatPlaceStyle,
       zIndex: this.props.$hover ? 1000 : zIndex
@@ -44,18 +43,21 @@ class MyGreatPlaceWithControllableHover extends Component {
 
     return (
       <div style={style} className="center">
-        {!this.props.$hover
-          ? [
+        {!this.props.$hover ? [
               <div style={greatPlaceStickStyleShadow} />,
               <div style={circleStyle}>{text}</div>,
               <div style={stickStyle} />
             ]
-          : [
+          : text !== 'Me' ? [ 
               <div style={infoBoxStyle}>
                 {`${title ? title : ""} \n`}
                 <div>{`${address ? address : ""}`}</div>
                 <div>{`${phone_number ? phone_number : ""}`}</div>
               </div>,
+              <div style={greatPlaceStickStyleShadow} />,
+              <div style={circleStyle}>{text}</div>,
+              <div style={stickStyle} />
+            ] : [
               <div style={greatPlaceStickStyleShadow} />,
               <div style={circleStyle}>{text}</div>,
               <div style={stickStyle} />

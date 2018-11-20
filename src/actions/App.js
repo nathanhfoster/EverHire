@@ -27,26 +27,21 @@ export const setWindow = (Window) => ({
  })
 
  export const setUserLocation = (accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp) => {
-    return async (dispatch, getState) => {
-        const {Jobs} = getState()
-        const me = [{id: 'Me', lat: latitude, lng: longitude}]
-        const Markers = Jobs.length > 1 && Jobs[0].id != 'Me' ? me.concat(Jobs) : Jobs
-        await dispatch({
-        type: C.SET_USER_LOCATION,
-        payload: {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} 
+    return (dispatch, getState) => {
+        let {Jobs} = getState()
+        let newJobs
+        if(Jobs[0].id !== 'Me') Jobs.unshift({id: 'Me', lat: latitude, lng: longitude})
+
+        dispatch({
+            type: C.SET_USER_LOCATION,
+            payload: {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} 
         }),
-        await dispatch({
+        dispatch({
             type: C.GET_JOBS,
-            payload: Markers
+            payload: Jobs
         })
     }
 }
-
-export const getUserLocation = () => (dispatch, getState) => 
-    dispatch({ 
-        type: C.GET_USER_LOCATION, 
-        payload: getState().userLocation,
-})
 
 export const login = (username, password, rememberMe) => {
     return async (dispatch) => await Axios().post('login/', qs.stringify({username, password}))
