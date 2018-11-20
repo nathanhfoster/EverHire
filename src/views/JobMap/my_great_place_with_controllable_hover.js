@@ -52,9 +52,9 @@ class MyGreatPlaceWithControllableHover extends Component {
             ]
           : [
               <div style={infoBoxStyle}>
-                {`${title} \n`}
-                <div>{`${address}`}</div>
-                <div>{`${phone_number}`}</div>
+                {`${title ? title : ""} \n`}
+                <div>{`${address ? address : ""}`}</div>
+                <div>{`${phone_number ? phone_number : ""}`}</div>
               </div>,
               <div style={greatPlaceStickStyleShadow} />,
               <div style={circleStyle}>{text}</div>,
