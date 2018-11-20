@@ -1,8 +1,16 @@
 .JobDetail {
-    color: white;
-    height: 100vh;
+  color: white;
+  height: 100vh;
+  font-size: 15px;
 }
 
 .jobImage {
-    height: 500px;
+  min-height: 200px;
+  min-width: 200px;
+  max-height: 240;
+  margin: 10px;
+}
+
+.left-detail div {
+  margin: 20px 0px;
 }

@@ -63,7 +63,7 @@ const greatPlaceCircleStyleHover = {
   transform: "scale(1.1)",
   transition: "-webkit-transform 0.25s cubic-bezier(0.485, 1.65, 0.545, 0.835)",
   transformOrigin: "15px 60px 0px",
-  zIndex: 6500
+  zIndex: 6000
 };
 
 const greatPlaceStickStyleShadow = {
