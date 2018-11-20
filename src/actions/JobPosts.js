@@ -1,13 +1,15 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 
-export const postJob = (token, payload) => async dispatch =>
-  await AxiosForm(token, payload)
+export const postJob = (token, payload) => {
+  return async (dispatch, getState) => await AxiosForm(token, payload)
     .post("jobs/", payload)
     .then(res => {
+      let {Jobs} = getState()
+      Jobs.push(res.data)
       dispatch({
-        type: C.SET_JOB_POST,
-        payload: res.data
+        type: C.GET_JOBS,
+        payload: Jobs
       });
       dispatch({
         type: C.SET_API_RESPONSE,
@@ -20,6 +22,7 @@ export const postJob = (token, payload) => async dispatch =>
         payload: e.response
       })
     );
+  }
 
 export const getJobs = () => 
     async (dispatch) => await Axios().get("jobs/")

@@ -87,9 +87,9 @@ class JobMap extends PureComponent {
   componentWillMount() {
     this.getState(this.props);
   }
-  componentWillUpdate() {}
 
   componentDidMount() {
+    console.log("MOUNTED")
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const { timestamp } = lastPosition;
       const {
@@ -120,10 +120,9 @@ class JobMap extends PureComponent {
   }
 
   getState = props => {
-    let { User, userLocation, Jobs, markers } = props;
-    // console.log(Jobs)
-    let JobMarkers;
-    this.setState({ User, markers: Jobs, userLocation, Jobs });
+    let {User,  userLocation, Jobs} = props;
+
+    this.setState({User,  markers: Jobs, userLocation, Jobs });
   };
 
   componentWillUnmount() {
@@ -202,9 +201,7 @@ class JobMap extends PureComponent {
   };
 
   locationButton = (latitude, longitude) => {
-    console.log(latitude, longitude);
-    const zoom =
-      this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
+    const zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
     this._panTo([latitude, longitude], zoom);
   };
 

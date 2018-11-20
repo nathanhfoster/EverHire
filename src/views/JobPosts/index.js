@@ -58,6 +58,7 @@ class JobPost extends Component {
   componentWillUnmount() {}
 
   getCoords = address => {
+    console.log(address)
     axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
@@ -67,6 +68,7 @@ class JobPost extends Component {
       })
       .then(res => {
         this.setState({
+          address,
           lat: res.data.results[0].geometry.location.lat,
           lng: res.data.results[0].geometry.location.lng
         });
@@ -90,7 +92,6 @@ class JobPost extends Component {
       image
     } = this.state;
     const { id, token } = User;
-    this.getCoords(address);
     payload.append("address", address);
     payload.append("title", title);
     payload.append("description", description);
@@ -147,7 +148,7 @@ class JobPost extends Component {
           </FormGroup>
 
           <FormGroup controlId="formHorizontalPassword">
-            <FormControl type="text" name="address" placeholder="Address" />
+            <FormControl type="text" name="address" placeholder="Address" onChange={(e) => this.getCoords(e.target.value)}/>
           </FormGroup>
 
           <FormGroup>
