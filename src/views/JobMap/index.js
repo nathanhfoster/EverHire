@@ -89,15 +89,30 @@ class JobMap extends PureComponent {
 
   componentDidMount() {
     console.log("MOUNTED")
-    
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.getState(nextProps);
-  }
-
-  getState = props => {
-    let {User, userLocation, Jobs} = props;
+    navigator.geolocation.getCurrentPosition(
+      lastPosition => {
+        const {
+          accuracy,
+          altitude,
+          altitudeAccuracy,
+          heading,
+          latitude,
+          longitude,
+          speed
+        } = lastPosition.coords;
+        this.props.setUserLocation(
+          accuracy,
+          altitude,
+          altitudeAccuracy,
+          heading,
+          latitude,
+          longitude,
+          speed
+        );
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  );
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const { timestamp } = lastPosition;
       const {
@@ -121,6 +136,14 @@ class JobMap extends PureComponent {
       error => alert(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 };
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getState(nextProps);
+  }
+
+  getState = props => {
+    let {User, userLocation, Jobs} = props;
 
     this.setState({User,  markers: Jobs, userLocation, Jobs });
   };

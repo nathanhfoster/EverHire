@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import axios from "axios";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
@@ -15,20 +15,20 @@ import {
 } from "react-bootstrap";
 import { postJob } from "../../actions/JobPosts";
 
-const mapStateToProps = ({ User }) => ({
-  User
+const mapStateToProps = ({ User, Jobs }) => ({
+  User,
+  Jobs
 });
 
 const mapDispatchToProps = {
   postJob
 };
 
-class JobPost extends Component {
+class JobPost extends PureComponent {
   constructor(props) {
     super(props);
-    //this.onChange = this.onChange.bind(this)
 
-    this.state = {};
+    this.state = {Jobs: []};
   }
 
   static propTypes = {};
@@ -39,8 +39,6 @@ class JobPost extends Component {
     this.getState(this.props);
   }
 
-  componentWillUpdate() {}
-
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
@@ -48,25 +46,20 @@ class JobPost extends Component {
   }
 
   getState = props => {
-    const { User } = props;
+    console.log(this.state.Jobs.length)
+    console.log(props.Jobs.length)
+    const { User, Jobs } = props;
 
-    this.setState({ User });
+    this.setState({ User, Jobs });
   };
 
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
-
   getCoords = address => {
-    console.log(address)
-    axios
-      .get("https://maps.googleapis.com/maps/api/geocode/json", {
+    axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
           address: address,
           key: "AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"
         }
-      })
-      .then(res => {
+      }).then(res => {
         this.setState({
           address,
           lat: res.data.results[0].geometry.location.lat,

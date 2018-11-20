@@ -8,22 +8,13 @@ export const postJob = (token, payload) => {
       let {Jobs} = getState()
       res.data.lat = Number(res.data.lat)
       res.data.lng = Number(res.data.lng)
-      Jobs.push(res.data)
+      Jobs.unshift(res.data)
       dispatch({
         type: C.GET_JOBS,
         payload: Jobs
       });
-      dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: res
-      });
     })
-    .catch(e =>
-      dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-      })
-    );
+    .catch(e => console.log(e.response));
   }
 
 export const getJobs = () => 
