@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Grid, Row, Col, PageHeader, Image } from "react-bootstrap";
+import { Grid, Row, Col, PageHeader, Image, Button } from "react-bootstrap";
 import Moment from "react-moment";
 import { getJob } from "../../actions/JobPosts";
 import "./styles.css";
@@ -100,6 +100,7 @@ class JobDetail extends PureComponent {
             />
           </Col>
         </Row>
+        <Button>Work This Job</Button>
       </Grid>
     ) : null;
   }
