@@ -56,7 +56,7 @@ class NavBar extends PureComponent {
           <Navbar.Brand>
             <Nav>
               <LinkContainer to="/">
-                <NavItem eventKey={1}>EverHire</NavItem>
+                <NavItem eventKey={1}><i className="far fa-map"/> EverHire</NavItem>
               </LinkContainer>
             </Nav>
           </Navbar.Brand>

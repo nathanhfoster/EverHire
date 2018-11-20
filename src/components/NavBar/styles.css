@@ -46,6 +46,8 @@
   flex-grow: 1;
 }
 .navbar-toggle {
+  margin: 8px;
+  padding: 16px;
   border: 1px solid var(--grey) !important;
 }
 .navbar-toggle:hover,
