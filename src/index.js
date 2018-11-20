@@ -5,8 +5,16 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import storeFactory from './store'
 import { Provider } from 'react-redux'
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+import { BrowserRouter as Router} from "react-router-dom"
 
-// Register service worker to control making site work offline
+const options = {
+  position: 'bottom center',
+  timeout: 1550,
+  offset: '30px',
+  transition: 'scale'
+}
 
 if('serviceWorker' in navigator) {
   navigator.serviceWorker
@@ -21,7 +29,11 @@ window.store = store
 
 ReactDOM.render(
   <Provider store={store}>
-  <App/>
+  <Router>
+    <AlertProvider template={AlertTemplate} {...options}>
+    <App />
+    </AlertProvider>
+  </Router>
   </Provider>, document.getElementById('root')
 );
 registerServiceWorker();

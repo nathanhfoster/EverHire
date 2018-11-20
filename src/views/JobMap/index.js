@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import ImmutableProptypes from "react-immutable-proptypes";
 import PropTypes from "prop-types";
 import LoadingScreen from "../../components/LoadingScreen";
@@ -30,7 +30,7 @@ const mapDispatchToProps = {
   getUserLocation
 };
 
-class JobMap extends Component {
+class JobMap extends PureComponent {
   constructor(props) {
     super(props);
     this.watchID = null;
@@ -89,8 +89,6 @@ class JobMap extends Component {
   }
 
   componentWillUpdate() {}
-
-  componentDidUpdate() {}
 
   getState = props => {
     let {userLocation, Jobs, markers} = props
@@ -184,12 +182,7 @@ class JobMap extends Component {
   };
 
   locationButton = e => {
-    const { latitude, longitude } =
-      this.state.lastPosition.coords != null
-        ? this.state.lastPosition.coords
-        : this.props.userLocation != null
-          ? this.props.userLocation
-          : 0;
+    const { latitude, longitude } = this.props.userLocation
     const zoom =
       this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
     this._panTo([latitude, longitude], zoom);

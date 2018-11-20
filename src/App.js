@@ -1,23 +1,28 @@
 import React, { Component } from "react";
 import { connect as reduxConnect } from "react-redux";
+import { withAlert } from 'react-alert';
 import PropTypes from "prop-types";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import JobMap from "./views/JobMap";
 import NavBar from './components/NavBar'
 import Login from "./components/Login";
 import JobPost from "./views/JobPosts";
 import Account from "./components/Account";
 import SignUp from "./components/SignUp";
-import { setWindow } from "./actions/App";
+import {clearApiResponse, setApiResponse, setWindow } from "./actions/App";
 import { getJobs } from "./actions/JobPosts";
 import { Navbar } from "react-bootstrap";
 
-const mapStateToProps = ({ User }) => ({
+const mapStateToProps = ({ ApiResponse, Window, User }) => ({
+  ApiResponse,
+  Window,
   User
 });
 
 const mapDispatchToProps = {
+  clearApiResponse,
+  setApiResponse,
   setWindow,
   getJobs
 };
@@ -67,12 +72,24 @@ class App extends Component {
   }
 
   getState = props => {
+    const {ApiResponse, Window, User, location} = props
+    if(ApiResponse) this.alertApiResponse(ApiResponse)
     this.setState({});
   };
 
   componentDidUpdate() {}
 
   componentWillUnmount() {}
+
+  alertApiResponse = ApiResponse => {
+    const {data, status, statusText, headers, config, request} = ApiResponse
+    const {alert} = this.props
+
+    if(status === 200 || status === 201) alert.success([<div>{status} {' '} {statusText}</div>])
+    if(status === 400 || status === 401) alert.error([<div>{status} {' '} {statusText}</div>, <div>{JSON.stringify(data)}</div>])
+       
+    this.props.clearApiResponse()
+  }
 
   updateWindowDimensions() {
     const { innerHeight, innerWidth } = window;
@@ -87,16 +104,14 @@ class App extends Component {
   render() {
     const { routeItems } = this.props;
     return (
-      <Router>
         <div className="App">
           <NavBar />
           <div className="routeOverlay">
             <Switch>{this.renderRouteItems(routeItems)}</Switch>
           </div>
         </div>
-      </Router>
     );
   }
 }
 
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(App)))

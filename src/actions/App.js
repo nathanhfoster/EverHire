@@ -5,6 +5,22 @@ const qs = require('qs')
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY
 
+export const setApiResponse = response => {
+    return async (dispatch) => {
+        await dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: response
+        })
+    }
+}
+
+export const clearApiResponse = () => {
+    return async (dispatch) => await dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: null
+    })
+}
+
 export const setWindow = (Window) => ({
     type: C.SET_WINDOW,
     payload: Window
