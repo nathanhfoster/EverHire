@@ -66,7 +66,7 @@ class JobMap extends PureComponent {
 
   static defaultProps = {
     userLocation: new Map(),
-    center: [37.4220862600981 -121.89071280220037],
+    center: [37.4220862600981 - 121.89071280220037],
     zoom: 10,
     markers: [
       // { id: "Me", lat: null, lng: null },
@@ -91,23 +91,39 @@ class JobMap extends PureComponent {
   componentWillUpdate() {}
 
   getState = props => {
-    let {userLocation, Jobs, markers} = props
-   // console.log(Jobs)
-    let JobMarkers
+    let { userLocation, Jobs, markers } = props;
+    // console.log(Jobs)
+    let JobMarkers;
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
-      const {timestamp} = lastPosition
-      const {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = lastPosition.coords
-      this.props.setUserLocation(accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed)
-        error => alert(error.message),
-        { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 }
-      })
-    this.setState({markers: Jobs, userLocation, Jobs})
-  }
+      const { timestamp } = lastPosition;
+      const {
+        accuracy,
+        altitude,
+        altitudeAccuracy,
+        heading,
+        latitude,
+        longitude,
+        speed
+      } = lastPosition.coords;
+      this.props.setUserLocation(
+        accuracy,
+        altitude,
+        altitudeAccuracy,
+        heading,
+        latitude,
+        longitude,
+        speed
+      );
+      error => alert(error.message),
+        { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 };
+    });
+    this.setState({ markers: Jobs, userLocation, Jobs });
+  };
 
   componentDidUpdate() {}
 
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID)
+    navigator.geolocation.clearWatch(this.watchID);
   }
 
   onMapClicked = props => {
@@ -182,21 +198,24 @@ class JobMap extends PureComponent {
   };
 
   locationButton = e => {
-    const { latitude, longitude } = this.props.userLocation
+    const { latitude, longitude } = this.props.userLocation;
     const zoom =
       this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
     this._panTo([latitude, longitude], zoom);
   };
 
   mapCanLoad = () => {
-    if(this.state.userLocation != null) {
-      const {latitude, longitude} = this.state.userLocation
-      if(this.state.shouldSetInitialCenter) {
-        this.setState({center: [latitude, longitude], shouldSetInitialCenter: false})
+    if (this.state.userLocation != null) {
+      const { latitude, longitude } = this.state.userLocation;
+      if (this.state.shouldSetInitialCenter) {
+        this.setState({
+          center: [latitude, longitude],
+          shouldSetInitialCenter: false
+        });
       }
       return true;
     } else return false;
-  }
+  };
 
   // apiIsLoaded = (map, maps, lat, lng) => {
   //   if (map) {
@@ -205,17 +224,29 @@ class JobMap extends PureComponent {
   //   }
   // }
 
-  renderJobCards = markers => markers.map(job => 
-    <div className="card">
-      <h3>ID: {job.id} {job.title}</h3>
-    </div>
-    )
+  renderJobCards = markers =>
+    markers.map(job => (
+      <div className="card">
+        <h3>
+          ID: {job.id} {job.title}
+        </h3>
+      </div>
+    ));
 
   render() {
-    const {initialCenter, center, zoom, markers} = this.state
-    let {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} = this.state.userLocation
-    speed = parseInt(speed * 2.23694) // meters per second to mph
-    altitude = parseInt(altitude * 3.28084) // meters to feet
+    const { initialCenter, center, zoom, markers } = this.state;
+    let {
+      accuracy,
+      altitude,
+      altitudeAccuracy,
+      heading,
+      latitude,
+      longitude,
+      speed,
+      timestamp
+    } = this.state.userLocation;
+    speed = parseInt(speed * 2.23694); // meters per second to mph
+    altitude = parseInt(altitude * 3.28084); // meters to feet
     const places = markers.map(place => {
       const { id, ...coords } = place;
       return (
@@ -227,54 +258,65 @@ class JobMap extends PureComponent {
           // use your hover state (from store, react-controllables etc...)
           $hover={this.props.hoverKey === id}
         />
-      )
-    })
+      );
+    });
 
     return (
       <div className="GoogleMapContainer">
-      {this.mapCanLoad() ? [
-        <div className="searchListWrapper">
-        <Row className="center">
-          <div className="searchListTab"/>
-        </Row>
-        <Row className="center ht-40 mg-b-20">
-          <h3>Explore Jobs</h3>
-        </Row>
-          <Row className="mg-20">
-            <Col className="scrolling-wrapper">
-              {this.renderJobCards(markers)}
-            </Col>
-          </Row>
-        </div>,
-        <div className="GoogleMapWrapper">
-          <GoogleMap
-            //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
-            apiKey={googleKey} // set if you need stats etc ...
-            defaultCenter={[latitude, longitude]}
-            initialCenter={initialCenter}
-            center={center}
-            zoom={zoom}
-            onClick={this.onMapClicked}
-            onBoundsChange={this._onBoundsChange}
-            onChildClick={this._onChildClick}
-            onChildMouseEnter={this._onChildMouseEnter}
-            onChildMouseLeave={this._onChildMouseLeave}
-            options={this.createMapOptions}
-            hoverDistance={K_CIRCLE_SIZE / 2}
-            distanceToMouse={this._distanceToMouse}
-            panTo={this._panTo}
-          >            
-            {places}
-          </GoogleMap>
-          <Button bsClass="sheenButton locationButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
-           <FontAwesomeIcon icon={faMapMarkerAlt} size="lg"/>
-          </Button>
-          <Button bsClass="sheenButton listButton sheen" bsSize="large" onClick={this.locationButton.bind(this)}>
-            <FontAwesomeIcon icon={faListAlt} size="lg"/>
-          </Button>
-        </div>
-        ] : <LoadingScreen />
-      }
+        {this.mapCanLoad() ? (
+          [
+            <div className="searchListWrapper">
+              <Row className="center">
+                <div className="searchListTab" />
+              </Row>
+              <Row className="center ht-40 mg-b-20">
+                <h4>Explore Jobs</h4>
+              </Row>
+              <Row className="mg-20">
+                <Col className="scrolling-wrapper">
+                  {this.renderJobCards(markers)}
+                </Col>
+              </Row>
+            </div>,
+            <div className="GoogleMapWrapper">
+              <GoogleMap
+                //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
+                apiKey={googleKey} // set if you need stats etc ...
+                defaultCenter={[latitude, longitude]}
+                initialCenter={initialCenter}
+                center={center}
+                zoom={zoom}
+                onClick={this.onMapClicked}
+                onBoundsChange={this._onBoundsChange}
+                onChildClick={this._onChildClick}
+                onChildMouseEnter={this._onChildMouseEnter}
+                onChildMouseLeave={this._onChildMouseLeave}
+                options={this.createMapOptions}
+                hoverDistance={K_CIRCLE_SIZE / 2}
+                distanceToMouse={this._distanceToMouse}
+                panTo={this._panTo}
+              >
+                {places}
+              </GoogleMap>
+              <Button
+                bsClass="sheenButton locationButton sheen"
+                bsSize="large"
+                onClick={this.locationButton.bind(this)}
+              >
+                <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" />
+              </Button>
+              <Button
+                bsClass="sheenButton listButton sheen"
+                bsSize="large"
+                onClick={this.locationButton.bind(this)}
+              >
+                <FontAwesomeIcon icon={faListAlt} size="lg" />
+              </Button>
+            </div>
+          ]
+        ) : (
+          <LoadingScreen />
+        )}
       </div>
     );
   }

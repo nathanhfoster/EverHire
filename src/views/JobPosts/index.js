@@ -32,10 +32,7 @@ class JobPost extends Component {
     super(props);
     //this.onChange = this.onChange.bind(this)
 
-    this.state = {
-      lati: "",
-      long: ""
-    };
+    this.state = {};
   }
 
   static propTypes = {};
@@ -73,10 +70,9 @@ class JobPost extends Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
-          lati: res.data.results[0].geometry.location,
-          long: res.data.results[0].geometry.location
+          lat: res.data.results[0].geometry.location.lat,
+          lng: res.data.results[0].geometry.location.lng
         });
       })
       .catch(err => console.log(err));
@@ -84,14 +80,14 @@ class JobPost extends Component {
 
   postJob = e => {
     e.preventDefault();
-    //Author and last_modified_by
+    // Author and last_modified_by
     const {
       User,
       address,
       title,
       description,
-      lati,
-      long,
+      lat,
+      lng,
       phone_number,
       tags
     } = this.state;
@@ -101,8 +97,8 @@ class JobPost extends Component {
       address,
       title,
       description,
-      lati,
-      long,
+      lat,
+      lng,
       phone_number,
       tags,
       author: id,
@@ -136,22 +132,6 @@ class JobPost extends Component {
               placeholder="Description"
             />
           </FormGroup>
-
-          {/* <FormGroup controlId="formHorizontalPassword">
-            <FormControl
-              componentClass="textarea"
-              name="lat"
-              placeholder="Latitude"
-            />
-          </FormGroup>
-
-          <FormGroup controlId="formHorizontalPassword">
-            <FormControl
-              componentClass="textarea"
-              name="lng"
-              placeholder="Longitude"
-            />
-          </FormGroup> */}
 
           <FormGroup controlId="formHorizontalPassword">
             <FormControl

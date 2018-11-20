@@ -1,54 +1,59 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import registerServiceWorker from './registerServiceWorker'
-import storeFactory from './store'
-import { Provider } from 'react-redux'
-import { Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-basic'
-import { BrowserRouter as Router} from "react-router-dom"
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import storeFactory from "./store";
+import { Provider } from "react-redux";
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const options = {
-  position: 'bottom center',
+  position: "bottom center",
   timeout: 1550,
-  offset: '30px',
-  transition: 'scale'
-}
+  offset: "30px",
+  transition: "scale"
+};
 
-if('serviceWorker' in navigator) {
+if ("serviceWorker" in navigator) {
   navigator.serviceWorker
-    .register('/registerServiceWorker.js')
-    .then(function() { console.log('Service Worker Registered') })
+    .register("/registerServiceWorker.js")
+    .then(function() {
+      console.log("Service Worker Registered");
+    });
 }
 
-const initialState = (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : {}
-const store = storeFactory(initialState)
-window.React = React
-window.store = store
+const initialState = localStorage["redux-store"]
+  ? JSON.parse(localStorage["redux-store"])
+  : {};
+const store = storeFactory(initialState);
+window.React = React;
+window.store = store;
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router>
-    <AlertProvider template={AlertTemplate} {...options}>
-    <App />
-    </AlertProvider>
-  </Router>
-  </Provider>, document.getElementById('root')
+    <Router>
+      <AlertProvider template={AlertTemplate} {...options}>
+        <App />
+      </AlertProvider>
+    </Router>
+  </Provider>,
+  document.getElementById("root")
 );
 registerServiceWorker();
 
 const saveState = () => {
-  const state = JSON.stringify(store.getState())
+  const state = JSON.stringify(store.getState());
 
   try {
-    localStorage.setItem('redux-store', state);
-  } catch(e) {
+    localStorage.setItem("redux-store", state);
+  } catch (e) {
     if (isQuotaExceeded(e)) {
       // Storage full, maybe notify user or do some clean-up
     }
   }
-  
+
   function isQuotaExceeded(e) {
     var quotaExceeded = false;
     if (e) {
@@ -59,7 +64,7 @@ const saveState = () => {
             break;
           case 1014:
             // Firefox
-            if (e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+            if (e.name === "NS_ERROR_DOM_QUOTA_REACHED") {
               quotaExceeded = true;
             }
             break;
@@ -71,5 +76,5 @@ const saveState = () => {
     }
     return quotaExceeded;
   }
-}
-store.subscribe(saveState)
+};
+store.subscribe(saveState);
