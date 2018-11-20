@@ -10,7 +10,8 @@ import JobPost from "./views/JobPosts";
 import Account from "./components/Account";
 import SignUp from "./components/SignUp";
 import { setWindow } from "./actions/App";
-import {getJobs} from './actions/JobPosts'
+import { getJobs } from "./actions/JobPosts";
+import { Navbar } from "react-bootstrap";
 
 const mapStateToProps = ({ User }) => ({
   User
@@ -36,7 +37,7 @@ class App extends Component {
   static defaultProps = {
     routeItems: [
       { path: "/", component: Login },
-      { path: "/signup", component: SignUp},
+      { path: "/signup", component: SignUp },
       { path: "/map", component: JobMap },
       { path: "/jobpost", component: JobPost },
       { path: "/account", component: Account }

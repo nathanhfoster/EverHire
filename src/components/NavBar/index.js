@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect as reduxConnect } from "react-redux";
-import PropTypes from "prop-types";
 import "./styles.css";
 import "./stylesM.css";
-import { Navbar, Nav, NavItem, NavDropdown, Image } from "react-bootstrap";
+import { Navbar, Nav, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const mapStateToProps = ({}) => ({});
@@ -63,6 +62,7 @@ class NavBar extends Component {
             <LinkContainer to="/account">
               <NavItem eventKey={3}>Account</NavItem>
             </LinkContainer>
+            <NavItem>Logout</NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
