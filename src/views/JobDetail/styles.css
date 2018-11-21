@@ -24,6 +24,7 @@
 }
 
 .Details .description {
+  border-radius: 4px;
   overflow-wrap: break-word;
   overflow-x: hidden;
   overflow-y: auto;
@@ -35,5 +36,4 @@
 .Details p {
   margin: auto;
   max-height: 100%;
-
 }

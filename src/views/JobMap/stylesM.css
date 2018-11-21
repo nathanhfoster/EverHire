@@ -25,7 +25,6 @@
     .scrolling-wrapper {
         -webkit-overflow-scrolling: touch;
         align-content: center;
-        height: 350px;
         border-radius: 8px;
         display: flex;
         flex-wrap: nowrap; 
@@ -38,7 +37,6 @@
 
     .card {
         color: var(--primaryTextColor);
-        height: 30vh;
         width: 65vw;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         border: 1px solid rgba(0,0,0,0.2);

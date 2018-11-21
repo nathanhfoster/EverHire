@@ -81,33 +81,27 @@ class JobDetail extends PureComponent {
           </Col>
           </Row>
           <Row>
-            <Col md={4} xs={12}>
+            <Col xs={12}>
               <i class="fas fa-map-marked-alt fa-2x"> {JobDetail.address}</i>
             </Col>
-            <Col md={4} xs={12}>
+            <Col xs={12}>
               <i class="fas fa-tags fa-2x"> {JobDetail.tags}</i>
             </Col>
-            <Col md={4} xs={12}>
-              {interested ? (
+            {interested ?
+            [<Col xs={12}>
                 <i class="fas fa-phone fa-2x"> {JobDetail.phone_number}</i>
-              ) : (
-                ""
-              )}
-            </Col>
-            <Col>
-            {interested ? (
+            </Col>,
+            <Col xs={12}>
               <i class="fas fa-envelope fa-2x"> {JobDetail.email}</i>
-            ) : (
-              ""
-            )}
-          </Col>
-          <Col>
+            </Col>]
+          : null}
+          <Col xs={12}>
             <i class="fas fa-clock fa-2x">
               {" "}
               <Moment fromNow>{JobDetail.date_created}</Moment>
             </i>
           </Col>
-          <Col className="Details">
+          <Col xs={12} className="Details">
             <div className="description blockNoWrap"><p>{JobDetail.description}</p></div>
           </Col>
         </Row>

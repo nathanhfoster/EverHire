@@ -250,10 +250,7 @@ class JobMap extends PureComponent {
 
   renderJobCards = markers =>
     markers.filter(job => job.id !== 'Me').map(job => 
-      <div
-        className="card"
-        onClick={() => this.locationButton(job.lat, job.lng)}
-      >
+      <div className="card">
         <div className="card-img center">
           <Image src={job.image} rounded responsive />
         </div>
@@ -263,9 +260,13 @@ class JobMap extends PureComponent {
         </div>
         <div className="cardDetailButton">
           <Button
+          onClick={() => this.locationButton(job.lat, job.lng)}>
+            <i class="fas fa-map-marker-alt"/>
+          </Button>
+          <Button
           onClick={() => this.props.history.push("/jobdetails/" + job.id)}
           >
-          Job Details
+            <i class="far fa-eye"/>
           </Button>
         </div>
       </div>

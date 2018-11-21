@@ -50,8 +50,6 @@
   height: 100%;
   border-radius: 8px;
   display: block;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 .card {
   display: block;
@@ -67,6 +65,9 @@
 }
 .card-img img {
    max-height: 150px;
+}
+.cardSummary::-webkit-scrollbar {
+  display: block;
 }
 .cardSummary {
   height: 110px;
