@@ -5,6 +5,8 @@ body {
 .App {
   height: 100vh;
   width: 100vw;
+  touch-action: pan-x;
+  touch-action: pan-y;
 }
 
 .dropdown-menu {

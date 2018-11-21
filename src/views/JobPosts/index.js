@@ -28,9 +28,8 @@ const mapDispatchToProps = {
 class JobPost extends PureComponent {
   constructor(props) {
     super(props);
-    //this.onChange = this.onChange.bind(this)
 
-    this.state = { Jobs: [] };
+    this.state = {Jobs: []};
   }
 
   static propTypes = {};
@@ -54,15 +53,13 @@ class JobPost extends PureComponent {
   };
 
   getCoords = address => {
-    console.log(address);
     axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
           address: address,
           key: "AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"
         }
-      })
-      .then(res => {
+      }).then(res => {
         this.setState({
           address,
           lat: res.data.results[0].geometry.location.lat,

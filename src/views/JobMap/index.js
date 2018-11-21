@@ -24,7 +24,7 @@ import {
 } from "./my_great_place_with_controllable_hover_styles.js";
 import "./styles.css";
 import "./stylesM.css";
-import { setUserLocation, getUserLocation } from "../../actions/App";
+import { setUserLocation } from "../../actions/App";
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -35,8 +35,7 @@ const mapStateToProps = ({ User, userLocation, Jobs }) => ({
 });
 
 const mapDispatchToProps = {
-  setUserLocation,
-  getUserLocation
+  setUserLocation
 };
 
 class JobMap extends PureComponent {
@@ -90,6 +89,30 @@ class JobMap extends PureComponent {
 
   componentDidMount() {
     console.log("MOUNTED")
+    navigator.geolocation.getCurrentPosition(
+      lastPosition => {
+        const {
+          accuracy,
+          altitude,
+          altitudeAccuracy,
+          heading,
+          latitude,
+          longitude,
+          speed
+        } = lastPosition.coords;
+        this.props.setUserLocation(
+          accuracy,
+          altitude,
+          altitudeAccuracy,
+          heading,
+          latitude,
+          longitude,
+          speed
+        );
+      },
+      (error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  );
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const { timestamp } = lastPosition;
       const {
@@ -120,7 +143,7 @@ class JobMap extends PureComponent {
   }
 
   getState = props => {
-    let {User,  userLocation, Jobs} = props;
+    let {User, userLocation, Jobs} = props;
 
     this.setState({User,  markers: Jobs, userLocation, Jobs });
   };
@@ -226,7 +249,7 @@ class JobMap extends PureComponent {
   // }
 
   renderJobCards = markers =>
-    markers.map(job => (
+    markers.filter(job => job.id !== 'Me').map(job => 
       <div
         className="card"
         onClick={() => this.locationButton(job.lat, job.lng)}
@@ -245,13 +268,13 @@ class JobMap extends PureComponent {
           </Button>
         </div>
       </div>
-    ));
+    );
 
   render() {
     const { User, initialCenter, center, zoom, markers } = this.state;
     let { altitude, latitude, longitude, speed } = this.state.userLocation;
-    speed = parseInt(speed * 2.23694); // meters per second to mph
-    altitude = parseInt(altitude * 3.28084); // meters to feet
+    speed = Number(speed * 2.23694); // meters per second to mph
+    altitude = Number(altitude * 3.28084); // meters to feet
     const places = markers.map(place => {
       const { id, ...coords } = place;
       return (

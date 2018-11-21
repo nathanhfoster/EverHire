@@ -6,6 +6,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   background: var(--grey);
 }
+.Roboto {
+  font-family: "Roboto", sans-serif;
+}
 .NavBar li a {
   color: white;
 }
@@ -46,6 +49,8 @@
   flex-grow: 1;
 }
 .navbar-toggle {
+  margin: 8px;
+  padding: 16px;
   border: 1px solid var(--grey) !important;
 }
 .navbar-toggle:hover,
