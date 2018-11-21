@@ -37,17 +37,13 @@ export const setWindow = (Window) => ({
  })
 
  export const setUserLocation = (accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp) => {
-    return (dispatch, getState) => {
+    return (dispatch, getState) => 
 
         dispatch({
             type: C.SET_USER_LOCATION,
             payload: {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} 
-        }),
-        dispatch({
-            type: C.GET_JOBS,
-            payload: Jobs
         })
-    }
+   
 }
 
 export const login = (username, password, rememberMe) => {
