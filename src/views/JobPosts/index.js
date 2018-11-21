@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import axios from "axios";
 import { connect as reduxConnect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import "./styles.css";
 import "./stylesM.css";
 import FormData from "form-data";
@@ -15,20 +16,21 @@ import {
 } from "react-bootstrap";
 import { postJob } from "../../actions/JobPosts";
 
-const mapStateToProps = ({ User }) => ({
-  User
+const mapStateToProps = ({ User, Jobs }) => ({
+  User,
+  Jobs
 });
 
 const mapDispatchToProps = {
   postJob
 };
 
-class JobPost extends Component {
+class JobPost extends PureComponent {
   constructor(props) {
     super(props);
     //this.onChange = this.onChange.bind(this)
 
-    this.state = {};
+    this.state = { Jobs: [] };
   }
 
   static propTypes = {};
@@ -39,8 +41,6 @@ class JobPost extends Component {
     this.getState(this.props);
   }
 
-  componentWillUpdate() {}
-
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
@@ -48,17 +48,13 @@ class JobPost extends Component {
   }
 
   getState = props => {
-    const { User } = props;
-
-    this.setState({ User });
+    const currentJobs = this.state.Jobs;
+    const { User, Jobs } = props;
+    this.setState({ User, Jobs });
   };
 
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
-
   getCoords = address => {
-    console.log(address)
+    console.log(address);
     axios
       .get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
@@ -103,6 +99,8 @@ class JobPost extends Component {
     payload.append("last_modified_by", id);
     payload.append("image", image);
     this.props.postJob(token, payload);
+
+    this.props.history.push("/");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -123,7 +121,7 @@ class JobPost extends Component {
             <FormControl type="text" name="title" placeholder="Title" />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup>
             <FormControl
               componentClass="textarea"
               name="description"
@@ -131,7 +129,7 @@ class JobPost extends Component {
             />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup>
             <FormControl
               componentClass="textarea"
               name="phone_number"
@@ -139,7 +137,7 @@ class JobPost extends Component {
             />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup>
             <FormControl
               componentClass="textarea"
               name="tags"
@@ -147,8 +145,13 @@ class JobPost extends Component {
             />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
-            <FormControl type="text" name="address" placeholder="Address" onChange={(e) => this.getCoords(e.target.value)}/>
+          <FormGroup>
+            <FormControl
+              type="text"
+              name="address"
+              placeholder="Address"
+              onChange={e => this.getCoords(e.target.value)}
+            />
           </FormGroup>
 
           <FormGroup>
@@ -167,4 +170,6 @@ class JobPost extends Component {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(JobPost);
+export default withRouter(
+  reduxConnect(mapStateToProps, mapDispatchToProps)(JobPost)
+);
