@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import axios from "axios";
 import { connect as reduxConnect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import "./styles.css";
 import "./stylesM.css";
 import FormData from "form-data";
@@ -46,15 +47,14 @@ class JobPost extends PureComponent {
   }
 
   getState = props => {
-    console.log(this.state.Jobs.length)
-    console.log(props.Jobs.length)
+    const currentJobs = this.state.Jobs;
     const { User, Jobs } = props;
-
     this.setState({ User, Jobs });
   };
 
   getCoords = address => {
-    axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+    axios
+      .get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
           address: address,
           key: "AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"
@@ -96,6 +96,8 @@ class JobPost extends PureComponent {
     payload.append("last_modified_by", id);
     payload.append("image", image);
     this.props.postJob(token, payload);
+
+    this.props.history.push("/");
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -116,7 +118,7 @@ class JobPost extends PureComponent {
             <FormControl type="text" name="title" placeholder="Title" />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup>
             <FormControl
               componentClass="textarea"
               name="description"
@@ -124,7 +126,7 @@ class JobPost extends PureComponent {
             />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup>
             <FormControl
               componentClass="textarea"
               name="phone_number"
@@ -132,7 +134,7 @@ class JobPost extends PureComponent {
             />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
+          <FormGroup>
             <FormControl
               componentClass="textarea"
               name="tags"
@@ -140,8 +142,13 @@ class JobPost extends PureComponent {
             />
           </FormGroup>
 
-          <FormGroup controlId="formHorizontalPassword">
-            <FormControl type="text" name="address" placeholder="Address" onChange={(e) => this.getCoords(e.target.value)}/>
+          <FormGroup>
+            <FormControl
+              type="text"
+              name="address"
+              placeholder="Address"
+              onChange={e => this.getCoords(e.target.value)}
+            />
           </FormGroup>
 
           <FormGroup>
@@ -160,4 +167,6 @@ class JobPost extends PureComponent {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(JobPost);
+export default withRouter(
+  reduxConnect(mapStateToProps, mapDispatchToProps)(JobPost)
+);
