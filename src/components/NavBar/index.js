@@ -68,7 +68,7 @@ class NavBar extends PureComponent {
               <NavItem eventKey={2}><i class="far fa-clipboard"/> Create Job</NavItem>
             </LinkContainer>
             <NavDropdown eventKey={3} title={[<i class="far fa-user"/>, <span> Account</span>]}>
-              <LinkContainer to="/account">
+              <LinkContainer to="/profile">
                 <NavItem eventKey={3}><i class="fas fa-user-circle"/> Profile</NavItem>
               </LinkContainer>
               {User.token ? (
