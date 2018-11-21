@@ -20,7 +20,9 @@ class JobDetail extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      interested: false
+    };
   }
 
   static propTypes = {};
@@ -51,8 +53,12 @@ class JobDetail extends PureComponent {
 
   componentWillUnmount() {}
 
+  workjob = () => {
+    this.setState({ interested: !this.state.interested });
+  };
+
   render() {
-    const { JobDetail } = this.state;
+    const { JobDetail, interested } = this.state;
     return JobDetail ? (
       <Grid className="JobDetail">
         <Row>
@@ -77,10 +83,14 @@ class JobDetail extends PureComponent {
               </i>
             </div>
             <div>
-              <i class="fas fa-phone fa-2x"> {JobDetail.phone_number}</i>
+              <i class="fas fa-tags fa-2x"> {JobDetail.tags}</i>
             </div>
             <div>
-              <i class="fas fa-tags fa-2x"> {JobDetail.tags}</i>
+              {interested ? (
+                <i class="fas fa-phone fa-2x"> {JobDetail.phone_number}</i>
+              ) : (
+                ""
+              )}
             </div>
             <div>
               <i class="fas fa-clock fa-2x">
@@ -100,7 +110,9 @@ class JobDetail extends PureComponent {
             />
           </Col>
         </Row>
-        <Button>Work This Job</Button>
+        <Button onClick={this.workjob}>
+          {interested ? "Close Job" : "Work This Job"}
+        </Button>
       </Grid>
     ) : null;
   }
