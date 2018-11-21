@@ -273,10 +273,17 @@ class JobMap extends PureComponent {
     );
 
   render() {
-    const { User, initialCenter, center, zoom, markers } = this.state;
+    let {markers} = this.state
+    const { User, initialCenter, center, zoom} = this.state;
     let { altitude, latitude, longitude, speed } = this.state.userLocation;
     speed = Number(speed * 2.23694); // meters per second to mph
     altitude = Number(altitude * 3.28084); // meters to feet
+    if(markers.length > 0 && markers[0].id !== 'Me') markers.unshift({id: 'Me', lat: latitude, lng: longitude})
+    else markers[0] = {id: 'Me', lat: latitude, lng: longitude}
+    
+
+
+
     const places = markers.map(place => {
       const { id, ...coords } = place;
       return (
