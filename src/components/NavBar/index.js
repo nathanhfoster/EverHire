@@ -65,14 +65,14 @@ class NavBar extends PureComponent {
         <Navbar.Collapse>
           <Nav>
             <LinkContainer to="/jobpost">
-              <NavItem eventKey={2}>Create Job</NavItem>
+              <NavItem eventKey={2}><i class="far fa-clipboard"/> Create Job</NavItem>
             </LinkContainer>
-            <NavDropdown eventKey={3} title="Account">
+            <NavDropdown eventKey={3} title={[<i class="far fa-user"/>, <span> Account</span>]}>
               <LinkContainer to="/account">
-                <NavItem eventKey={3}>Profile</NavItem>
+                <NavItem eventKey={3}><i class="fas fa-user-circle"/> Profile</NavItem>
               </LinkContainer>
               {User.token ? (
-                <NavItem onClick={this.Logout}>Logout</NavItem>
+                <NavItem onClick={this.Logout}><i class="fas fa-sign-out-alt"/> Logout</NavItem>
               ) : null}
             </NavDropdown>
           </Nav>

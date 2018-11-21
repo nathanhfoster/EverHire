@@ -6,6 +6,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   background: var(--grey);
 }
+.Roboto {
+  font-family: "Roboto", sans-serif;
+}
 .NavBar li a {
   color: white;
 }
