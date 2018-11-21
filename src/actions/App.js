@@ -38,9 +38,6 @@ export const setWindow = (Window) => ({
 
  export const setUserLocation = (accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp) => {
     return (dispatch, getState) => {
-        let {Jobs} = getState()
-        let newJobs
-        if(Jobs.length > 0 && Jobs[0].id !== 'Me') Jobs.unshift({id: 'Me', lat: latitude, lng: longitude})
 
         dispatch({
             type: C.SET_USER_LOCATION,
