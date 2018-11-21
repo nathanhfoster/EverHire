@@ -40,7 +40,7 @@ export const setWindow = (Window) => ({
     return (dispatch, getState) => {
         let {Jobs} = getState()
         let newJobs
-        if(Jobs[0].id !== 'Me') Jobs.unshift({id: 'Me', lat: latitude, lng: longitude})
+        if(Jobs.length > 0 && Jobs[0].id !== 'Me') Jobs.unshift({id: 'Me', lat: latitude, lng: longitude})
 
         dispatch({
             type: C.SET_USER_LOCATION,

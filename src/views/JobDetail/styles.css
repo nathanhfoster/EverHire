@@ -1,17 +1,39 @@
 .JobDetail {
   color: white;
-  height: 100vh;
-  font-size: 15px;
+  font-size: 16px;
+}
+
+.JobDetail div {
+  margin-top: 20px;
 }
 
 .jobImage {
-  min-height: 200px;
-  min-width: 200px;
-  max-height: 240px;
-  max-width: 240px;
-  margin: 10px;
+ 
 }
 
-.left-detail div {
+.jobImage img{
+  max-height: 350px;
+}
+
+.Details {
+
+}
+
+.Details div {
   margin: 20px 0px;
+}
+
+.Details .description {
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.Details p {
+  margin: auto;
+  max-height: 100%;
+
 }

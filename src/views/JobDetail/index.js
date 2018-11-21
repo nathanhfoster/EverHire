@@ -72,49 +72,43 @@ class JobDetail extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col md={6} className="left-detail">
-            <div>
+          <Col className="jobImage" xs={12}>
+            <Image
+            src={JobDetail.image}
+            responsive
+            rounded
+            />
+          </Col>
+          </Row>
+          <Row>
+            <Col md={4} xs={12}>
               <i class="fas fa-map-marked-alt fa-2x"> {JobDetail.address}</i>
-            </div>
-            <div>
-              <i class="fas fa-clipboard-list fa-2x">
-                {" "}
-                {JobDetail.description}
-              </i>
-            </div>
-            <div>
+            </Col>
+            <Col md={4} xs={12}>
               <i class="fas fa-tags fa-2x"> {JobDetail.tags}</i>
-            </div>
-            <div>
+            </Col>
+            <Col md={4} xs={12}>
               {interested ? (
                 <i class="fas fa-phone fa-2x"> {JobDetail.phone_number}</i>
               ) : (
                 ""
               )}
-            </div>
-            <div>
+            </Col>
+            <Col>
             {interested ? (
               <i class="fas fa-envelope fa-2x"> {JobDetail.email}</i>
             ) : (
               ""
             )}
-          </div>
-            <div>
-              <i class="fas fa-clock fa-2x">
-                {" "}
-                <Moment fromNow>{JobDetail.date_created}</Moment>
-              </i>
-            </div>
           </Col>
-          <Col md={6}>
-            <Image
-              className="jobImage"
-              src={JobDetail.image}
-              responsive
-              rounded
-              width="85%"
-              height="85%"
-            />
+          <Col>
+            <i class="fas fa-clock fa-2x">
+              {" "}
+              <Moment fromNow>{JobDetail.date_created}</Moment>
+            </i>
+          </Col>
+          <Col className="Details">
+            <div className="description blockNoWrap"><p>{JobDetail.description}</p></div>
           </Col>
         </Row>
         <Button onClick={this.workjob}>

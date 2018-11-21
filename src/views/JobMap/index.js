@@ -254,17 +254,18 @@ class JobMap extends PureComponent {
         className="card"
         onClick={() => this.locationButton(job.lat, job.lng)}
       >
-        <div className="card-img">
+        <div className="card-img center">
           <Image src={job.image} rounded responsive />
         </div>
-        <h4>{job.title}</h4>
-        <p>{job.description}</p>
-        <small style={{ float: "right" }}>{job.id}</small>
-        <div style={{ textAlign: "center" }}>
+        <h4 className="inlineNoWrap">{job.title}</h4>
+        <div className="cardSummary">
+          <p className="blockNoWrap">{job.description}</p>
+        </div>
+        <div className="cardDetailButton">
           <Button
-            onClick={() => this.props.history.push("/jobdetails/" + job.id)}
+          onClick={() => this.props.history.push("/jobdetails/" + job.id)}
           >
-            Job Details
+          Job Details
           </Button>
         </div>
       </div>
