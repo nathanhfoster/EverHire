@@ -14,6 +14,16 @@ export const setApiResponse = response => {
     }
 }
 
+export const getUser = id => {
+    return async (dispatch) => await Axios().get(`users/${id}/`)
+       .then(res => {
+         dispatch({
+           type: C.GET_USER,
+           payload: res.data
+         })
+       }).catch((e) => console.log(e))
+  }
+
 export const clearApiResponse = () => {
     return async (dispatch) => await dispatch({
         type: C.SET_API_RESPONSE,

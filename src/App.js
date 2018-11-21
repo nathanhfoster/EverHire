@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import JobDetail from "./views/JobDetail";
 import JobPost from "./views/JobPosts";
 import Profile from "./views/Profile";
+import PublicProfile from './views/Profile/PublicProfile';
 import SignUp from "./components/SignUp";
 import { clearApiResponse, setApiResponse, setWindow } from "./actions/App";
 import { getJobs } from "./actions/JobPosts";
@@ -46,7 +47,8 @@ class App extends Component {
       { path: "/map", component: JobMap },
       { path: "/jobdetails/:id", component: JobDetail },
       { path: "/jobpost", component: JobPost },
-      { path: "/profile", component: Profile }
+      { path: "/profile", component: Profile },
+      {path: '/profile/:id', component: PublicProfile},
     ]
   };
 

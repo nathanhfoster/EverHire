@@ -81,6 +81,7 @@ class JobPost extends PureComponent {
       lat,
       lng,
       phone_number,
+      email,
       tags,
       image
     } = this.state;
@@ -91,6 +92,7 @@ class JobPost extends PureComponent {
     payload.append("lat", lat);
     payload.append("lng", lng);
     payload.append("phone_number", phone_number);
+    payload.append("email", email);
     payload.append("tags", tags);
     payload.append("author", id);
     payload.append("last_modified_by", id);
@@ -133,6 +135,14 @@ class JobPost extends PureComponent {
               placeholder="PhoneNumber"
             />
           </FormGroup>
+
+          <FormGroup>
+          <FormControl
+            componentClass="textarea"
+            name="email"
+            placeholder="Email"
+          />
+        </FormGroup>
 
           <FormGroup>
             <FormControl

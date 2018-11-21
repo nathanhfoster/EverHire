@@ -19,11 +19,15 @@ export const Jobs = (state = [], action) =>
 export const JobDetail = (state = [], action) =>
 (action.type === C.GET_JOB) ? action.payload : state
 
+export const UserPublicProfile = (state = [], action) =>
+(action.type === C.GET_USER) ? action.payload : state
+
 export default combineReducers({
   ApiResponse,
   User,
   Window,
   userLocation,
   JobDetail,
-  Jobs
+  Jobs,
+  UserPublicProfile
 })

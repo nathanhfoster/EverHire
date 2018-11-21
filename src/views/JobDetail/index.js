@@ -93,6 +93,13 @@ class JobDetail extends PureComponent {
               )}
             </div>
             <div>
+            {interested ? (
+              <i class="fas fa-envelope fa-2x"> {JobDetail.email}</i>
+            ) : (
+              ""
+            )}
+          </div>
+            <div>
               <i class="fas fa-clock fa-2x">
                 {" "}
                 <Moment fromNow>{JobDetail.date_created}</Moment>

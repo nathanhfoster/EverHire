@@ -1,8 +1,7 @@
 .PublicProfile {
     padding: 20px;
     border-radius: 6px;
-    background-color: var(--dark_grey);
-    opacity: var(--mainOpacity);
+    color: white;
 }
 
 .firstLastName {
