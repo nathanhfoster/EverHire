@@ -50,21 +50,39 @@
   height: 100%;
   border-radius: 8px;
   display: block;
-  flex-wrap: nowrap;
-  overflow: auto;
 }
 .card {
+  display: block;
   color: var(--primaryTextColor);
-  height: 150px;
+  height: 350px;
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.2);
   margin: auto auto 20px auto; /* margin: [top] [right] [bottom] [left]; */
   border-radius: inherit;
-  display: table;
   background: white;
-  text-align: left;
-  padding: 5px;
+  padding: 8px;
+}
+.card-img img {
+   max-height: 150px;
+}
+.cardSummary::-webkit-scrollbar {
+  display: block;
+}
+.cardSummary {
+  height: 110px;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.cardSummary p {
+  margin: auto;
+  max-height: 100%;
+  max-width: 262px;
+}
+.cardDetailButton {
+  margin: 4px;
+  text-align: center;
 }
 .center {
   display: flex;
@@ -109,7 +127,14 @@ svg {
   vertical-align: middle;
 }
 
-.card-img {
-  max-width: 100%;
-  min-height: 150px;
+.blockNoWrap {
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inlineNoWrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

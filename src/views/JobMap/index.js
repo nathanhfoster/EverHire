@@ -250,31 +250,40 @@ class JobMap extends PureComponent {
 
   renderJobCards = markers =>
     markers.filter(job => job.id !== 'Me').map(job => 
-      <div
-        className="card"
-        onClick={() => this.locationButton(job.lat, job.lng)}
-      >
-        <div className="card-img">
+      <div className="card">
+        <div className="card-img center">
           <Image src={job.image} rounded responsive />
         </div>
-        <h4>{job.title}</h4>
-        <p>{job.description}</p>
-        <small style={{ float: "right" }}>{job.id}</small>
-        <div style={{ textAlign: "center" }}>
+        <h4 className="inlineNoWrap">{job.title}</h4>
+        <div className="cardSummary">
+          <p className="blockNoWrap">{job.description}</p>
+        </div>
+        <div className="cardDetailButton">
           <Button
-            onClick={() => this.props.history.push("/jobdetails/" + job.id)}
+          onClick={() => this.locationButton(job.lat, job.lng)}>
+            <i class="fas fa-map-marker-alt"/>
+          </Button>
+          <Button
+          onClick={() => this.props.history.push("/jobdetails/" + job.id)}
           >
-            Job Details
+            <i class="far fa-eye"/>
           </Button>
         </div>
       </div>
     );
 
   render() {
-    const { User, initialCenter, center, zoom, markers } = this.state;
+    let {markers} = this.state
+    const { User, initialCenter, center, zoom} = this.state;
     let { altitude, latitude, longitude, speed } = this.state.userLocation;
     speed = Number(speed * 2.23694); // meters per second to mph
     altitude = Number(altitude * 3.28084); // meters to feet
+    if(markers.length > 0 && markers[0].id !== 'Me') markers.unshift({id: 'Me', lat: latitude, lng: longitude})
+    else markers[0] = {id: 'Me', lat: latitude, lng: longitude}
+    
+
+
+
     const places = markers.map(place => {
       const { id, ...coords } = place;
       return (

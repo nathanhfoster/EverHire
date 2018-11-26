@@ -72,49 +72,37 @@ class JobDetail extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col md={6} className="left-detail">
-            <div>
-              <i class="fas fa-map-marked-alt fa-2x"> {JobDetail.address}</i>
-            </div>
-            <div>
-              <i class="fas fa-clipboard-list fa-2x">
-                {" "}
-                {JobDetail.description}
-              </i>
-            </div>
-            <div>
-              <i class="fas fa-tags fa-2x"> {JobDetail.tags}</i>
-            </div>
-            <div>
-              {interested ? (
-                <i class="fas fa-phone fa-2x"> {JobDetail.phone_number}</i>
-              ) : (
-                ""
-              )}
-            </div>
-            <div>
-            {interested ? (
-              <i class="fas fa-envelope fa-2x"> {JobDetail.email}</i>
-            ) : (
-              ""
-            )}
-          </div>
-            <div>
-              <i class="fas fa-clock fa-2x">
-                {" "}
-                <Moment fromNow>{JobDetail.date_created}</Moment>
-              </i>
-            </div>
-          </Col>
-          <Col md={6}>
+          <Col className="jobImage" xs={12}>
             <Image
-              className="jobImage"
-              src={JobDetail.image}
-              responsive
-              rounded
-              width="85%"
-              height="85%"
+            src={JobDetail.image}
+            responsive
+            rounded
             />
+          </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <i class="fas fa-map-marked-alt fa-2x"> {JobDetail.address}</i>
+            </Col>
+            <Col xs={12}>
+              <i class="fas fa-tags fa-2x"> {JobDetail.tags}</i>
+            </Col>
+            {interested ?
+            [<Col xs={12}>
+                <i class="fas fa-phone fa-2x"> {JobDetail.phone_number}</i>
+            </Col>,
+            <Col xs={12}>
+              <i class="fas fa-envelope fa-2x"> {JobDetail.email}</i>
+            </Col>]
+          : null}
+          <Col xs={12}>
+            <i class="fas fa-clock fa-2x">
+              {" "}
+              <Moment fromNow>{JobDetail.date_created}</Moment>
+            </i>
+          </Col>
+          <Col xs={12} className="Details">
+            <div className="description blockNoWrap"><p>{JobDetail.description}</p></div>
           </Col>
         </Row>
         <Button onClick={this.workjob}>

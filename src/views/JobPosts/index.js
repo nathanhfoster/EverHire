@@ -138,7 +138,7 @@ class JobPost extends PureComponent {
 
           <FormGroup>
           <FormControl
-            componentClass="textarea"
+            type="text"
             name="email"
             placeholder="Email"
           />

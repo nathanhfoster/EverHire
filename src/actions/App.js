@@ -105,11 +105,11 @@ export const login = (username, password, rememberMe) => {
 };
 
 export const Logout = () => {
-  Cookies.remove("User_LoginToken");
-  return async dispatch => {
-    await dispatch({
-      type: C.SET_LOGOUT,
-      payload: null
-    });
-  };
-};
+    Cookies.remove('User_LoginToken')
+    return async (dispatch) => {
+        await dispatch({
+        type: C.SET_LOGOUT,
+        payload: null
+    })
+    }
+}
