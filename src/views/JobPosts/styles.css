@@ -16,7 +16,7 @@ margin-top: 20px;
 }
 
 .locationButton:hover {
-  color: var(--primaryColor);
+  color: #bdc3c7;
 }
 
 .location-search-input { 
