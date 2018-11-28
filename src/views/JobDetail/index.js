@@ -102,7 +102,7 @@ class JobDetail extends PureComponent {
             </div>
           </Col>
         </Row>
-        <Button onClick={this.workjob}>
+        <Button onClick={this.workjob} style={{marginBottom: '20px'}}>
           {interested ? "Close Job" : "Work This Job"}
         </Button>
       </Grid>
