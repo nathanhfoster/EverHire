@@ -1,7 +1,7 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import Cookies from "js-cookie";
-import qs from "qs";
+import qs from "query-string";
 
 export const createUser = (username, password, email) => {
   const eightHours = 1 / 3;
@@ -20,10 +20,12 @@ export const createUser = (username, password, email) => {
               payload: res.data
             });
           })
-          .catch(e =>  dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: e.response
-          }));
+          .catch(e =>
+            dispatch({
+              type: C.SET_API_RESPONSE,
+              payload: e.response
+            })
+          );
       })
       .catch(e => console.log(e));
 };

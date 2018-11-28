@@ -17,9 +17,8 @@ import {
 import { postJob } from "../../actions/JobPosts";
 import PlacesAutocomplete, {
   geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
-import {geocoding} from 'reverse-geocoding';
+  getLatLng
+} from "react-places-autocomplete";
 
 const mapStateToProps = ({ User, Jobs, userLocation }) => ({
   User,
@@ -37,19 +36,12 @@ class JobPost extends PureComponent {
 
     this.state = {
       Jobs: [],
-      address: ''
+      address: ""
     };
   }
 
-  static propTypes = {};
-
-  static defaultProps = {};
-
   componentWillMount() {
     this.getState(this.props);
-  }
-
-  componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,21 +53,18 @@ class JobPost extends PureComponent {
     this.setState({ User, Jobs });
   };
 
-  handleChange = address => {
-    this.setState({ address });
-  };
+  handleChange = address => this.setState({ address });
 
   handleSelect = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({lat: latLng.lat, lng: latLng.lng}))
-      .catch(error => console.error('Error', error));
+      .then(latLng => this.setState({ lat: latLng.lat, lng: latLng.lng }))
+      .catch(error => console.error("Error", error));
   };
 
   postJob = e => {
     e.preventDefault();
     let payload = new FormData();
-    // Author and last_modified_by
     const {
       User,
       address,
@@ -114,10 +103,14 @@ class JobPost extends PureComponent {
     reader.onloadend = () => this.setState({ image: reader.result });
   };
 
-  getUserLocation = () => this.setState({lat: this.props.userLocation.latitude, lng: this.props.userLocation.longitude})
+  getUserLocation = () =>
+    this.setState({
+      lat: this.props.userLocation.latitude,
+      lng: this.props.userLocation.longitude
+    });
 
   render() {
-    console.log(this.state.lat, this.state.lng)
+    console.log(this.state.lat, this.state.lng);
     const { image } = this.state;
     return (
       <Grid className="JobPost">
@@ -143,12 +136,8 @@ class JobPost extends PureComponent {
           </FormGroup>
 
           <FormGroup>
-          <FormControl
-            type="text"
-            name="email"
-            placeholder="Email"
-          />
-        </FormGroup>
+            <FormControl type="text" name="email" placeholder="Email" />
+          </FormGroup>
 
           <FormGroup>
             <FormControl
@@ -160,41 +149,53 @@ class JobPost extends PureComponent {
 
           <FormGroup>
             <PlacesAutocomplete
-            value={this.state.address}
-            onChange={this.handleChange}
-            onSelect={this.handleSelect}
+              value={this.state.address}
+              onChange={this.handleChange}
+              onSelect={this.handleSelect}
             >
-              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => ([
+              {({
+                getInputProps,
+                suggestions,
+                getSuggestionItemProps,
+                loading
+              }) => [
                 <InputGroup>
-                  <InputGroup.Addon><i onClick={this.getUserLocation} className="fas fa-map-marker-alt locationButton"/></InputGroup.Addon>
-                  <FormControl type="text" {...getInputProps({
-                    placeholder: 'Address',
-                    className: 'location-search-input',
-                  })} />
+                  <InputGroup.Addon>
+                    <i
+                      onClick={this.getUserLocation}
+                      className="fas fa-map-marker-alt locationButton"
+                    />
+                  </InputGroup.Addon>
+                  <FormControl
+                    type="text"
+                    {...getInputProps({
+                      placeholder: "Address",
+                      className: "location-search-input"
+                    })}
+                  />
                 </InputGroup>,
                 <div className="autocomplete-dropdown-container">
-                    {loading && <div>Loading...</div>}
-                    {suggestions.map(suggestion => {
-                      const className = suggestion.active
-                        ? 'suggestion-item--active'
-                        : 'suggestion-item';
-                      // inline style for demonstration purpose
-                      const style = suggestion.active
-                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                      return (
-                        <div
-                          {...getSuggestionItemProps(suggestion, {
-                            className,
-                            style,
-                          })}
-                          >
-                          <span>{suggestion.description}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  ])}
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map(suggestion => {
+                    const className = suggestion.active
+                      ? "suggestion-item--active"
+                      : "suggestion-item";
+                    const style = suggestion.active
+                      ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                      : { backgroundColor: "#ffffff", cursor: "pointer" };
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, {
+                          className,
+                          style
+                        })}
+                      >
+                        <span>{suggestion.description}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              ]}
             </PlacesAutocomplete>
           </FormGroup>
 

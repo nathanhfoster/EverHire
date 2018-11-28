@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
+import { Navbar, Nav, NavItem, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
 import { withAlert } from "react-alert";
@@ -17,19 +17,9 @@ const mapDispatchToProps = {
 };
 
 class NavBar extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  static propTypes = {};
-
   componentWillMount() {
     this.getState(this.props);
   }
-
-  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -56,7 +46,9 @@ class NavBar extends PureComponent {
           <Navbar.Brand>
             <Nav>
               <LinkContainer to="/">
-                <NavItem eventKey={1}><i className="far fa-map"/> EverHire</NavItem>
+                <NavItem eventKey={1}>
+                  <i className="far fa-map" /> EverHire
+                </NavItem>
               </LinkContainer>
             </Nav>
           </Navbar.Brand>
@@ -65,14 +57,23 @@ class NavBar extends PureComponent {
         <Navbar.Collapse>
           <Nav>
             <LinkContainer to="/jobpost">
-              <NavItem eventKey={2}><i class="far fa-clipboard"/> Create Job</NavItem>
+              <NavItem eventKey={2}>
+                <i class="far fa-clipboard" /> Create Job
+              </NavItem>
             </LinkContainer>
-            <NavDropdown eventKey={3} title={[<i class="far fa-user"/>, <span> Account</span>]}>
+            <NavDropdown
+              eventKey={3}
+              title={[<i class="far fa-user" />, <span> Account</span>]}
+            >
               <LinkContainer to="/profile">
-                <NavItem eventKey={3}><i class="fas fa-user-circle"/> Profile</NavItem>
+                <NavItem eventKey={3}>
+                  <i class="fas fa-user-circle" /> Profile
+                </NavItem>
               </LinkContainer>
               {User.token ? (
-                <NavItem onClick={this.Logout}><i class="fas fa-sign-out-alt"/> Logout</NavItem>
+                <NavItem onClick={this.Logout}>
+                  <i class="fas fa-sign-out-alt" /> Logout
+                </NavItem>
               ) : null}
             </NavDropdown>
           </Nav>

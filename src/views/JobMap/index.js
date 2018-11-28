@@ -1,23 +1,14 @@
 import React, { PureComponent } from "react";
 import ImmutableProptypes from "react-immutable-proptypes";
 import PropTypes from "prop-types";
-import LoadingScreen from "../../components/LoadingScreen";
+import { LoadingScreen } from "../../components/LoadingScreen";
 import { connect as reduxConnect } from "react-redux";
-import { Link, Redirect, withRouter } from "react-router-dom";
-import {
-  Row,
-  Col,
-  InputGroup,
-  FormControl,
-  Button,
-  Image
-} from "react-bootstrap";
+import { Redirect, withRouter } from "react-router-dom";
+import { Row, Col, Button, Image } from "react-bootstrap";
 import GoogleMap from "google-map-react";
 import MyGreatPlaceWithControllableHover from "./my_great_place_with_controllable_hover";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import faMapMarkerAlt from "@fortawesome/fontawesome-free-solid/faMapMarkerAlt";
-import faSearch from "@fortawesome/fontawesome-free-solid/faSearch";
-import faListAlt from "@fortawesome/fontawesome-free-solid/faListAlt";
 import {
   K_CIRCLE_SIZE,
   K_STICK_SIZE
@@ -76,11 +67,7 @@ class JobMap extends PureComponent {
     userLocation: new Map(),
     center: [37.4220862600981 - 121.89071280220037],
     zoom: 10,
-    markers: [
-      // { id: "Me", lat: null, lng: null },
-      // { id: "A", lat: 38.3352, lng: -121.8782 },
-      // { id: "B", lat: 37.3346653, lng: -121.87532982 }
-    ]
+    markers: []
   };
 
   componentWillMount() {
@@ -88,7 +75,6 @@ class JobMap extends PureComponent {
   }
 
   componentDidMount() {
-    console.log("MOUNTED");
     navigator.geolocation.getCurrentPosition(
       lastPosition => {
         const {
@@ -110,11 +96,10 @@ class JobMap extends PureComponent {
           speed
         );
       },
-      error => alert(JSON.stringify(error)),
+      error => console.log(JSON.stringify(error)),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
-      const { timestamp } = lastPosition;
       const {
         accuracy,
         altitude,
@@ -133,7 +118,7 @@ class JobMap extends PureComponent {
         longitude,
         speed
       );
-      error => alert(error.message),
+      error => console.log(error.message),
         { enableHighAccuracy: true, timeout: Infinity, maximumAge: 0 };
     });
   }
@@ -152,7 +137,7 @@ class JobMap extends PureComponent {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
-  onMapClicked = props => {
+  onMapClicked = () => {
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -161,40 +146,15 @@ class JobMap extends PureComponent {
     }
   };
 
-  _onBoundsChange = (center, zoom /* , bounds, marginBounds */) => {
+  _onBoundsChange = (center, zoom) => {
     this._panTo(center, zoom);
-    //this.props.onCenterChange(center);
-    //this.props.onZoomChange(zoom);
   };
 
-  _onChildClick = (key, childProps) => {
-    // const center = [childProps.lat, childProps.lng]
-    // const zoom = this.state.zoom + 1 < 18 ? this.state.zoom + 1 : this.state.zoom
-    // this._panTo(center, zoom)
-  };
-
-  _onChildMouseEnter = (key, childProps) => {
-    // this.props.onHoverKeyChange(key);
-  };
-
-  _onChildMouseLeave = (key /*childProps */) => {
-    // this.props.onHoverKeyChange(null);
-  };
-
-  _distanceToMouse = (markerPos, mousePos, markerProps) => {
+  _distanceToMouse = (markerPos, mousePos) => {
     const x = markerPos.x;
-    // because of marker non symmetric,
-    // we transform it central point to measure distance from marker circle center
-    // you can change distance function to any other distance measure
     const y = markerPos.y - K_STICK_SIZE - K_CIRCLE_SIZE / 2;
-
-    // and i want that hover probability on markers with text === 'A' be greater than others
-    // so i tweak distance function (for example it's more likely to me that user click on 'A' marker)
-    // another way is to decrease distance for 'A' marker
-    // this is really visible on small zoom values or if there are a lot of markers on the map
     const distanceKoef = 2;
 
-    // it's just a simple example, you can tweak distance function as you wish
     return (
       distanceKoef *
       Math.sqrt(
@@ -206,20 +166,10 @@ class JobMap extends PureComponent {
 
   _panTo = (center, zoom) => this.setState({ center, zoom });
 
-  createMapOptions = map => {
+  createMapOptions = () => {
     return {
       disableDefaultUI: true,
       gestureHandling: "greedy"
-      // panControl: true,
-      // mapTypeControl: false,
-      // scrollwheel: true,
-      // zoomControl: false,
-      // fullscreenControl: false,
-      // scaleControl: false,
-      // streetViewControl: true,
-      // overviewMapControl: true,
-      // rotateControl: true
-      // styles: [{ stylers: [{ 'saturation': -100 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
     };
   };
 
@@ -242,13 +192,6 @@ class JobMap extends PureComponent {
     } else return false;
   };
 
-  // apiIsLoaded = (map, maps, lat, lng) => {
-  //   if (map) {
-  //     const latLng = maps.LatLng(lat, lng);
-  //     map.panTo(latLng);
-  //   }
-  // }
- 
   renderJobCards = markers =>
     markers
       .filter(job => job.id !== "Me")
@@ -293,7 +236,6 @@ class JobMap extends PureComponent {
           {...coords}
           text={id}
           zIndex={1}
-          // use your hover state (from store, react-controllables etc...)
           $hover={this.props.hoverKey === id}
         />
       );
@@ -320,8 +262,7 @@ class JobMap extends PureComponent {
             </div>,
             <div className="GoogleMapWrapper">
               <GoogleMap
-                //onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps, latitude, longitude)}
-                apiKey={googleKey} // set if you need stats etc ...
+                apiKey={googleKey}
                 defaultCenter={[latitude, longitude]}
                 initialCenter={initialCenter}
                 center={center}

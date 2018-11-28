@@ -21,7 +21,7 @@ export const postJob = (token, payload) => {
       );
 };
 
-export const getJobs = () => async (dispatch, getState) =>
+export const getJobs = () => async (dispatch) =>
   await Axios()
     .get("jobs/")
     .then(res => {

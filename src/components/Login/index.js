@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 import { login } from "../../actions/App";
@@ -22,9 +22,9 @@ const mapDispatchToProps = {
   login
 };
 
-class Login extends Component {
+class Login extends PureComponent {
   constructor(props) {
-    super();
+    super(props);
 
     this.state = {
       username: "",
@@ -32,14 +32,6 @@ class Login extends Component {
       rememberMe: false
     };
   }
-
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  componentDidMount() {}
-
-  componentWillReceiveProps(nextProps) {}
 
   handleUserName = e => {
     this.setState({
@@ -60,7 +52,7 @@ class Login extends Component {
     login(username, password);
   };
 
-  onChange = e => this.setState({[e.target.name]: e.target.value})
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     const { username, password } = this.state;
@@ -111,13 +103,16 @@ class Login extends Component {
           </Col>
           <Col smOffset={3}>
             <FormGroup>
-              <Button onClick={() => this.props.history.push("/signup")}>Sign Up</Button>
+              <Button onClick={() => this.props.history.push("/signup")}>
+                Sign Up
+              </Button>
             </FormGroup>
           </Col>
         </Row>
       </Form>
-    ): <Redirect to="/map" />
-    ;
+    ) : (
+      <Redirect to="/map" />
+    );
   }
 }
 

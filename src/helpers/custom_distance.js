@@ -1,4 +1,3 @@
-
 export function customDistanceToMouse(pt, mousePos, markerProps) {
   const K_SCALE_NORMAL = 0.65;
 
@@ -14,5 +13,10 @@ export function customDistanceToMouse(pt, mousePos, markerProps) {
   const K_MIN_DIST_MIN_KOEF = 0.6;
 
   const distKoef = 1 + scaleNormalized * (K_MIN_DIST_MIN_KOEF - 1);
-  return distKoef * Math.sqrt((x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y));
+  return (
+    distKoef *
+    Math.sqrt(
+      (x - mousePos.x) * (x - mousePos.x) + (y - mousePos.y) * (y - mousePos.y)
+    )
+  );
 }

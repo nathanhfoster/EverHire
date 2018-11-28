@@ -1,9 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import Cookies from "js-cookie";
-const qs = require("qs");
-
-const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
+import qs from "query-string";
 
 export const setApiResponse = response => {
   return async dispatch => {
@@ -52,7 +50,6 @@ export const setUserLocation = (
 ) => {
   return (dispatch, getState) => {
     let { Jobs } = getState();
-    let newJobs;
     if (Jobs.length > 0 && Jobs[0].id !== "Me")
       Jobs.unshift({ id: "Me", lat: latitude, lng: longitude });
 
@@ -105,11 +102,11 @@ export const login = (username, password, rememberMe) => {
 };
 
 export const Logout = () => {
-    Cookies.remove('User_LoginToken')
-    return async (dispatch) => {
-        await dispatch({
-        type: C.SET_LOGOUT,
-        payload: null
-    })
-    }
-}
+  Cookies.remove("User_LoginToken");
+  return async dispatch => {
+    await dispatch({
+      type: C.SET_LOGOUT,
+      payload: null
+    });
+  };
+};

@@ -10,7 +10,7 @@ import Login from "./components/Login";
 import JobDetail from "./views/JobDetail";
 import JobPost from "./views/JobPosts";
 import Profile from "./views/Profile";
-import PublicProfile from './views/Profile/PublicProfile';
+import PublicProfile from "./views/Profile/PublicProfile";
 import SignUp from "./components/SignUp";
 import { clearApiResponse, setApiResponse, setWindow } from "./actions/App";
 import { getJobs } from "./actions/JobPosts";
@@ -32,8 +32,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-
-    this.state = {};
   }
 
   static propTypes = {
@@ -48,21 +46,9 @@ class App extends Component {
       { path: "/jobdetails/:id", component: JobDetail },
       { path: "/jobpost", component: JobPost },
       { path: "/profile", component: Profile },
-      {path: '/profile/:id', component: PublicProfile},
+      { path: "/profile/:id", component: PublicProfile }
     ]
   };
-
-  // componentWillMount() {
-  //   this.getState(this.props)
-  // }
-
-  shouldComponentUpdate(nextProps) {
-    return true;
-  }
-
-  componentWillUpdate() {}
-
-  /* render() */
 
   componentDidMount() {
     this.props.getJobs();
@@ -75,17 +61,13 @@ class App extends Component {
   }
 
   getState = props => {
-    const { ApiResponse, Window, User, location } = props;
+    const { ApiResponse } = props;
     if (ApiResponse) this.alertApiResponse(ApiResponse);
     this.setState({});
   };
 
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
-
   alertApiResponse = ApiResponse => {
-    const { data, status, statusText, headers, config, request } = ApiResponse;
+    const { status } = ApiResponse;
     const { alert } = this.props;
 
     if (status === 200 || status === 201) alert.success([<div>Success</div>]);

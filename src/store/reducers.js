@@ -1,26 +1,34 @@
-import C from '../constants.js'
-import { combineReducers } from 'redux'
+import C from "../constants.js";
+import { combineReducers } from "redux";
 
 export const ApiResponse = (state = {}, action) =>
-(action.type === C.SET_API_RESPONSE) ? action.payload : (action.type === C.CLEAR_API_RESPONSE) ? {} : state
+  action.type === C.SET_API_RESPONSE
+    ? action.payload
+    : action.type === C.CLEAR_API_RESPONSE
+    ? {}
+    : state;
 
 export const Window = (state = {}, action) =>
-(action.type === C.SET_WINDOW) ? action.payload : {...state}
+  action.type === C.SET_WINDOW ? action.payload : { ...state };
 
 export const userLocation = (state = {}, action) =>
-(action.type === C.SET_USER_LOCATION) ? action.payload : state
+  action.type === C.SET_USER_LOCATION ? action.payload : state;
 
 export const User = (state = {}, action) =>
-(action.type === C.SET_LOGIN_TOKEN) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
+  action.type === C.SET_LOGIN_TOKEN
+    ? action.payload
+    : action.type === C.SET_LOGOUT
+    ? {}
+    : state;
 
 export const Jobs = (state = [], action) =>
-(action.type === C.GET_JOBS) ? action.payload : state
+  action.type === C.GET_JOBS ? action.payload : state;
 
 export const JobDetail = (state = [], action) =>
-(action.type === C.GET_JOB) ? action.payload : state
+  action.type === C.GET_JOB ? action.payload : state;
 
-export const UserPublicProfile = (state = [], action) =>
-(action.type === C.GET_USER) ? action.payload : state
+export const UserPublicProfile = (state = {}, action) =>
+  action.type === C.GET_USER ? action.payload : state;
 
 export default combineReducers({
   ApiResponse,
@@ -30,4 +38,4 @@ export default combineReducers({
   JobDetail,
   Jobs,
   UserPublicProfile
-})
+});

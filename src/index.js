@@ -50,7 +50,6 @@ const saveState = () => {
     localStorage.setItem("redux-store", state);
   } catch (e) {
     if (isQuotaExceeded(e)) {
-      // Storage full, maybe notify user or do some clean-up
     }
   }
 
