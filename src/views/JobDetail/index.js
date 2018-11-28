@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { Grid, Row, Col, PageHeader, Image, Button } from "react-bootstrap";
+import { Link } from 'react-router-dom'
 import Moment from "react-moment";
 import { getJob } from "../../actions/JobPosts";
 import "./styles.css";
@@ -57,7 +58,7 @@ class JobDetail extends PureComponent {
             <PageHeader style={{ textAlign: "center" }}>
               {JobDetail.title}
               <h4 style={{ textAlign: "center" }}>
-                By: {JobDetail.author_username}
+                By: <Link className="jobAuthor" to={`/profile/${JobDetail.author}`}>{JobDetail.author_username}</Link>
               </h4>
             </PageHeader>
           </Col>

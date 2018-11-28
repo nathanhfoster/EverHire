@@ -7,11 +7,15 @@
   margin-top: 20px;
 }
 
-.jobImage {
- 
+.jobAuthor {
+  color: var(--primaryColor);
 }
 
-.jobImage img{
+.jobAuthor:hover {
+  color: var(--secondaryColor);
+}
+
+.jobImage img {
   max-height: 350px;
 }
 
