@@ -45,6 +45,7 @@ class App extends Component {
       { path: "/map", component: JobMap },
       { path: "/jobdetails/:id", component: JobDetail },
       { path: "/jobpost", component: JobPost },
+      { path: "/jobpost/edit/:id", component: JobPost },
       { path: "/profile", component: Profile },
       { path: "/profile/:id", component: PublicProfile }
     ]

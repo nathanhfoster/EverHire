@@ -14,20 +14,21 @@ import {
   Image,
   InputGroup
 } from "react-bootstrap";
-import { postJob } from "../../actions/JobPosts";
+import { postJob, updateJob } from "../../actions/JobPosts";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
 
-const mapStateToProps = ({ User, Jobs, userLocation }) => ({
+const mapStateToProps = ({ User, JobDetail, userLocation }) => ({
   User,
-  Jobs,
+  JobDetail,
   userLocation
 });
 
 const mapDispatchToProps = {
-  postJob
+  postJob,
+  updateJob
 };
 
 class JobPost extends PureComponent {
@@ -35,8 +36,14 @@ class JobPost extends PureComponent {
     super(props);
 
     this.state = {
-      Jobs: [],
-      address: ""
+      id: null,
+      title: "",
+      description: "",
+      phone_number: "",
+      email: "",
+      tags: "",
+      address: "",
+      image: ""
     };
   }
 
@@ -49,8 +56,9 @@ class JobPost extends PureComponent {
   }
 
   getState = props => {
-    const { User, Jobs } = props;
-    this.setState({ User, Jobs });
+    const { User, JobDetail, match } = props;
+    const {id, title, description, phone_number, email, tags, address, image} = match.params.id ? JobDetail : this.state
+    this.setState({ User, match, id, title, description, phone_number, email, tags, address, image });
   };
 
   handleChange = address => this.setState({ address });
@@ -109,18 +117,34 @@ class JobPost extends PureComponent {
       lng: this.props.userLocation.longitude
     });
 
+    updateJob = id => {
+      const {User, title, description, phone_number, email, tags, address, image} = this.state
+      console.log(image)
+      let payload = new FormData()
+      payload.append("last_modified_by", User.id)
+      payload.append("title", title)
+      payload.append("description", description)
+      payload.append("phone_number", phone_number)
+      payload.append("email", email)
+      payload.append("tags", tags)
+      payload.append("address", address)
+      payload.append("image", image)
+      this.props.updateJob(id, User.token, payload)
+     }
+
   render() {
-    console.log(this.state.lat, this.state.lng);
-    const { image } = this.state;
+    console.log(this.props)
+    const { match, id, title, description, phone_number, email, tags, address, image } = this.state;
     return (
       <Grid className="JobPost">
         <Form onChange={this.onChange}>
           <FormGroup controlId="formHorizontalEmail">
-            <FormControl type="text" name="title" placeholder="Title" />
+            <FormControl value={title} type="text" name="title" placeholder="Title" />
           </FormGroup>
 
           <FormGroup>
             <FormControl
+              value={description}
               componentClass="textarea"
               name="description"
               placeholder="Description"
@@ -129,6 +153,7 @@ class JobPost extends PureComponent {
 
           <FormGroup>
             <FormControl
+              value={phone_number}
               componentClass="textarea"
               name="phone_number"
               placeholder="Phone number"
@@ -136,11 +161,12 @@ class JobPost extends PureComponent {
           </FormGroup>
 
           <FormGroup>
-            <FormControl type="text" name="email" placeholder="Email" />
+            <FormControl value={email} type="text" name="email" placeholder="Email" />
           </FormGroup>
 
           <FormGroup>
             <FormControl
+              value={tags}
               componentClass="textarea"
               name="tags"
               placeholder="Tags"
@@ -149,7 +175,7 @@ class JobPost extends PureComponent {
 
           <FormGroup>
             <PlacesAutocomplete
-              value={this.state.address}
+              value={address}
               onChange={this.handleChange}
               onSelect={this.handleSelect}
             >
@@ -209,7 +235,7 @@ class JobPost extends PureComponent {
               onChange={this.setImage}
             />
           </FormGroup>
-          <Button onClick={this.postJob}>Post</Button>
+         { match.params.id ? <Button onClick={() => this.updateJob(id)}>Update</Button> : <Button onClick={this.postJob}>Post</Button>}
         </Form>
       </Grid>
     );

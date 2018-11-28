@@ -16,6 +16,7 @@ import {
 import "./styles.css";
 import "./stylesM.css";
 import { setUserLocation } from "../../actions/App";
+import { getJob } from "../../actions/JobPosts"
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -26,7 +27,8 @@ const mapStateToProps = ({ User, userLocation, Jobs }) => ({
 });
 
 const mapDispatchToProps = {
-  setUserLocation
+  setUserLocation,
+  getJob
 };
 
 class JobMap extends PureComponent {
@@ -192,8 +194,9 @@ class JobMap extends PureComponent {
     } else return false;
   };
 
-  renderJobCards = markers =>
-    markers
+  renderJobCards = markers => {
+    const {User} = this.state
+   return markers
       .filter(job => job.id !== "Me")
       .map(job => (
         <div className="card">
@@ -213,10 +216,12 @@ class JobMap extends PureComponent {
             >
               <i class="far fa-eye" />
             </Button>
+            {User.id === job.author ? <Button onClick={() => {this.props.getJob(job.id); this.props.history.push(`/jobpost/edit/${job.id}`)}}><i className="fas fa-edit"/></Button> : null}
             <span style={{ float: "right" }}>{job.id ? job.id : ""}</span>
           </div>
         </div>
-      ));
+      ))
+    };
 
   render() {
     let { markers } = this.state;
