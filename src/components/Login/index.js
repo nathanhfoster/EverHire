@@ -2,8 +2,8 @@ import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 import { login } from "../../actions/App";
-import "./styles.css";
 import {
+  Grid,
   Form,
   FormGroup,
   Row,
@@ -59,9 +59,9 @@ class Login extends PureComponent {
     const { User } = this.props;
 
     return !User.token ? (
-      <Form className="loginForm">
+      <Grid className="loginForm">
         <Row>
-          <Col md={6} smOffset={3} sm={6}>
+          <Col xs={12}>
             <PageHeader style={{ color: "white" }}>Everhire Login</PageHeader>
             <FormGroup>
               <FormControl
@@ -75,7 +75,7 @@ class Login extends PureComponent {
         </Row>
 
         <Row>
-          <Col md={6} smOffset={3} sm={6}>
+          <Col xs={12}>
             <FormGroup controlId="formHorizontalPassword">
               <FormControl
                 value={password}
@@ -88,20 +88,20 @@ class Login extends PureComponent {
         </Row>
 
         <Row>
-          <Col smOffset={3} sm={6}>
+          <Col sm={12}>
             <FormGroup>
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox><span style={{color: 'white'}}>Remember me</span></Checkbox>
             </FormGroup>
           </Col>
         </Row>
 
         <Row>
-          <Col smOffset={3} sm={1}>
+          <Col md={1} xs={3}>
             <FormGroup>
               <Button onClick={this.handleLogin}>Sign in</Button>
             </FormGroup>
           </Col>
-          <Col smOffset={3}>
+          <Col md={1} xs={3}>
             <FormGroup>
               <Button onClick={() => this.props.history.push("/signup")}>
                 Sign Up
@@ -109,7 +109,7 @@ class Login extends PureComponent {
             </FormGroup>
           </Col>
         </Row>
-      </Form>
+      </Grid>
     ) : (
       <Redirect to="/map" />
     );
