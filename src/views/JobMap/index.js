@@ -200,7 +200,7 @@ class JobMap extends PureComponent {
           <div className="card-img center">
             <Image src={job.image} rounded responsive />
           </div>
-          <h4 className="inlineNoWrap">{job.title}</h4>
+          <h4 className="inlineNoWrap" style={{textAlign: 'center'}}>{job.title}</h4>
           <div className="cardSummary">
             <p className="blockNoWrap">{job.description}</p>
           </div>
