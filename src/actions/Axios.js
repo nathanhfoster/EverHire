@@ -4,7 +4,7 @@ export const Axios = (token) => {
   return axios.create({
     withCredentials: token ? true : false,
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 10000,
+    timeout: 30000,
     async: true,
     crossDomain: true,
     headers: token ? {
@@ -22,7 +22,7 @@ export const Axios = (token) => {
 
 export const AxiosForm = (token, payload) => axios.create({
   baseURL: process.env.REACT_APP_API_URL,
-  timeout: 10000,
+  timeout: 30000,
   headers: token ? {
       'Authorization': "Token " + token,
       'Accept': 'application/json',
