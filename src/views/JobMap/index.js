@@ -88,7 +88,7 @@ class JobMap extends PureComponent {
   }
 
   componentDidMount() {
-    console.log("MOUNTED")
+    console.log("MOUNTED");
     navigator.geolocation.getCurrentPosition(
       lastPosition => {
         const {
@@ -110,9 +110,9 @@ class JobMap extends PureComponent {
           speed
         );
       },
-      (error) => alert(JSON.stringify(error)),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  );
+      error => alert(JSON.stringify(error)),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    );
     this.watchID = navigator.geolocation.watchPosition(lastPosition => {
       const { timestamp } = lastPosition;
       const {
@@ -143,9 +143,9 @@ class JobMap extends PureComponent {
   }
 
   getState = props => {
-    let {User, userLocation, Jobs} = props;
+    let { User, userLocation, Jobs } = props;
 
-    this.setState({User,  markers: Jobs, userLocation, Jobs });
+    this.setState({ User, markers: Jobs, userLocation, Jobs });
   };
 
   componentWillUnmount() {
@@ -224,7 +224,8 @@ class JobMap extends PureComponent {
   };
 
   locationButton = (latitude, longitude) => {
-    const zoom = this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
+    const zoom =
+      this.state.zoom + 4 < 18 ? this.state.zoom + 4 : this.state.zoom;
     this._panTo([latitude, longitude], zoom);
   };
 
@@ -247,42 +248,42 @@ class JobMap extends PureComponent {
   //     map.panTo(latLng);
   //   }
   // }
-
+ 
   renderJobCards = markers =>
-    markers.filter(job => job.id !== 'Me').map(job => 
-      <div className="card">
-        <div className="card-img center">
-          <Image src={job.image} rounded responsive />
+    markers
+      .filter(job => job.id !== "Me")
+      .map(job => (
+        <div className="card">
+          <div className="card-img center">
+            <Image src={job.image} rounded responsive />
+          </div>
+          <h4 className="inlineNoWrap">{job.title}</h4>
+          <div className="cardSummary">
+            <p className="blockNoWrap">{job.description}</p>
+          </div>
+          <div className="cardDetailButton">
+            <Button onClick={() => this.locationButton(job.lat, job.lng)}>
+              <i class="fas fa-map-marker-alt" />
+            </Button>
+            <Button
+              onClick={() => this.props.history.push("/jobdetails/" + job.id)}
+            >
+              <i class="far fa-eye" />
+            </Button>
+            <span style={{ float: "right" }}>{job.id ? job.id : ""}</span>
+          </div>
         </div>
-        <h4 className="inlineNoWrap">{job.title}</h4>
-        <div className="cardSummary">
-          <p className="blockNoWrap">{job.description}</p>
-        </div>
-        <div className="cardDetailButton">
-          <Button
-          onClick={() => this.locationButton(job.lat, job.lng)}>
-            <i class="fas fa-map-marker-alt"/>
-          </Button>
-          <Button
-          onClick={() => this.props.history.push("/jobdetails/" + job.id)}
-          >
-            <i class="far fa-eye"/>
-          </Button>
-        </div>
-      </div>
-    );
+      ));
 
   render() {
-    let {markers} = this.state
-    const { User, initialCenter, center, zoom} = this.state;
+    let { markers } = this.state;
+    const { User, initialCenter, center, zoom } = this.state;
     let { altitude, latitude, longitude, speed } = this.state.userLocation;
     speed = Number(speed * 2.23694); // meters per second to mph
     altitude = Number(altitude * 3.28084); // meters to feet
-    if(markers.length > 0 && markers[0].id !== 'Me') markers.unshift({id: 'Me', lat: latitude, lng: longitude})
-    else markers[0] = {id: 'Me', lat: latitude, lng: longitude}
-    
-
-
+    if (markers.length > 0 && markers[0].id !== "Me")
+      markers.unshift({ id: "Me", lat: latitude, lng: longitude });
+    else markers[0] = { id: "Me", lat: latitude, lng: longitude };
 
     const places = markers.map(place => {
       const { id, ...coords } = place;
