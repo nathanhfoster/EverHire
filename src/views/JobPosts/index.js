@@ -58,7 +58,7 @@ class JobPost extends PureComponent {
   handleSelect = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({ lat: latLng.lat, lng: latLng.lng }))
+      .then(latLng => this.setState({ address, lat: latLng.lat, lng: latLng.lng }))
       .catch(error => console.error("Error", error));
   };
 
