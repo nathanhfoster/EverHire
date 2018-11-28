@@ -7,7 +7,7 @@ export const postJob = (token, payload) => {
       .post("jobs/", payload)
       .then(res => {
         let { Jobs } = getState();
-        Jobs.push(res.data);
+        Jobs.unshift(res.data);
         dispatch({
           type: C.GET_JOBS,
           payload: Jobs
