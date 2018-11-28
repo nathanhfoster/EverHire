@@ -37,7 +37,7 @@ class PublicProfile extends PureComponent {
   render() {
     const { UserPublicProfile } = this.state;
 
-    return UserPublicProfile ? (
+    return UserPublicProfile.username ? (
       <Grid className="PublicProfile Container fadeIn-2">
         <Row className="Center">
           <Col md={4} xs={12} className="Center">
