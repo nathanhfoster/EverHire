@@ -344,13 +344,6 @@ class JobMap extends PureComponent {
               >
                 <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" />
               </Button>
-              <Button
-                bsClass="sheenButton listButton sheen"
-                bsSize="large"
-                onClick={() => this.locationButton(latitude, longitude)}
-              >
-                <FontAwesomeIcon icon={faListAlt} size="lg" />
-              </Button>
             </div>
           ]
         ) : (

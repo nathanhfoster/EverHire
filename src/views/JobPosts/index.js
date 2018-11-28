@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import axios from "axios";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import "./styles.css";
@@ -12,13 +11,20 @@ import {
   FormControl,
   Button,
   ControlLabel,
-  Image
+  Image,
+  InputGroup
 } from "react-bootstrap";
 import { postJob } from "../../actions/JobPosts";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from 'react-places-autocomplete';
+import {geocoding} from 'reverse-geocoding';
 
-const mapStateToProps = ({ User, Jobs }) => ({
+const mapStateToProps = ({ User, Jobs, userLocation }) => ({
   User,
-  Jobs
+  Jobs,
+  userLocation
 });
 
 const mapDispatchToProps = {
@@ -29,7 +35,10 @@ class JobPost extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {Jobs: []};
+    this.state = {
+      Jobs: [],
+      address: ''
+    };
   }
 
   static propTypes = {};
@@ -40,33 +49,27 @@ class JobPost extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
-    const currentJobs = this.state.Jobs;
     const { User, Jobs } = props;
     this.setState({ User, Jobs });
   };
 
-  getCoords = address => {
-    axios
-      .get("https://maps.googleapis.com/maps/api/geocode/json", {
-        params: {
-          address: address,
-          key: "AIzaSyAhKIWtI4AG_BvzKo9MkIuVx6Iz5tM6e40"
-        }
-      }).then(res => {
-        this.setState({
-          address,
-          lat: res.data.results[0].geometry.location.lat,
-          lng: res.data.results[0].geometry.location.lng
-        });
-      })
-      .catch(err => console.log(err));
+  handleChange = address => {
+    this.setState({ address });
+  };
+
+  handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => this.setState({lat: latLng.lat, lng: latLng.lng}))
+      .catch(error => console.error('Error', error));
   };
 
   postJob = e => {
@@ -111,7 +114,10 @@ class JobPost extends PureComponent {
     reader.onloadend = () => this.setState({ image: reader.result });
   };
 
+  getUserLocation = () => this.setState({lat: this.props.userLocation.latitude, lng: this.props.userLocation.longitude})
+
   render() {
+    console.log(this.state.lat, this.state.lng)
     const { image } = this.state;
     return (
       <Grid className="JobPost">
@@ -153,12 +159,43 @@ class JobPost extends PureComponent {
           </FormGroup>
 
           <FormGroup>
-            <FormControl
-              type="text"
-              name="address"
-              placeholder="Address"
-              onChange={e => this.getCoords(e.target.value)}
-            />
+            <PlacesAutocomplete
+            value={this.state.address}
+            onChange={this.handleChange}
+            onSelect={this.handleSelect}
+            >
+              {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => ([
+                <InputGroup>
+                  <InputGroup.Addon><i onClick={this.getUserLocation} className="fas fa-map-marker-alt locationButton"/></InputGroup.Addon>
+                  <FormControl type="text" {...getInputProps({
+                    placeholder: 'Address',
+                    className: 'location-search-input',
+                  })} />
+                </InputGroup>,
+                <div className="autocomplete-dropdown-container">
+                    {loading && <div>Loading...</div>}
+                    {suggestions.map(suggestion => {
+                      const className = suggestion.active
+                        ? 'suggestion-item--active'
+                        : 'suggestion-item';
+                      // inline style for demonstration purpose
+                      const style = suggestion.active
+                        ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                        : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                      return (
+                        <div
+                          {...getSuggestionItemProps(suggestion, {
+                            className,
+                            style,
+                          })}
+                          >
+                          <span>{suggestion.description}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  ])}
+            </PlacesAutocomplete>
           </FormGroup>
 
           <FormGroup>
