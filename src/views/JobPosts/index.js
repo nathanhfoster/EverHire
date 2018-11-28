@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import "./styles.css";
 import "./stylesM.css";
 import FormData from "form-data";
@@ -14,7 +14,7 @@ import {
   Image,
   InputGroup
 } from "react-bootstrap";
-import { postJob, updateJob } from "../../actions/JobPosts";
+import { postJob, updateJob, clearJob } from "../../actions/JobPosts";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
@@ -28,7 +28,8 @@ const mapStateToProps = ({ User, JobDetail, userLocation }) => ({
 
 const mapDispatchToProps = {
   postJob,
-  updateJob
+  updateJob,
+  clearJob
 };
 
 class JobPost extends PureComponent {
@@ -55,10 +56,13 @@ class JobPost extends PureComponent {
     this.getState(nextProps);
   }
 
+  componentWillUnmount() {
+    this.props.clearJob()
+  }
   getState = props => {
     const { User, JobDetail, match } = props;
     const {id, title, description, phone_number, email, tags, address, image} = match.params.id ? JobDetail : this.state
-    this.setState({ User, match, id, title, description, phone_number, email, tags, address, image });
+    this.setState({ User, JobDetail, match, id, title, description, phone_number, email, tags, address, image });
   };
 
   handleChange = address => this.setState({ address });
@@ -132,8 +136,9 @@ class JobPost extends PureComponent {
   }
 
   render() {
-    const { match, id, title, description, phone_number, email, tags, address, image } = this.state;
+    const { User, JobDetail, match, id, title, description, phone_number, email, tags, address, image } = this.state;
     return (
+      match.params.id && JobDetail.author && JobDetail.author !== User.id || match.params.id && JobDetail.id && match.params.id != JobDetail.id ? <Redirect to="/map"/> :
       <Grid className="JobPost">
         <Form onChange={this.onChange}>
           <FormGroup controlId="formHorizontalEmail">
@@ -233,7 +238,7 @@ class JobPost extends PureComponent {
               onChange={this.setImage}
             />
           </FormGroup>
-         { match.params.id ? <Button onClick={() => this.updateJob(id)}>Update</Button> : <Button onClick={this.postJob}>Post</Button>}
+         { match && match.params.id ? <Button onClick={() => this.updateJob(id)}>Update</Button> : <Button onClick={this.postJob}>Post</Button>}
         </Form>
       </Grid>
     );

@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Grid, Row, Col, PageHeader, Image, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import Moment from "react-moment";
-import { getJob } from "../../actions/JobPosts";
+import { getJob, clearJob } from "../../actions/JobPosts";
 import "./styles.css";
 import "./stylesM.css";
 
@@ -13,7 +13,8 @@ const mapStateToProps = ({ JobDetail }) => ({
 });
 
 const mapDispatchToProps = {
-  getJob
+  getJob,
+  clearJob
 };
 
 class JobDetail extends PureComponent {
@@ -36,6 +37,10 @@ class JobDetail extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
+  }
+
+  componentWillUnmount() {
+    this.props.clearJob()
   }
 
   getState = props => {

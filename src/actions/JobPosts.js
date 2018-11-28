@@ -54,6 +54,12 @@ export const getJob = id => async dispatch =>
     })
     .catch(e => console.log(e));
 
+export const clearJob = () => async dispatch =>
+  await dispatch({
+    type: C.GET_JOB,
+    payload: {}
+  })
+
 export const updateJob = (id, token, payload) => {
   return async (dispatch, getState) => await  AxiosForm(token, payload).patch(`jobs/${id}/`, payload)
   .then(res => {
