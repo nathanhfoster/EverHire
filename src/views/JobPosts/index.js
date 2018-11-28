@@ -117,23 +117,21 @@ class JobPost extends PureComponent {
       lng: this.props.userLocation.longitude
     });
 
-    updateJob = id => {
-      const {User, title, description, phone_number, email, tags, address, image} = this.state
-      console.log(image)
-      let payload = new FormData()
-      payload.append("last_modified_by", User.id)
-      payload.append("title", title)
-      payload.append("description", description)
-      payload.append("phone_number", phone_number)
-      payload.append("email", email)
-      payload.append("tags", tags)
-      payload.append("address", address)
-      payload.append("image", image)
-      this.props.updateJob(id, User.token, payload)
-     }
+  updateJob = id => {
+    const {User, title, description, phone_number, email, tags, address, image} = this.state
+    let payload = new FormData()
+    payload.append("last_modified_by", User.id)
+    payload.append("title", title)
+    payload.append("description", description)
+    payload.append("phone_number", phone_number)
+    payload.append("email", email)
+    payload.append("tags", tags)
+    payload.append("address", address)
+    payload.append("image", image)
+    this.props.updateJob(id, User.token, payload)
+  }
 
   render() {
-    console.log(this.props)
     const { match, id, title, description, phone_number, email, tags, address, image } = this.state;
     return (
       <Grid className="JobPost">
