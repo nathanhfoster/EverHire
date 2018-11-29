@@ -3,6 +3,10 @@
     height: 1000px;
 }
 
+.Profile label {
+    color: inherit;
+}
+
 /* .css-10nd86i *{
     color: white;
     background: var(--grey);
