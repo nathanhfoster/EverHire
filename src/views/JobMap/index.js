@@ -16,7 +16,7 @@ import {
 import "./styles.css";
 import "./stylesM.css";
 import { setUserLocation } from "../../actions/App";
-import { getJob } from "../../actions/JobPosts"
+import { getJob, deleteJob } from "../../actions/JobPosts"
 
 const googleKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -28,7 +28,8 @@ const mapStateToProps = ({ User, userLocation, Jobs }) => ({
 
 const mapDispatchToProps = {
   setUserLocation,
-  getJob
+  getJob,
+  deleteJob
 };
 
 class JobMap extends PureComponent {
@@ -217,6 +218,7 @@ class JobMap extends PureComponent {
               <i class="far fa-eye" />
             </Button>
             {User.id === job.author ? <Button onClick={() => {this.props.getJob(job.id); this.props.history.push(`/jobpost/edit/${job.id}`)}}><i className="fas fa-edit"/></Button> : null}
+            {User.id === job.author ? <Button onClick={() => this.props.deleteJob(job.id, User.token)}><i className="fas fa-trash"/></Button> : null}
             <span style={{ float: "right" }}>{job.id ? job.id : ""}</span>
           </div>
         </div>

@@ -83,3 +83,15 @@ export const updateJob = (id, token, payload) => {
       payload: e.response
     }))
 }
+
+export const deleteJob = (id, token) => {
+  return async (dispatch, getState) => await Axios(token).delete(`jobs/${id}/`)
+  .then(res => {
+      let {Jobs} = getState()
+      const reducedJobs = Jobs.filter(job => job.id !== id)
+      dispatch ({
+        type: C.GET_JOBS,
+        payload: reducedJobs
+      })
+  }).catch((e) => console.log(e))
+}
