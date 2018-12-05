@@ -15,6 +15,7 @@
 }
 
 .userBio {
+    margin-top: 20px;
     border: 1px solid var(--light_grey);
     background-color: var(--slate_grey);
     word-break: break-all;

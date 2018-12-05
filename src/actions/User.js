@@ -35,11 +35,10 @@ export const updateProfile = (id, token, payload) => {
     await AxiosForm(token, payload)
       .patch(`users/${id}/`, payload)
       .then(res => {
-        let { data } = res;
-        data.token = Cookies.get("User_LoginToken");
+        res.data.token = Cookies.get("User_LoginToken");
         dispatch({
           type: C.SET_LOGIN_TOKEN,
-          payload: data
+          payload: res.data
         });
         dispatch({
           type: C.SET_API_RESPONSE,

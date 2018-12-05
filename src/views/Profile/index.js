@@ -218,9 +218,9 @@ class Profile extends PureComponent {
               responsive
               rounded
             />
-            <ControlLabel>Profile Picture</ControlLabel>
+            <ControlLabel className="center">Profile Picture</ControlLabel>
             <FormControl
-              style={{ margin: "auto" }}
+              style={{ margin: "20px auto" }}
               type="file"
               label="File"
               name="profile_image"
