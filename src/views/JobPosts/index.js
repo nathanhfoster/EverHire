@@ -57,12 +57,33 @@ class JobPost extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.props.clearJob()
+    this.props.clearJob();
   }
   getState = props => {
     const { User, JobDetail, match } = props;
-    const {id, title, description, phone_number, email, tags, address, image} = match.params.id ? JobDetail : this.state
-    this.setState({ User, JobDetail, match, id, title, description, phone_number, email, tags, address, image });
+    const {
+      id,
+      title,
+      description,
+      phone_number,
+      email,
+      tags,
+      address,
+      image
+    } = match.params.id ? JobDetail : this.state;
+    this.setState({
+      User,
+      JobDetail,
+      match,
+      id,
+      title,
+      description,
+      phone_number,
+      email,
+      tags,
+      address,
+      image
+    });
   };
 
   handleChange = address => this.setState({ address });
@@ -70,7 +91,9 @@ class JobPost extends PureComponent {
   handleSelect = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => this.setState({ address, lat: latLng.lat, lng: latLng.lng }))
+      .then(latLng =>
+        this.setState({ address, lat: latLng.lat, lng: latLng.lng })
+      )
       .catch(error => console.error("Error", error));
   };
 
@@ -122,27 +145,60 @@ class JobPost extends PureComponent {
     });
 
   updateJob = id => {
-    const {User, title, description, phone_number, email, tags, address, image} = this.state
-    let payload = new FormData()
-    payload.append("last_modified_by", User.id)
-    payload.append("title", title)
-    payload.append("description", description)
-    payload.append("phone_number", phone_number)
-    payload.append("email", email)
-    payload.append("tags", tags)
-    payload.append("address", address)
-    payload.append("image", image)
-    this.props.updateJob(id, User.token, payload)
-  }
+    const {
+      User,
+      title,
+      description,
+      phone_number,
+      email,
+      tags,
+      address,
+      image
+    } = this.state;
+    let payload = new FormData();
+    payload.append("last_modified_by", User.id);
+    payload.append("title", title);
+    payload.append("description", description);
+    payload.append("phone_number", phone_number);
+    payload.append("email", email);
+    payload.append("tags", tags);
+    payload.append("address", address);
+    payload.append("image", image);
+    this.props.updateJob(id, User.token, payload);
+  };
 
   render() {
-    const { User, JobDetail, match, id, title, description, phone_number, email, tags, address, image } = this.state;
-    return (
-      match.params.id && JobDetail.author && JobDetail.author !== User.id || match.params.id && JobDetail.id && match.params.id != JobDetail.id ? <Redirect to="/map"/> :
+    const {
+      User,
+      JobDetail,
+      match,
+      id,
+      title,
+      description,
+      phone_number,
+      email,
+      tags,
+      address,
+      image
+    } = this.state;
+    return (match.params.id &&
+      JobDetail.author &&
+      JobDetail.author !== User.id) ||
+      (match.params.id && JobDetail.id && match.params.id != JobDetail.id) ? (
+      <Redirect to="/map" />
+    ) : (
       <Grid className="JobPost">
         <Form onChange={this.onChange}>
-          <FormGroup controlId="formHorizontalEmail">
-            <FormControl value={title} type="text" name="title" placeholder="Title" />
+          <FormGroup
+            style={{ marginTop: "20px" }}
+            controlId="formHorizontalEmail"
+          >
+            <FormControl
+              value={title}
+              type="text"
+              name="title"
+              placeholder="Title"
+            />
           </FormGroup>
 
           <FormGroup>
@@ -164,7 +220,12 @@ class JobPost extends PureComponent {
           </FormGroup>
 
           <FormGroup>
-            <FormControl value={email} type="text" name="email" placeholder="Email" />
+            <FormControl
+              value={email}
+              type="text"
+              name="email"
+              placeholder="Email"
+            />
           </FormGroup>
 
           <FormGroup>
@@ -238,7 +299,11 @@ class JobPost extends PureComponent {
               onChange={this.setImage}
             />
           </FormGroup>
-         { match && match.params.id ? <Button onClick={() => this.updateJob(id)}>Update</Button> : <Button onClick={this.postJob}>Post</Button>}
+          {match && match.params.id ? (
+            <Button onClick={() => this.updateJob(id)}>Update</Button>
+          ) : (
+            <Button onClick={this.postJob}>Post</Button>
+          )}
         </Form>
       </Grid>
     );
