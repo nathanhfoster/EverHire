@@ -1,58 +1,57 @@
 @media (max-width: 676px) {
+  .searchListWrapper {
+    color: var(--primaryTextColor);
+    font-weight: 500;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 1);
+    height: 60%;
+    width: 100%;
+    position: relative;
+    z-index: 3;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: calc(100vh - 126px);
+    top: 0;
+  }
+  .searchListTab {
+    display: block;
+    height: 0.25em;
+    width: 2em;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.54);
+    margin-top: 8px;
+  }
+  .scrolling-wrapper {
+    -webkit-overflow-scrolling: touch;
+    align-content: center;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+  }
 
-    .searchListWrapper {
-        color: var(--primaryTextColor);
-        font-weight: 500;
-        box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
-        background-color: rgba(255, 255, 255, 1);
-        height: 100%;
-        width: 100%;
-        position: relative;
-        z-index: 3;
-        border-radius: 8px;
-        overflow: hidden;
-        margin-top: calc(100vh - 126px);
-        top: 0;
-    }
-    .searchListTab {
-        display: block;
-        height: .25em;
-        width: 2em;
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0.54);
-        margin-top: 8px;
-    }
-    .scrolling-wrapper {
-        -webkit-overflow-scrolling: touch;
-        align-content: center;
-        border-radius: 8px;
-        display: flex;
-        flex-wrap: nowrap; 
-        overflow-y: hidden;
-    }
+  .scrolling-wrapper::-webkit-scrollbar {
+    display: none;
+  }
 
-    .scrolling-wrapper::-webkit-scrollbar {
-        display: none;
-      }
+  .card {
+    color: var(--primaryTextColor);
+    width: 65vw;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin: auto 20px auto auto; /* margin: [top] [right] [bottom] [left]; */
+    border-radius: inherit;
+    background: white;
+    flex: 0 0 auto;
+  }
 
-    .card {
-        color: var(--primaryTextColor);
-        width: 65vw;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        border: 1px solid rgba(0,0,0,0.2);
-        margin: auto 20px auto auto;  /* margin: [top] [right] [bottom] [left]; */
-        border-radius: inherit;
-        background: white;
-        flex: 0 0 auto;
-    }
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .listItem:hover {
-        background-color: rgb(230, 230, 230);
-    }
+  .listItem:hover {
+    background-color: rgb(230, 230, 230);
+  }
 }
